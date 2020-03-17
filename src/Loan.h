@@ -1,0 +1,6 @@
+class Loan {
+    private:
+
+    public:
+
+};
