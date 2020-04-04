@@ -1,4 +1,13 @@
+#pragma once
+
 #include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include "Exception.h"
+
+#include "Exception.h"
 
 using namespace std;
 
@@ -8,12 +17,40 @@ using namespace std;
  */
 class Book {
     private:
-    string title;
-    string isbn;
-    string[] authors;
-    int pages;
+    static int totalDifferentBooks;
+    int id;
+    const string title;
+    const string isbn;
+    const vector<string> authors;
+    const int pages;
+    int copies;
+    int copies_available;
 
     public:
-    Book(string title, string isbn, string[] authors, pages);
+
+    /**
+     * @brief Construct a new Book object
+     * 
+     * @param title 
+     * @param isbn 
+     * @param authors 
+     * @param pages 
+     */
+    Book(string title, string isbn, vector<string> authors, int pages, int copies = 0);
+
+    int getId() const;
+
+    /**
+     * @brief Print info of the book
+     * 
+     */
+    void printBook() const;
+
+    /**
+     * @brief Write book's info to file
+     * 
+     * @param file 
+     */
+    void writeBook(string fileName) const;
     
-}
+};
