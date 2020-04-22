@@ -1,18 +1,24 @@
 #pragma once
 
 #include <math.h>
+#include <ctime>
 
-#include "Date.h"
 #include "Book.h"
-#include "Reader.h"
 #include "Employee.h"
+#include "Reader.h"
+#include "Util.h"
+
+using namespace std;
+
+class Reader;
 
 
-class BookLoan {
+class Borrow {
     private:
 
-    static int totalBookLoans;
+    static int totalBorrows;
     int id;
+    int lastId;
     Book* book;
     Reader* reader;
     Employee* employee;
@@ -29,7 +35,8 @@ class BookLoan {
      * @param employee 
      * @param date 
      */
-    BookLoan(Book* book, Reader* reader, Employee* employee, time_t date);
+    Borrow(int id, Book* book, Reader* reader, Employee* employee, time_t date);
+    Borrow(Book* book, Reader* reader, Employee* employee, time_t date);
 
     /**
      * @brief Get the Id object
@@ -79,5 +86,7 @@ class BookLoan {
      * @return double 
      */
     double getPenalty();
+
+    void writeBorrow(string filename) const;
 
 };

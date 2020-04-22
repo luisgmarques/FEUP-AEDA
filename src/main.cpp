@@ -1,20 +1,19 @@
 #include <iostream>
 #include <string>
 
-#include "Library.h"
-#include "Reader.h"
-#include "Util.h"
+#include "Menu.h"
 
 using namespace std;
 
 int main() {
 
-    string name = "MyLibrary";
+    string libraryName = "MyLibrary";
 
-    Library library(name);
+    Menu menu(libraryName);
 
-    library.loadFiles();
+    menu.init();
 
-
+    cout << "success\n";
+    
     return 0;
 }

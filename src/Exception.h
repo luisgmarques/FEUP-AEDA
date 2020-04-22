@@ -33,3 +33,20 @@ class FileUnkown {
         return fileName;
     }
 };
+
+
+
+
+class ObjectNotFound {
+	private:
+
+	int id;
+	string objectName;
+
+	public:
+
+	ObjectNotFound(int id, string objectName) {
+		this->id = id;
+		this->objectName = objectName;
+	}
+};

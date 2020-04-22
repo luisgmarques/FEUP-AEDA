@@ -1,6 +1,6 @@
 #include "Supervisor.h"
 
-Supervisor::Supervisor(const string& name, vector<Employee*> emplyees) : Employee(name) {
+Supervisor::Supervisor(const string& name, vector<Employee*> employees, Position pos) : Employee(name, pos) {
     this->employees = employees;
 }
 

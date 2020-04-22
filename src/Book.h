@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 #include "Exception.h"
 
 #include "Exception.h"
@@ -39,6 +40,16 @@ class Book {
     Book(string title, string isbn, vector<string> authors, int pages, int copies = 0);
 
     int getId() const;
+
+    string getTitle() const;
+
+    int getCopies() const;
+
+    int getCopiesAvailable() const;
+
+    vector<string> getAuthors() const;
+
+    void incCopies();
 
     /**
      * @brief Print info of the book

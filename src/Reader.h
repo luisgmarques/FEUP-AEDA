@@ -2,19 +2,27 @@
 
 #include <string>
 #include <vector>
-#include "BookLoan.h"
-
+#include "Borrow.h"
 
 using namespace std;
+
+class Borrow;
+
+enum type {Deficient, Child, Adult};
+
 
 class Reader {
     private:
     static int totalReaders;
+
     int id;
     const string name;
     int phoneNumber;
+    type readerType;
     string email;
-    vector<BookLoan*> books;
+    string address;
+    vector<Borrow*> books;
+    time_t lastBorrowDate; 
 
     public:
 
@@ -25,9 +33,11 @@ class Reader {
      * @param phoneNumber 
      * @param email 
      */
-    Reader(const string& name, int phoneNumber, const string& email, vector<BookLoan*> books);
+    Reader(const string& name, int phoneNumber, const string& email, vector<Borrow*> books);
 
     int getId() const;
+
+    type getType() const;
        
     /**
      * @brief Get the Name object
@@ -53,16 +63,16 @@ class Reader {
     /**
      * @brief Get the Book Loans object
      * 
-     * @return vector<BookLoan*> 
+     * @return vector<Borrow*> 
      */
-    vector<BookLoan*> getBookLoans() const;
+    vector<Borrow*> getBorrows() const;
 
     /**
      * @brief Get the Delayed Book Loans object
      * 
-     * @return vector<BookLoan*> 
+     * @return vector<Borrow*> 
      */
-    vector<BookLoan*> getDelayedBookLoans() const;
+    vector<Borrow*> getDelayedBorrows() const;
 
     /**
      * @brief 
@@ -71,6 +81,10 @@ class Reader {
      * @return true 
      * @return false 
      */
-    bool removeBookLoan(const int id);
+    bool removeBorrow(const int id);
+
+    void printReader() const;
+
+    void writeReader(string filename) const;
     
 };

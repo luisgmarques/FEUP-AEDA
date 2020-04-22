@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "Employee.h"
+#include "Util.h"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ class Supervisor : public Employee {
      * @param name 
      * @param emplyees 
      */
-    Supervisor(const string& name, vector<Employee*> emplyees);
+    Supervisor(const string& name, vector<Employee*> employees, Position pos = Sup);
 
     /**
      * @brief Get the Employees object
