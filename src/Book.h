@@ -18,50 +18,54 @@ using namespace std;
  */
 class Book {
     private:
-    static int totalDifferentBooks;
-    int id;
-    const string title;
-    const string isbn;
-    const vector<string> authors;
-    const int pages;
-    int copies;
-    int copies_available;
+
+        static int totalDifferentBooks;
+        int id;
+        int lastId = 0;
+        const string title;
+        const string isbn;
+        const vector<string> authors;
+        const int pages;
+        int copies;
+        int copies_available;
 
     public:
 
-    /**
-     * @brief Construct a new Book object
-     * 
-     * @param title 
-     * @param isbn 
-     * @param authors 
-     * @param pages 
-     */
-    Book(string title, string isbn, vector<string> authors, int pages, int copies = 0);
+        /**
+         * @brief Construct a new Book object
+         * 
+         * @param title 
+         * @param isbn 
+         * @param authors 
+         * @param pages 
+         */
+        Book(string title, string isbn, vector<string> authors, int pages, int copies = 0);
 
-    int getId() const;
+        Book(int id, string title, string isbn, vector<string> authors, int pages, int copies = 0);
 
-    string getTitle() const;
+        int getId() const;
 
-    int getCopies() const;
+        string getTitle() const;
 
-    int getCopiesAvailable() const;
+        int getCopies() const;
 
-    vector<string> getAuthors() const;
+        int getCopiesAvailable() const;
 
-    void incCopies();
+        vector<string> getAuthors() const;
 
-    /**
-     * @brief Print info of the book
-     * 
-     */
-    void printBook() const;
+        void incCopies();
 
-    /**
-     * @brief Write book's info to file
-     * 
-     * @param file 
-     */
-    void writeBook(string fileName) const;
+        /**
+         * @brief Print info of the book
+         * 
+         */
+        void printBook() const;
+
+        /**
+         * @brief Write book's info to file
+         * 
+         * @param file 
+         */
+        void writeBook(ofstream& file) const;
     
 };

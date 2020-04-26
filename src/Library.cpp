@@ -6,11 +6,11 @@ Library::Library(string name) : name(name) {
     admin = NULL;
 }
 
-Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> Borrows) : name(name) {
+Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows) : name(name) {
     this->books = books;
     this->employees = employees;
     this->readers = readers;
-    this->Borrows = Borrows;
+    this->borrows = borrows;
     admin = NULL;
 }
 
@@ -40,12 +40,23 @@ vector<Employee*> Library::getAllEmployees() const {
     return employees;
 }
 
+Employee* Library::getEmployee(int id) const {
+    vector<Employee*>::const_iterator it;
+
+    for (it = employees.begin(); it != employees.end(); it++) {
+        if ((*it)->getId() == id) {
+            return (*it);
+        }
+    }
+    return NULL;
+}
+
 vector<Reader*> Library::getReaders() const {
     return readers;
 }
 
 vector<Borrow*> Library::getBorrows() const {
-    return Borrows;
+    return borrows;
 }
 
 vector<Borrow*> Library::getDelayedBorrows() const {
@@ -53,7 +64,7 @@ vector<Borrow*> Library::getDelayedBorrows() const {
 
     vector<Borrow*>::const_iterator it;
 
-    for (it = Borrows.begin(); it != Borrows.end(); it++) {
+    for (it = borrows.begin(); it != borrows.end(); it++) {
         if ((*it)->getDays() > 0) {
             delayedBorrows.push_back(*it);
         }
@@ -62,11 +73,42 @@ vector<Borrow*> Library::getDelayedBorrows() const {
 }
 
 void Library::loadFiles() {
-    loadBorrows();
-    cout << "finish load Borrow\n";
-    loadReaders();
-    loadBooks();
-    loadEmployees();
+    try {
+        loadEmployees();
+    }
+    catch (FileUnkown &e) {
+        cout << e;
+    }
+    try {
+        loadBooks();
+    }
+    catch (FileUnkown &e) {
+        cout << e;
+    }
+    try {
+        loadEmployees();
+    }
+    catch (FileUnkown &e) {
+        cout << e;
+    }    
+    try {
+        loadAdmin();
+    }
+    catch (FileUnkown &e) {
+        cout << e;
+    }
+    try {
+        loadReaders();
+    }
+    catch (FileUnkown &e) {
+        cout << e;
+    }
+    try {
+        loadBorrows();
+    }
+    catch (FileUnkown &e){
+        cout << e;
+    }
 }
 
 void Library::loadBooks() {
@@ -78,13 +120,16 @@ void Library::loadBooks() {
     }
 
     while (!booksFile.eof()) {
-        string title, isbn, authors, pages, copies;
-        int nPages, nCopies;
+        string id, title, isbn, authors, pages, copies;
+        getline(booksFile, id, ';');
         getline(booksFile, title, ';');
         getline(booksFile, isbn, ';');
         getline(booksFile, authors, ';');
         getline(booksFile, pages, ';');
         getline(booksFile, copies);
+
+        if (id == "")
+            continue;
 
         vector<string> authorsList;
         stringstream ssAuthors(authors);
@@ -92,13 +137,8 @@ void Library::loadBooks() {
         while(getline(ssAuthors, author, ',')) {
             authorsList.push_back(author);
         }
-        cout << "load books\n";
-        istringstream iss(pages);
-        iss >> nPages;
-        istringstream iss2(copies);
-        iss2 >> nCopies;
 
-        Book* book = new Book(title, isbn, authorsList, nPages, nCopies);
+        Book* book = new Book(getInt(id), title, isbn, authorsList, getInt(pages), getInt(copies));
 
         books.push_back(book);
     }
@@ -115,16 +155,23 @@ void Library::loadEmployees() {
     }
 
     while (!employeesFile.eof()) {
-        string id, name, pass;
+        string id, name, pass, pos;
         getline(employeesFile, id, ';');
         getline(employeesFile, name, ';');
-        getline(employeesFile, pass);
+        getline(employeesFile, pass, ';');
+        getline(employeesFile, pos);
 
-        int nId;
-        istringstream iss(id);
-        iss >> nId;
+        if (id == "")
+            continue;
 
-        Employee* employee = new Employee(nId, name, pass);
+        Employee* employee;
+
+        if (getInt(pos) == Sup) {
+            employee = new Supervisor(getInt(id), name, pass, {});
+        }
+        else {
+            employee = new Employee(getInt(id), name, pass);
+        }
 
         employees.push_back(employee);
     }
@@ -141,22 +188,44 @@ void Library::loadReaders() {
     }
 
     while (!readersFile.eof()) {
-        string name, number, email, Borrows;
+        string id, name, pass, number, email, address, type, borrows;
+        getline(readersFile, id, ';');
         getline(readersFile, name, ';');
         getline(readersFile, number, ';');
         getline(readersFile, email, ';');
-        getline(readersFile, Borrows);
+        getline(readersFile, address, ';');
+        getline(readersFile, type, ';');
+        getline(readersFile, borrows);
 
-        int nNumber;
-        istringstream iss(number);
-        iss >> nNumber;
+        if (name == "")
+            continue;
         
-        vector<Borrow*> BorrowsList;
+        // // -- Reader borrows
 
-        // ...
+        // vector<Borrow*> borrowsList = {};
+        
+        // if (borrows != "") {
 
-        Reader* reader = new Reader(name, nNumber, email, {});
+        //     istringstream issBorrows(borrows);
+        //     vector<int> borrowsId;
 
+        //     for (int i; issBorrows >> i;) {
+        //         borrowsId.push_back(i);    
+        //         if (issBorrows.peek() == ',')
+        //             issBorrows.ignore();
+        //     }
+
+        //     for (size_t j = 0; j < borrowsId.size(); j++) {
+        //         for (size_t k = 0; k < this->borrows.size(); k++) {
+        //             if (this->borrows[k]->getId() == borrowsId[j]) {
+        //                 borrowsList.push_back(this->borrows[k]);
+        //             }
+        //         }
+        //     }
+        // }
+
+        Reader* reader = new Reader(getInt(id), name, getInt(number), email, address, getInt(type), {});
+     
         readers.push_back(reader);
     }
 
@@ -179,14 +248,8 @@ void Library::loadBorrows() {
         getline(borrowsFile, employeeId, ';');
         getline(borrowsFile, date);
 
-        int nBookId, nReaderId, nEmployeeId;
-
-        istringstream iss(bookId);
-        iss >> nBookId;
-        istringstream iss2(readerId);
-        iss2 >> nReaderId;
-        istringstream iss3(employeeId);
-        iss3 >> nEmployeeId;
+        if (id == "")
+            continue;
 
         struct tm* tm = getTMStruct(date);
         time_t dateTime = mktime(tm);
@@ -200,30 +263,27 @@ void Library::loadBorrows() {
         vector<Employee*>::const_iterator eIt;
 
         for (bIt = books.begin(); bIt != books.end(); bIt++) {
-            if ((*bIt)->getId() == nBookId) {
+            if ((*bIt)->getId() == getInt(bookId)) {
                 book = (*bIt);
             }
         }
 
         for (rIt = readers.begin(); rIt != readers.end(); rIt++) {
-            if ((*rIt)->getId() == nReaderId) {
+            if ((*rIt)->getId() == getInt(readerId)) {
                 reader = (*rIt);
             }
         }
 
         for (eIt = employees.begin(); eIt != employees.end(); eIt++) {
-            if ((*eIt)->getId() == nEmployeeId) {
+            if ((*eIt)->getId() == getInt(employeeId)) {
                 employee = (*eIt);
             }
         }
 
-        stringstream ssId(id);
-        int nId;
-        ssId >> nId;
+        Borrow* borrow = new Borrow(getInt(id), book, reader, employee, dateTime);
+        reader->addBorrow(borrow);
 
-        Borrow* borrow = new Borrow(nId, book, reader, employee, dateTime);
-
-        Borrows.push_back(borrow);
+        borrows.push_back(borrow);
     }
 
     borrowsFile.close();
@@ -236,20 +296,46 @@ void Library::loadAdmin() {
         adminFile.close();
         throw FileUnkown("admin.txt");
     }
-    string name, pass;
+    string id, name, pass;
 
+    getline(adminFile, id, ';');
     getline(adminFile, name, ';');
     getline(adminFile, pass);
 
-    admin = new Admin(name, pass);
+    admin = new Admin(getInt(id), name, pass);
 
     adminFile.close();
 }
 
 
 void Library::print() {
+    printReaders();
+    printBorrows();
+    printBooks();
+    printEmployees();
+}
+
+void Library::printReaders() const {
+    for (size_t i = 0; i < readers.size(); i++) {
+        readers[i]->printReader();
+    }
+}
+
+void Library::printBooks() const {
     for (size_t i = 0; i < books.size(); i++) {
         books[i]->printBook();
+    }
+}
+
+void Library::printEmployees() const {
+    for (size_t i = 0; i < employees.size(); i++) {
+        employees[i]->printEmployee();
+    }
+}
+
+void Library::printBorrows() const {
+    for (size_t i = 0; i < borrows.size(); i++) {
+        borrows[i]->printBorrow();
     }
 }
 
@@ -270,7 +356,7 @@ bool Library::removeBook(int id) {
 Borrow* Library::removeBorrow(int id) {
     vector<Borrow*>::const_iterator it;
     
-    for (it = Borrows.begin(); it != Borrows.end(); it++) {
+    for (it = borrows.begin(); it != borrows.end(); it++) {
         if ((*it)->getId() == id) {
             double penalty = (*it)->getPenalty();
             if (penalty > 0) {
@@ -281,16 +367,16 @@ Borrow* Library::removeBorrow(int id) {
                     cout << "Pay? [Y] / [N]: ";
                     answer = cin.get();
                     cin.ignore(1000, '\n');
-                    toupper(answer);
-                    if (answer == 'N') {
+                    
+                    if (answer == 'N' || answer == 'n') {
                         cout << "Are you sure? [Y] [N]: ";
                         answer2 = cin.get();
                         cin.ignore(1000, '\n');
-                        if (answer2 == 'Y') {
+                        if (answer2 == 'Y' || answer2 == 'y') {
                             return NULL;
                         }
                     }
-                } while (answer2 == 'N');
+                } while (answer2 == 'N' || answer2 == 'n');
             }
             // TODO
             (*it)->getBook()->incCopies();
@@ -322,6 +408,7 @@ bool Library::removeReader(int id) {
                 readers.erase(it);
                 return true;    
             }
+            return false;
         }
     }
     throw ObjectNotFound(id, "Reader");
@@ -355,6 +442,10 @@ vector<Employee*> Library::getEmployees() const {
     return emp;
 }
 
+void Library::addReader(Reader* reader) {
+    readers.push_back(reader);
+}
+
 void Library::allocateEmployees() {
     vector<Employee*> supervisors = getSupervisors();
     vector<Employee*> emps = getEmployees();
@@ -373,20 +464,78 @@ void Library::saveFiles() {
     saveReaders();
 }
 
+// template <class T>
+// void Library::save(T obj, string filename) {
+//     vector<T>::const_iterator it;
+
+//     for (it = obj.begin(); it != obj.end(); it++) {
+//         (*it)->write(filename);
+//     }
+// }
+
 void Library::saveBooks() {
+    
+    ofstream myfile("../files/books.txt", ios::trunc);
+    
+    if (!myfile.is_open()) {
+        throw FileUnkown("books.txt");
+    }
+
     vector<Book*>::const_iterator it;
 
     for (it = books.begin(); it != books.end(); it++) {
-        (*it)->writeBook("../files/books.txt");
+        
+        (*it)->writeBook(myfile);
     }
+    myfile.close();
 }
 
 void Library::saveReaders() {
+    ofstream myfile("../files/readers.txt", ios::trunc);
+    
+    if (!myfile.is_open()) {
+        throw FileUnkown("readers.txt");
+    }
+
     vector<Reader*>::const_iterator it;
 
     for (it = readers.begin(); it != readers.end(); it++) {
-        (*it)->writeReader("../files/readers.txt");
+        
+        (*it)->writeReader(myfile);
+        
     }
+
+    myfile.close();
 }
 
+void Library::saveEmployees() {
+    ofstream myfile("../files/employees.txt", ios::trunc);
+    
+    if (!myfile.is_open()) {
+        throw FileUnkown("employees.txt");
+    }
 
+    vector<Employee*>::const_iterator it;
+
+    for (it = employees.begin(); it != employees.end(); it++) {
+        (*it)->writeEmployee(myfile);
+        
+    }
+    
+    myfile.close();
+}
+
+void Library::saveBorrows() {
+    ofstream myfile("../files/borrows.txt", ios::trunc);
+    
+    if (!myfile.is_open()) {
+        throw FileUnkown("borrows.txt");
+    }
+
+    vector<Borrow*>::const_iterator it;
+
+    for (it = borrows.begin(); it != borrows.end(); it++) {
+         (*it)->writeBorrow(myfile);
+    }
+    myfile.close();
+}

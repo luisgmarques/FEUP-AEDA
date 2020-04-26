@@ -1,5 +1,5 @@
-1; Luis Marques; 965874521; luis@email.com; 1, 2
-2; Ines Sofia; 962147895; ines_sof@example.com; -
-3; Joao Costa; 924587478; jo_costa@cooldmail.com; 2, 3
-4; Paulo Arlindo; 935214785; parlindo@guemail.com; 1
-5; Duarte Marques; 914578451; duques@cloud.com; -
+1;Luis Marques;965874521;luis@email.com;Matosinhos, Porto;2;1, 2
+2;Ines Sofia;962147895;ines_sof@example.com;Coimbra;2;
+3;Joao Costa;924587478;jo_costa@cooldmail.com;Viseu;1;
+4;Paulo Arlindo;935214785;parlindo@guemail.com;Aveiro;2;4
+5;Duarte Marques;914578451;duques@cloud.com;Castelo Branco;0;3

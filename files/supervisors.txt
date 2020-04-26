@@ -1,4 +1,0 @@
-11; Carlos Bastos; asd;2, 5, 7
-12; Bruno Nunes; qw;1, 3
-13; Monica Antunes; zxc;4, 10, 9, 8
-14; Barbara Monteiro; 123;6

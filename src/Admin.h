@@ -7,8 +7,13 @@
 
 using namespace std;
 
+
 class Admin : public Employee {
+    private:
+
 
     public:
-    Admin(string pass, const string& name, Position pos = Adm);
+        Admin(int id, string pass, const string& name, Position pos = Adm);
+
+        string getPassword() const;
 };

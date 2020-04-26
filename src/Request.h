@@ -14,26 +14,26 @@ class Employee;
 class Request {
     private:
 
-    static int totalRequests;
+        static int totalRequests;
 
-    int id;
-    Book* book;
-    Employee* employee;
-    Reader* reader;
-    time_t date;
+        int id;
+        Book* book;
+        Employee* employee;
+        Reader* reader;
+        time_t date;
 
     public:
 
-    Request(Book* book, Employee* employee, Reader* reader, time_t date);
+        Request(Book* book, Employee* employee, Reader* reader, time_t date);
 
-    Book* getBook() const;
+        Book* getBook() const;
 
-    Employee* getEmployee() const;
+        Employee* getEmployee() const;
 
-    Reader* getReader() const;
+        Reader* getReader() const;
 
-    time_t getDate() const;
+        time_t getDate() const;
 
-    bool operator <(const Request rq) const;
+        bool operator <(const Request rq) const;
 
 };

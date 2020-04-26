@@ -47,7 +47,19 @@ string getDateString(time_t date) {
 
     stringstream ss;
 
-    ss << tm->tm_mday << '/' << tm->tm_mon + 1 << '/' << tm->tm_year + 1900;
+    ss << setw(2) << setfill('0') << tm->tm_mday << '/' 
+        << setw(2) << setfill('0') << tm->tm_mon + 1 << '/' 
+        << tm->tm_year + 1900;
 
     return ss.str();
+}
+
+int getInt(string input) {
+    istringstream ss(input);
+
+    int num;
+
+    ss >> num;
+
+    return num;    
 }

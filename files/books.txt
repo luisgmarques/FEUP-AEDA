@@ -1,5 +1,5 @@
-1; Uma Aventura; 7685383729; Ana Maria Magalhaes, Isabel Alcada; 398; 10
-2; Os Maias; 8766385976; Eca de Queiros; 545; 7
-3; Harry Potter; 8765487693; J. K. Rowling; 321; 2
-4; O Principezinho; 8765840938; Antoine de Saint-Exupery; 129; 4
-5; C++ For Dummies; 4876546789; Stephen Randy Davis; 1001; 5
+1;Uma Aventura;7685383729;Ana Maria Magalhaes,Isabel Alcada;398;10
+2;Os Maias;8766385976;Eca de Queiros;545;7
+3;Harry Potter;8765487693;J. K. Rowling;321;2
+4;O Principezinho;8765840938;Antoine de Saint-Exupery;129;4
+5;C++ For Dummies;4876546789;Stephen Randy Davis;1001;5

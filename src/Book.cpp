@@ -4,10 +4,22 @@ int Book::totalDifferentBooks = 0;
 
 Book::Book(string title, string isbn, vector<string> authors, int pages, int copies) :
     title(title), isbn(isbn), authors(authors), pages(pages) {
+        
+        this->copies = copies;
+        copies_available = copies;
+        id = ++totalDifferentBooks;
+}
+
+Book::Book(int id, string title, string isbn, vector<string> authors, int pages, int copies) :
+    title(title), isbn(isbn), authors(authors), pages(pages) {
         totalDifferentBooks++;
         this->copies = copies;
         copies_available = copies;
-        id = totalDifferentBooks;
+        this->id = id;
+
+        if (id > lastId) {
+            lastId = id;
+        }
 }
 
 int Book::getId() const {
@@ -35,9 +47,8 @@ void Book::incCopies() {
 }
 
 void Book::printBook() const{
-    cout << "Title: " << setw(30) << title << endl;
-    cout << "Authors: ";
-    cout << setw(30);
+    cout << '\n' << setw(15) << "Title: " << title << endl;
+    cout << setw(15) << "Authors: ";
     for (size_t i = 0; i < authors.size(); i++) {
         if (i + 1 == authors.size()) {
             cout << authors[i] << endl;
@@ -46,36 +57,28 @@ void Book::printBook() const{
             cout << authors[i] <<", ";
         }
     }
-    cout << "ISBN: " << setw(30) << isbn << endl;
-    cout << "Pages: " << setw(30) << pages << endl;
-    cout << "Copies: " << setw(30) << copies << endl;
+    cout << setw(15) << "ISBN: " << isbn << endl;
+    cout << setw(15) << "Pages: " << pages << endl;
+    cout << setw(15) << "Copies: " << copies << endl;
+    cout << '\n';
 }
 
-void Book::writeBook(string fileName) const{
-    ofstream myfile(fileName, ios::trunc);
+void Book::writeBook(ofstream& file) const{
 
-    if (!myfile.is_open()) {
-        throw FileUnkown(fileName);
-    }
+    ostringstream ss;
 
-    stringstream ss;
-
-    ss << id << "; ";
-
-    ss << title << "; ";
+    ss << id << ';' << title << ';';
 
     for (size_t i = 0; i < authors.size(); i++) {
         if (i + 1 == authors.size()) {
-            ss << authors[i] << "; ";
+            ss << authors[i] << ';';
         }
         else {
             ss << authors[i] << ", ";
         }
     }
 
-    ss << isbn << "; " << pages << "; " << copies << endl;
+    ss << isbn << ';' << pages << ';' << copies << endl;
 
-    myfile << ss.str();
-
-    myfile.close();
+    file << ss.str();
 }

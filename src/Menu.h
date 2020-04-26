@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include "Library.h"
 #include "Util.h"
 
@@ -12,15 +13,24 @@ class Util;
 
 class Menu {
     private:
-    Library* library;
-    user usr;
+
+        Library* library;
+        int usr;
 
     public:
-    Menu(string libraryName);
+        Menu(string libraryName);
 
-    void init();
+        void init();
 
-    user login();
+        int login();
 
-    void mainMenu();
+        void mainMenu();
+
+        void showAllReaders() const;
+
+        void addReader();
+
+        void removeReader();
+
+        void menuModifyReader();
 };

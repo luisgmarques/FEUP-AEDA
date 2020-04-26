@@ -60,18 +60,22 @@ double Borrow::getPenalty() {
     return (days - 7) * 0.25;
 }
 
-void Borrow::writeBorrow(string filename) const {
-    ofstream bookLeanFile(filename, ios::trunc);
+void Borrow::printBorrow() const {
+    
+    cout << '\n' << setw(15) << "ID: " << id << endl;
+    cout << setw(15) << "Book Title: " << book->getTitle() << endl;
+    cout << setw(15) << "Employee: " << employee->getName() << endl;
+    cout << setw(15) << "Reader: " << reader->getName() << endl;
+    cout << setw(15) << "Date: " << getDateString(date);
+    cout << '\n';
+}
 
-    if (!bookLeanFile.is_open()) {
-        throw FileUnkown(filename);
-    }
+void Borrow::writeBorrow(ofstream& file) const {
 
-    stringstream ss;
+    ostringstream ss;
 
     ss << id << "; " << book->getId() << "; " << reader->getId() << "; " << employee->getId() << "; " << getDateString(date) << endl;
 
-    bookLeanFile << ss.str();
+    file << ss.str();
 
-    bookLeanFile.close();
 }

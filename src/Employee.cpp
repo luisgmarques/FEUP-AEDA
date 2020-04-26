@@ -32,3 +32,29 @@ Position Employee::getPos() const {
     return pos;
 }
 
+string Employee::getPassword() const {
+    return password;
+}
+
+void Employee::printEmployee() const {
+    cout << setw(15) << "ID: " << id << endl;
+    cout << setw(15) << "Name: " << name << endl;
+    cout << setw(15) << "Position: ";
+    if (pos == Emp) {
+        cout << "Employee\n";
+    }
+    else if (pos == Sup) {
+        cout << "Supervisor\n";
+    }
+    cout << '\n';
+}
+
+void Employee::writeEmployee(ofstream& file) const {
+
+    stringstream ss;
+
+    ss << id << "; " << name << "; " << password << "; " << pos << endl;
+
+    file << ss.str();
+}
+
