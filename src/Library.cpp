@@ -1,12 +1,11 @@
 #include "Library.h"
 #include "Util.h"
 
-
-Library::Library(string name) : name(name) {
+Library::Library(string name) : name(name), availableBooks (Book(0, "", "", {}, 0, 0)) {
     admin = NULL;
 }
 
-Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows) : name(name) {
+Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows) : name(name), availableBooks (Book(0, "", "", {}, 0, 0)) {
     this->books = books;
     this->employees = employees;
     this->readers = readers;
@@ -21,20 +20,6 @@ string Library::getName() const {
 vector<Book*> Library::getAllBooks() const {
     return books;
 }
-
-vector<Book*> Library::getAvailableBooks() const {
-    vector<Book*> availableBooks;
-
-    vector<Book*>::const_iterator it;
-
-    for (it = books.begin(); it != books.end(); it++) {
-        if ((*it)->getCopiesAvailable() > 0) {
-            availableBooks.push_back(*it);
-        }
-    }
-    return availableBooks;
-}
-
 
 vector<Employee*> Library::getAllEmployees() const {
     return employees;
@@ -396,12 +381,12 @@ void Library::addBorrow(Borrow* borrow) {
 
     if (reader->getBorrows().size() >= 3) {
         cout << "Reader cannot borrow more than 3 books\n";
-        // TODO exception
+        throw MaxBorrowsLimit(reader->getId(), reader->getName());
     }
     else {
         if (book->getCopiesAvailable() < 1) {
             cout << "No availbles copies for this book\n";
-            // TODO exception
+            throw NoCopiesAvailable(book->getId(), book->getTitle());
         }
         else {
             book->decCopies();
@@ -409,7 +394,7 @@ void Library::addBorrow(Borrow* borrow) {
             reader->setDate(borrow->getDate());
             borrows.push_back(borrow);
             cout << "Borrow completed\n";
-        }   
+        }
     }
 }
 
@@ -441,6 +426,7 @@ Borrow* Library::removeBorrow(int id) {
             // TODO
             (*it)->getBook()->incCopies();
             (*it)->getReader()->removeBorrow(id);
+            return (*it);
         }
     }
     throw ObjectNotFound(id, "Borrow");
@@ -451,6 +437,7 @@ bool Library::removeEmployee(int id) {
 
     for (it = employees.begin(); it != employees.end(); it++) {
         if ((*it)->getId() == id) {
+            // TODO employee with borrow associated
             employees.erase(it);
             allocateEmployees();
             cout << "Employees reallocated\n";
@@ -467,9 +454,9 @@ bool Library::removeReader(int id) {
         if ((*it)->getId() == id) {
             if ((*it)->getBorrows().size() == 0) {
                 readers.erase(it);
-                return true;    
+                return true;
             }
-            return false;
+            throw BorrowsToDelivered((*it)->getBorrows().size(), (*it)->getName());
         }
     }
     throw ObjectNotFound(id, "Reader");
@@ -642,4 +629,49 @@ void Library::addBook(Book* book) {
 void Library::addEmployee(Employee* employee) {
     this->employees.push_back(employee);
     cout << "Added employee " << employee->getName() << endl;
+}
+
+
+// ======================= // ============================
+
+void Library::addInactiveReaders() {
+    for (vector<Reader*>::const_iterator it = readers.begin(); it != readers.end(); it++) {
+        double days {trunc(difftime(time(0), (*it)->getLastBorrow())/86400)};
+        if (days > 365) {
+            inactiveReaders.insert(**it);
+        }
+    }
+}
+
+void Library::addInactiveReader(const Reader& reader) {
+    inactiveReaders.insert(reader);
+}
+
+bool Library::removeInactiveReader(const Reader& reader) {
+    unordered_set<Reader, hrdr, eqrdr>::const_iterator it = inactiveReaders.find(reader);
+    if (it != inactiveReaders.end()) {
+        inactiveReaders.erase(it);
+        return true;
+    }
+    return false;
+}
+
+void Library::addAvailableBooks() {
+    availableBooks.makeEmpty();
+    
+    vector<Book*>::const_iterator it;
+
+    for (it = books.begin(); it != books.end(); it++) {
+        if ((*it)->getCopiesAvailable() > 0) {
+            availableBooks.insert(**it);
+        }
+    }
+}
+
+void Library::addAvailableBook(const Book& book) {
+    availableBooks.insert(book);
+}
+
+void Library::removeAvailableBook(const Book& book) {
+    availableBooks.remove(book);
 }

@@ -58,3 +58,44 @@ class ObjectNotFound {
 		
 		friend ostream& operator <<(ostream& os, const ObjectNotFound& obj);
 };
+
+class MaxBorrowsLimit {
+	private:
+		int id;
+		string name;
+
+	public:
+		MaxBorrowsLimit(int id, string name) {
+			this->id = id;
+			this->name = name;
+		}
+
+		friend ostream& operator <<(ostream& os, const MaxBorrowsLimit& obj);
+};
+
+class NoCopiesAvailable {
+	private:
+		int id;
+		string name;
+
+	public:
+		NoCopiesAvailable(int id, string name) {
+			this->id = id;
+			this->name = name;
+		}
+
+		friend ostream& operator <<(ostream& os, const NoCopiesAvailable& obj);
+};
+
+class BorrowsToDelivered {
+	private:
+		int borrows;
+		string name;
+	public:
+		BorrowsToDelivered(int borrows, string name) {
+			this->borrows = borrows;
+			this->name = name;
+		}
+
+		friend ostream& operator <<(ostream& os, const BorrowsToDelivered& obj);
+};

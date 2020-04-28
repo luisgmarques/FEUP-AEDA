@@ -68,6 +68,10 @@ vector<Borrow*> Reader::getDelayedBorrows() const {
     return dealyedBorrows;
 }
 
+time_t Reader::getLastBorrow() const {
+    return lastBorrowDate;
+}
+
 bool Reader::removeBorrow(const int id) {
     vector<Borrow*>::const_iterator it;
 

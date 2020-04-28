@@ -29,7 +29,6 @@ Book::Book(string title, string isbn, string authors, int pages, int copies) :
         this->copies = copies;
         copies_available = copies;
         id = ++totalDifferentBooks;
-
 }
 
 int Book::getId() const {

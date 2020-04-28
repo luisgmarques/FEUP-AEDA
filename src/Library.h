@@ -53,15 +53,17 @@ class Library {
     private:
     
         Admin* admin;
+
         const string name;
+        
         vector<Book*> books;
         vector<Employee*> employees;
         vector<Reader*> readers;
         vector<Borrow*> borrows;
 
-        priority_queue<Request*> requests; 
-        //BST<Book> availableBooks;
+        BST<Book> availableBooks;
         unordered_set<Reader, hrdr, eqrdr> inactiveReaders;
+        priority_queue<Request*> requests; 
 
     public:
 
@@ -152,8 +154,17 @@ class Library {
 
         void allocateEmployees();
 
+        void addInactiveReaders();
 
+        void addInactiveReader(const Reader& reader);
 
+        bool removeInactiveReader(const Reader& reader);
+
+        void addAvailableBooks();
+
+        void addAvailableBook(const Book& book);
+
+        void removeAvailableBook(const Book& book);
 
         // -- Load
 

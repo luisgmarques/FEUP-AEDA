@@ -81,6 +81,8 @@ class Reader {
          */
         vector<Borrow*> getDelayedBorrows() const;
 
+        time_t getLastBorrow() const;
+
         void setName(string& name);
 
         void setEmail(string& email);
