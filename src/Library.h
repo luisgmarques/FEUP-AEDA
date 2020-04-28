@@ -93,6 +93,8 @@ class Library {
 
         void printBorrows() const;
 
+        void addBorrow();
+
         // -- Get
 
         string getName() const;
@@ -110,6 +112,10 @@ class Library {
         vector<Employee*> getEmployees() const;
 
         Employee* getEmployee(int id) const;
+
+        Reader* getReader(int id) const;
+
+        Book* getBook(int id) const;
 
 
         vector<Reader*> getReaders() const;
@@ -154,6 +160,7 @@ class Library {
         void loadFiles();
         void loadBooks();
         void loadEmployees();
+        void loadSupervisors();
         void loadReaders();
         void loadBorrows();
         void loadAdmin();
@@ -163,6 +170,7 @@ class Library {
         void saveFiles();
         void saveBooks();
         void saveEmployees();
+        void saveSupervisors();
         void saveReaders();
         void saveBorrows();
 

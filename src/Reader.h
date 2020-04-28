@@ -16,16 +16,16 @@ class Reader {
     private:
 
         static int totalReaders;
+        static int lastId;
 
         int id;
-        int lastId = 0;
         string name;
         int phoneNumber;
         readerType type;
         string email;
         string address;
         vector<Borrow*> books;
-        time_t lastBorrowDate; 
+        time_t lastBorrowDate = 0; 
 
     public:
 
@@ -38,7 +38,7 @@ class Reader {
          */
         Reader(const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books);
 
-        Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books);
+        Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, time_t date, vector<Borrow*> books);
 
         int getId() const;
 
@@ -80,6 +80,16 @@ class Reader {
          * @return vector<Borrow*> 
          */
         vector<Borrow*> getDelayedBorrows() const;
+
+        void setName(string& name);
+
+        void setEmail(string& email);
+
+        void setPhone(int number);
+
+        void setAddress(string& address);
+
+        void setDate(time_t date);
 
         /**
          * @brief 

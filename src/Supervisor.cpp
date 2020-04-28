@@ -22,6 +22,22 @@ void Supervisor::addEmployee(Employee* employee) {
 
 void Supervisor::printEmployee() const {
     Employee::printEmployee();
+    cout << setw(15) << "Employees ID: ";
+
+    if (employees.size() > 0) {
+        for (size_t i = 0; i < employees.size(); i++) {
+            if ((i + 1) == employees.size()) {
+                cout << employees[i]->getId();
+            }
+            else {
+                cout << employees[i]->getId() << ", ";
+            }
+        }
+    }
+    else {
+        cout << "N/A";
+    }
+    cout << endl << endl;
 }
 
 void Supervisor::writeEmployee(ofstream& file) const {
@@ -32,6 +48,25 @@ void Supervisor::writeEmployee(ofstream& file) const {
     catch (FileUnkown &e) {
         throw;
     }
+
+    ostringstream ss;
+    vector<int> employeesId;
+
+    for (vector<Employee*>::const_iterator it = employees.begin(); it != employees.end(); it++) {
+        employeesId.push_back((*it)->getId());
+    }
+
+    for (size_t i = 0; i < employeesId.size(); i++) {
+        if ((i + 1) == employeesId.size()) {
+            ss << employeesId[i];
+        }
+        else {
+            ss << employeesId[i] << ',';
+        } 
+    }
+
+    file << ss.str();
+
 }
 
 string Supervisor::getPassword() const {

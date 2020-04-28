@@ -15,7 +15,8 @@ class Employee {
     private:
 
         static int totalEmployees;
-        int lastId = 0;
+        static int lastId;
+
         int id;
         const string name;
         Position pos;
@@ -59,7 +60,7 @@ class Employee {
         virtual void setEmployees(vector<Employee*> employees) {}
 
         /**
-         * @brief Add employee
+         * @brief Add employee, usable for supervisors
          * 
          * @param employee 
          */

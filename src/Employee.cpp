@@ -1,6 +1,7 @@
 #include "Employee.h"
 
 int Employee::totalEmployees = 0;
+int Employee::lastId = 0;
 
 Employee::Employee(const string& name, string pass, Position pos) : name(name) {
     totalEmployees++;
@@ -42,18 +43,18 @@ void Employee::printEmployee() const {
     cout << setw(15) << "Position: ";
     if (pos == Emp) {
         cout << "Employee\n";
+        cout << '\n';
     }
     else if (pos == Sup) {
         cout << "Supervisor\n";
     }
-    cout << '\n';
 }
 
 void Employee::writeEmployee(ofstream& file) const {
 
-    stringstream ss;
+    ostringstream ss;
 
-    ss << id << "; " << name << "; " << password << "; " << pos << endl;
+    ss << id << ';' << name << ';' << password << ';' << pos << endl;
 
     file << ss.str();
 }

@@ -1,18 +1,20 @@
 #include "Reader.h"
 
 int Reader::totalReaders = 0;
+int Reader::lastId = 0;
 
 Reader::Reader(const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books) : name(name) {
+    ++totalReaders;
     this->name = name;
     this->phoneNumber = phoneNumber;
     this->books = books;
     this->email = email;
     this->address = address;
     this->type = readerType(type);
-    id = ++totalReaders;
+    id = ++lastId;
 }
 
-Reader::Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books) : name(name) {
+Reader::Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, time_t date, vector<Borrow*> books) : name(name) {
      ++totalReaders;
      this->name = name;
     this->phoneNumber = phoneNumber;
@@ -20,8 +22,9 @@ Reader::Reader(int id, const string& name, int phoneNumber, const string& email,
     this->email = email;
     this->address = address;
     this->type = readerType(type);
+    this->lastBorrowDate = date;
     this->id = id;
-    if (id > lastId) {
+    if (id > lastId) { 
         lastId = id;
     }
 }
@@ -77,13 +80,43 @@ bool Reader::removeBorrow(const int id) {
     return false;
 }
 
+void Reader::setName(string& name) {
+    this->name = name;
+}
+
+void Reader::setEmail(string& email) {
+    this->email = email;
+}
+
+void Reader::setPhone(int number) {
+    this->phoneNumber = number;
+}
+
+void Reader::setAddress(string& address) {
+    this->address = address;
+}
+
+void Reader::setDate(time_t date) {
+    this->lastBorrowDate = date;
+}
+
 void Reader::printReader() const {
-    cout << setw(15) << "Name: " << name << " (" << type << ") " << endl;
+    string sType;
+    if (type == Deficient)
+        sType = "Deficient";
+    else if (type == Child)
+        sType = "Child";
+    else if (type == Adult)
+        sType = "Adult";
+    cout << setw(15) << "Name: " << name << " (" << sType << ") " << endl;
     cout << setw(15) << "Phone Number: " << phoneNumber << endl;
     cout << setw(15) << "Email: " << email << endl;
     cout << setw(15) << "Address: " << address << endl;
-    
-    cout << setw(15) << "Last Borrow: " << getDateString(lastBorrowDate) << endl;
+    cout << setw(15) << "Last Borrow: ";
+    if (lastBorrowDate != 0)
+        cout << getDateString(lastBorrowDate) << endl;
+    else
+        cout << "N/A" << endl;
     cout << '\n';
 }
 
@@ -98,9 +131,13 @@ void Reader::writeReader(ofstream& file) const {
             ss << books[i]->getId();
         }
         else {
-            ss << books[i]->getId() << ", ";
+            ss << books[i]->getId() << ',';
         }
     }
+
+    ss << ';';
+    if (lastBorrowDate != 0)
+        ss << getDateString(lastBorrowDate);
 
     ss << '\n';
 

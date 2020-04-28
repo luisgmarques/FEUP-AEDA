@@ -20,12 +20,13 @@ class Book {
     private:
 
         static int totalDifferentBooks;
+        static int lastId;
+
         int id;
-        int lastId = 0;
-        const string title;
-        const string isbn;
-        const vector<string> authors;
-        const int pages;
+        string title;
+        string isbn;
+        vector<string> authors;
+        int pages;
         int copies;
         int copies_available;
 
@@ -43,6 +44,8 @@ class Book {
 
         Book(int id, string title, string isbn, vector<string> authors, int pages, int copies = 0);
 
+        Book(string title, string isbn, string authors, int pages, int copies = 0);
+
         int getId() const;
 
         string getTitle() const;
@@ -53,7 +56,17 @@ class Book {
 
         vector<string> getAuthors() const;
 
+        void setTitle(string& title);
+
+        void setAuthors(string& authors);
+
+        void setPages(int pages);
+
+        void setTotalCopies(int copies);
+
         void incCopies();
+
+        void decCopies();
 
         /**
          * @brief Print info of the book

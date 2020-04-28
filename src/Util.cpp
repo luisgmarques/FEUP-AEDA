@@ -1,7 +1,11 @@
 #include "Util.h"
 
 void clearScreen() {
-    cout << "\033[2J\033[1;1H";
+    #if defined(__APPLE__) || defined(__unix__)
+		system("clear");
+	#else 
+    	system("cls");
+	#endif
 }
 
 bool isNumber(const string input) {

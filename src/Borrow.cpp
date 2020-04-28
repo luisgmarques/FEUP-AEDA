@@ -62,7 +62,7 @@ double Borrow::getPenalty() {
 
 void Borrow::printBorrow() const {
     
-    cout << '\n' << setw(15) << "ID: " << id << endl;
+    cout << setw(15) << "ID: " << id << endl;
     cout << setw(15) << "Book Title: " << book->getTitle() << endl;
     cout << setw(15) << "Employee: " << employee->getName() << endl;
     cout << setw(15) << "Reader: " << reader->getName() << endl;
@@ -74,7 +74,7 @@ void Borrow::writeBorrow(ofstream& file) const {
 
     ostringstream ss;
 
-    ss << id << "; " << book->getId() << "; " << reader->getId() << "; " << employee->getId() << "; " << getDateString(date) << endl;
+    ss << id << ';' << book->getId() << ';' << reader->getId() << ';' << employee->getId() << ';' << getDateString(date) << endl;
 
     file << ss.str();
 

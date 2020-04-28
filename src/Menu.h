@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "Library.h"
 #include "Util.h"
 
@@ -16,6 +17,7 @@ class Menu {
 
         Library* library;
         int usr;
+        Employee* employee;
 
     public:
         Menu(string libraryName);
@@ -30,7 +32,39 @@ class Menu {
 
         void addReader();
 
+        void addBook();
+
         void removeReader();
 
-        void menuModifyReader();
+        void removeBook();
+
+        void addEmployee();
+
+        void removeEmployee();
+
+        void menuEditReader(Reader* reader);
+
+        string editReaderAddress();
+
+        string editReaderEmail();
+
+        string editReaderName();
+
+        int editReaderPhone();
+
+        void menuEditBook(Book* book);
+
+        string editBookTitle();
+
+        string editBookAuthors();
+
+        int editBookPages();
+
+        int editBookCopies();
+
+        void addBorrow();
+
+        void removeBorrow();
+
+        void bookMenu();
 };

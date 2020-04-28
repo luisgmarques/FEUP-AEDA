@@ -6,18 +6,15 @@
 using namespace std;
 
 int main() {
-
     string libraryName = "MyLibrary";
 
-    cout << libraryName << endl;
-
     Menu menu(libraryName);
-
-    cout << "Menu initiaded\n";
+    cout << endl;
 
     menu.init();
 
-    cout << "success\n";
+    cout << "\nThank you for your visit\n";
+    cout << "Goodbye\n\n";
     
     return 0;
 }

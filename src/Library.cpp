@@ -40,17 +40,6 @@ vector<Employee*> Library::getAllEmployees() const {
     return employees;
 }
 
-Employee* Library::getEmployee(int id) const {
-    vector<Employee*>::const_iterator it;
-
-    for (it = employees.begin(); it != employees.end(); it++) {
-        if ((*it)->getId() == id) {
-            return (*it);
-        }
-    }
-    return NULL;
-}
-
 vector<Reader*> Library::getReaders() const {
     return readers;
 }
@@ -86,11 +75,11 @@ void Library::loadFiles() {
         cout << e;
     }
     try {
-        loadEmployees();
+        loadSupervisors();
     }
     catch (FileUnkown &e) {
         cout << e;
-    }    
+    }
     try {
         loadAdmin();
     }
@@ -158,25 +147,64 @@ void Library::loadEmployees() {
         string id, name, pass, pos;
         getline(employeesFile, id, ';');
         getline(employeesFile, name, ';');
-        getline(employeesFile, pass, ';');
-        getline(employeesFile, pos);
+        getline(employeesFile, pass);
 
         if (id == "")
             continue;
 
-        Employee* employee;
-
-        if (getInt(pos) == Sup) {
-            employee = new Supervisor(getInt(id), name, pass, {});
-        }
-        else {
-            employee = new Employee(getInt(id), name, pass);
-        }
+        Employee* employee = new Employee(getInt(id), name, pass); 
 
         employees.push_back(employee);
     }
 
     employeesFile.close();
+}
+
+void Library::loadSupervisors() {
+    ifstream supervisorFile("../files/supervisors.txt");
+
+    if (!supervisorFile.is_open()) {
+        supervisorFile.close();
+        throw FileUnkown("supervisors.txt");
+    }
+
+    while (!supervisorFile.eof()) {
+        string id, name, pass, employeesId;
+        getline(supervisorFile, id, ';');
+        getline(supervisorFile, name, ';');
+        getline(supervisorFile, pass, ';');
+        getline(supervisorFile, employeesId);
+
+        if (id == "")
+            continue;
+
+        vector<Employee*> employees;
+        
+        if (employeesId != "") {
+
+            istringstream issEmployees(employeesId);
+            vector<int> empIds;
+
+            for (int i; issEmployees >> i;) {
+                empIds.push_back(i);    
+                if (issEmployees.peek() == ',')
+                    issEmployees.ignore();
+            }
+
+            for (size_t j = 0; j < empIds.size(); j++) {
+                for (size_t k = 0; k < this->employees.size(); k++) {
+                    if (this->employees[k]->getId() == empIds[j]) {
+                        employees.push_back(this->employees[k]);
+                    }
+                }
+            }
+        }
+
+        Employee* supervisor = new Supervisor(getInt(id), name, pass, employees); 
+
+        this->employees.push_back(supervisor); 
+    }
+    supervisorFile.close();
 }
 
 void Library::loadReaders() {
@@ -188,43 +216,50 @@ void Library::loadReaders() {
     }
 
     while (!readersFile.eof()) {
-        string id, name, pass, number, email, address, type, borrows;
+        string id, name, pass, number, email, address, type, date, borrows;
         getline(readersFile, id, ';');
         getline(readersFile, name, ';');
         getline(readersFile, number, ';');
         getline(readersFile, email, ';');
         getline(readersFile, address, ';');
         getline(readersFile, type, ';');
-        getline(readersFile, borrows);
+        getline(readersFile, borrows, ';');
+        getline(readersFile, date);
+
+        time_t dateTime = 0;
+        if (date != "") {
+            struct tm* tm = getTMStruct(date);
+            dateTime = mktime(tm);
+        }
 
         if (name == "")
             continue;
         
-        // // -- Reader borrows
+        // -- Reader borrows
 
-        // vector<Borrow*> borrowsList = {};
+        vector<Borrow*> borrowsList = {};
         
-        // if (borrows != "") {
+        if (borrows != "") {
 
-        //     istringstream issBorrows(borrows);
-        //     vector<int> borrowsId;
+            istringstream issBorrows(borrows);
+            vector<int> borrowsId;
 
-        //     for (int i; issBorrows >> i;) {
-        //         borrowsId.push_back(i);    
-        //         if (issBorrows.peek() == ',')
-        //             issBorrows.ignore();
-        //     }
+            for (int i; issBorrows >> i;) {
+                borrowsId.push_back(i);    
+                if (issBorrows.peek() == ',')
+                    issBorrows.ignore();
+            }
 
-        //     for (size_t j = 0; j < borrowsId.size(); j++) {
-        //         for (size_t k = 0; k < this->borrows.size(); k++) {
-        //             if (this->borrows[k]->getId() == borrowsId[j]) {
-        //                 borrowsList.push_back(this->borrows[k]);
-        //             }
-        //         }
-        //     }
-        // }
+            for (size_t j = 0; j < borrowsId.size(); j++) {
+                for (size_t k = 0; k < this->borrows.size(); k++) {
+                    if (this->borrows[k]->getId() == borrowsId[j]) {
+                        borrowsList.push_back(this->borrows[k]);
+                    }
+                }
+            }
+        }
 
-        Reader* reader = new Reader(getInt(id), name, getInt(number), email, address, getInt(type), {});
+        Reader* reader = new Reader(getInt(id), name, getInt(number), email, address, getInt(type), dateTime, borrowsList);
      
         readers.push_back(reader);
     }
@@ -265,6 +300,7 @@ void Library::loadBorrows() {
         for (bIt = books.begin(); bIt != books.end(); bIt++) {
             if ((*bIt)->getId() == getInt(bookId)) {
                 book = (*bIt);
+                book->decCopies();
             }
         }
 
@@ -346,11 +382,35 @@ bool Library::removeBook(int id) {
         if ((*it)->getId() == id) {
             if ((*it)->getCopiesAvailable() > 0) {
                 books.erase(it);
+                (*it)->decCopies();
                 return true;
             }
         }
     }
     throw ObjectNotFound(id, "Book");
+}
+
+void Library::addBorrow(Borrow* borrow) {
+    Reader* reader = borrow->getReader();
+    Book* book = borrow->getBook();
+
+    if (reader->getBorrows().size() >= 3) {
+        cout << "Reader cannot borrow more than 3 books\n";
+        // TODO exception
+    }
+    else {
+        if (book->getCopiesAvailable() < 1) {
+            cout << "No availbles copies for this book\n";
+            // TODO exception
+        }
+        else {
+            book->decCopies();
+            reader->getBorrows().push_back(borrow);
+            reader->setDate(borrow->getDate());
+            borrows.push_back(borrow);
+            cout << "Borrow completed\n";
+        }   
+    }
 }
 
 Borrow* Library::removeBorrow(int id) {
@@ -393,6 +453,7 @@ bool Library::removeEmployee(int id) {
         if ((*it)->getId() == id) {
             employees.erase(it);
             allocateEmployees();
+            cout << "Employees reallocated\n";
             return true;
         }
     }
@@ -538,4 +599,47 @@ void Library::saveBorrows() {
          (*it)->writeBorrow(myfile);
     }
     myfile.close();
+}
+
+Reader* Library::getReader(int id) const {
+    vector<Reader*>::const_iterator it;
+
+    for (it = readers.begin(); it != readers.end(); it++) {
+        if ((*it)->getId() == id) {
+            return (*it);
+        }
+    }
+    throw ObjectNotFound(id, "Reader");
+}
+
+Employee* Library::getEmployee(int id) const {
+    vector<Employee*>::const_iterator it;
+
+    for (it = employees.begin(); it != employees.end(); it++) {
+        if ((*it)->getId() == id) {
+            return (*it);
+        }
+    }
+    throw ObjectNotFound(id, "Employee");
+}
+
+Book* Library::getBook(int id) const {
+    vector<Book*>::const_iterator it;
+
+    for (it = books.begin(); it != books.end(); it++) {
+        if ((*it)->getId() == id) {
+            return (*it);
+        }
+    }
+    throw ObjectNotFound(id, "Book");
+}
+
+void Library::addBook(Book* book) {
+    this->books.push_back(book);
+    cout << "Added book " << book->getTitle() << " to library\n";
+}
+
+void Library::addEmployee(Employee* employee) {
+    this->employees.push_back(employee);
+    cout << "Added employee " << employee->getName() << endl;
 }
