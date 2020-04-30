@@ -1,14 +1,15 @@
-#pragma once
+#ifndef _BOOK_H_
+#define _BOOK_H_
 
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-#include "Exception.h"
+#include <algorithm>    // std::min
 
-#include "Exception.h"
+
 
 using namespace std;
 
@@ -29,6 +30,7 @@ class Book {
         int pages;
         int copies;
         int copies_available;
+        int year;
 
     public:
 
@@ -40,11 +42,11 @@ class Book {
          * @param authors 
          * @param pages 
          */
-        Book(string title, string isbn, vector<string> authors, int pages, int copies = 0);
+        Book(string title, string isbn, vector<string> authors, int pages, int year, int copies = 0);
 
-        Book(int id, string title, string isbn, vector<string> authors, int pages, int copies = 0);
+        Book(int id, string title, string isbn, vector<string> authors, int pages, int year, int copies = 0);
 
-        Book(string title, string isbn, string authors, int pages, int copies = 0);
+        Book(string title, string isbn, string authors, int pages, int year, int copies = 0);
 
         int getId() const;
 
@@ -56,6 +58,8 @@ class Book {
 
         vector<string> getAuthors() const;
 
+        int getYear() const;
+
         void setTitle(string& title);
 
         void setAuthors(string& authors);
@@ -63,6 +67,8 @@ class Book {
         void setPages(int pages);
 
         void setTotalCopies(int copies);
+
+        void setYear(int year);
 
         void incCopies();
 
@@ -80,5 +86,9 @@ class Book {
          * @param file 
          */
         void writeBook(ofstream& file) const;
+
+        bool operator <(const Book& book) const;
     
 };
+
+#endif

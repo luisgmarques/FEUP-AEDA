@@ -1,20 +1,21 @@
-#pragma once
+#ifndef _REQUEST_H_
+#define _REQUEST_H_
 
-#include "Book.h"
-#include "Reader.h"
-#include "Employee.h"
+#include <iostream>
+#include <string>
+#include <cmath>
 
 using namespace std;
 
 class Book;
-class Reader;
 class Employee;
-
+class Reader;
 
 class Request {
     private:
 
         static int totalRequests;
+        static int lastId;
 
         int id;
         Book* book;
@@ -23,7 +24,7 @@ class Request {
         time_t date;
 
     public:
-
+        Request(int id, Book* book, Employee* employee, Reader* reader, time_t date);
         Request(Book* book, Employee* employee, Reader* reader, time_t date);
 
         Book* getBook() const;
@@ -37,3 +38,5 @@ class Request {
         bool operator <(const Request rq) const;
 
 };
+
+#endif

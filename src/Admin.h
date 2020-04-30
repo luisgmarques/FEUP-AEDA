@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ADMIN_H_
+#define _ADMIN_H_
 
 #include <iostream>
 #include <string>
@@ -17,3 +18,5 @@ class Admin : public Employee {
 
         string getPassword() const;
 };
+
+#endif

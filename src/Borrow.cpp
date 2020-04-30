@@ -1,4 +1,8 @@
 #include "Borrow.h"
+#include "Book.h"
+#include "Employee.h"
+#include "Reader.h"
+#include "Util.h"
 
 int Borrow::totalBorrows = 0;
 

@@ -1,4 +1,12 @@
 #include "Menu.h"
+#include "Library.h"
+#include "Util.h"
+#include "Employee.h"
+#include "Reader.h"
+#include "Book.h"
+#include "Borrow.h"
+#include "Util.h"
+#include "Exception.h"
 
 Menu::Menu(string libraryName) {
     library = new Library(libraryName);
@@ -15,6 +23,21 @@ int Menu::login() {
         }
         else {
             Employee* emp;
+            if (getInt(id) == 0) {
+                while(true) {
+                    cout << "Password: ";
+                    string pass;
+                    getline(cin, pass);
+                    if (pass == library->getAdmin()->getPassword()) {
+                        emp = library->getAdmin();
+                        break;
+                    }
+                    else {
+                        cout << "Password is incorrect\n";
+                    }
+                }
+                return 0;
+            }
             try {
                 emp = library->getEmployee(getInt(id));
             }
@@ -31,7 +54,7 @@ int Menu::login() {
                 cout << "Wrong password\n";
             }
             else {
-                employee = emp;
+                this->employee = emp;
                 return emp->getPos();
             }
         }
@@ -50,8 +73,8 @@ void Menu::mainMenu() {
         cout << "2 - Readers\n";
         cout << "3 - Book Borrows\n";
         if (usr == Adm) {
-            cout << "4 - Supervisors\n";
-            cout << "5 - Employees\n";
+            cout << "4 - Employees\n";
+            cout << "5 - Supervisors\n";
         }
         else if (usr == Sup) {
             cout << "4 - Employees\n";
@@ -92,50 +115,215 @@ void Menu::mainMenu() {
                     clearScreen();
                     bookMenu();
                     break;
+                case 2:
+                    clearScreen();
+                    readerMenu();
+                    break;
+                case 3:
+                    clearScreen();
+                    borrowMenu();
+                    break;
+                case 4:
+                    clearScreen();
+                    employeeMenu();
+                    break;
                 case 0:
-                    cout << "Thank you for your visit\n";
-                    cout << "Goodbye\n";
+                    exit = true;
+            }
+        }
+    }
+}
+
+void Menu::borrowMenu() {
+    bool exit = false;
+
+    while(!exit) {
+        cout << "\n== Borrow Menu ==\n\n";
+        cout << "1 - Borrow a book\n";
+        cout << "2 - View a borrow book\n";
+        cout << "3 - View all borrows\n";
+        cout << "4 - View delayed borrows\n";
+        cout << "5 - Return book\n";
+        cout << "0 - Exit\n";
+        cout << "Option: ";
+        
+        string option;
+        getline(cin, option);
+
+        if (!isNumber(option)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            Borrow* borrow = NULL;
+            vector<Borrow*> delayedBorrows;
+            switch(getInt(option)) {
+                case 0:
                     exit = true;
                     break;
+                case 1:
+                    addBorrow();
+                    break;
+                case 2:
+                    borrow = getBorrow();
+                    borrow->printBorrow();
+                    break;
+                case 3:
+                    library->printBorrows();
+                    break;
+                case 4:
+                    delayedBorrows = library->getDelayedBorrows();
+                    if (delayedBorrows.size() <= 0) {
+                        cout << "No delayed borrows\n";
+                    }
+                    else {
+                        for (size_t i = 0; i < delayedBorrows.size(); i++) {
+                            delayedBorrows[i]->printBorrow();
+                        }
+                    }
+                    break;
+                case 5:
+                    borrow = getBorrow();
+                    removeBorrow(borrow->getId());
+                    break;
+                default:
+                    cout << "Option not availble\n";
+                    cout << "Please enter a option between [1-5] or 0 to exit\n";
+            }
+        }
+    }
+}
+
+void Menu::removeBorrow(int id)  {
+    Borrow* returnBorrow;
+    returnBorrow = library->removeBorrow(id);
+    if (returnBorrow == NULL) {
+        cout << "The reader didn't pay the penalty\n";
+    }
+    else {
+        cout << "Book returned, details of the borrow below:\n";
+        returnBorrow->printBorrow();
+    }
+}
+
+Borrow* Menu::getBorrow() {
+    while(true) {
+        cout << "Borrow id: ";
+        string id;
+        getline(cin, id);
+        if (!isNumber(id)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            try {
+                return library->getBorrow(getInt(id));
+            }   
+            catch (ObjectNotFound &e) {
+                cout << e;
+            }
+        }
+    }
+}
+
+void Menu::readerMenu() {
+    bool exit = false;
+
+    while(!exit) {
+        cout << "\n== Reader Menu ==\n\n";
+        cout << "1 - View a reader info\n";
+        cout << "2 - View all readers info\n";
+        cout << "3 - View inactive readers info\n";
+        cout << "4 - Add a reader\n";
+        cout << "5 - Edit reader info\n";
+        cout << "6 - Remove reader\n";
+        cout << "Option: ";
+        string option;
+        getline(cin, option);
+
+        if (!isNumber(option)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            Reader* reader;
+            switch (getInt(option)) {
+                case 0:
+                    clearScreen();
+                    exit = true;
+                    break;
+                case 1:
+                    reader = getReader();
+                    reader->printReader();
+                    break;
+                case 2:
+                    library->printReaders();
+                    break;
+                case 3:
+                    // TODO view inactive readers
+                    break;
+                case 4:
+                    addReader();
+                    break;
+                case 5:
+                    reader = getReader();
+                    menuEditReader(reader);
+                    break;
+                case 6:
+                    removeReader();
+                    break;
+                default:
+                    cout << "Sorry, option not available\n";
             }
         }
     }
 }
 
 void Menu::bookMenu() {
-    cout << "== Books Menu == \n\n";
     bool exit = false;
 
     while(!exit) {
-        cout << "1 - View book\n";
-        cout << "2 - View books available\n";
+        cout << "\n== Books Menu == \n\n";
+        cout << "1 - View a book\n";
+        cout << "2 - View available books\n";
         cout << "3 - View all books\n";
         cout << "4 - Add book\n";
         cout << "5 - Edit book\n";
-        cout << "6 - Remove book\n";
-        cout <<"\n0 - Exit\n";
-        cout << '\n' << "Option: ";
+        cout << "6 - Edit number of copies\n";
+        cout << "7 - Delete a book\n";
+        cout << "0 - Exit\n";
+        cout << "Option: ";
         string option;
         getline(cin, option);
 
         if (!isNumber(option)) {
-            cout << "Please insert a valid option [1-5] 0 to exit\n";
+            cout << "Please insert a valid option [1-7] or 0 to exit\n";
             continue;
         }
         else {
+            Book* book = NULL;
             switch (getInt(option)) {
                 case 1:
+                    book = getBook();
+                    book->printBook();
+                    break;
+                case 2:
+                    availableBooksMenu();
+                    break;
+                case 3:
+                    library->printAllBooks();
+                    break;
+                case 4:
                     addBook();
-                // case 2:
-                //     editBook();
-                // case 3:
-                //     viewBook();
-                // case 4:
-                //     viewBooksAvailble();
-                // case 5:
-                //     viewAllBooks();
+                    break;
+                case 5:
+                    book = getBook();
+                    menuEditBook(book);
+                    break;
                 case 6:
+                    book = getBook();
+                    editBookCopies(book);
+                    break;
+                case 7:
                     removeBook();
+                    break;
                 case 0:
                     clearScreen();
                     exit = true;
@@ -147,9 +335,147 @@ void Menu::bookMenu() {
     }
 }
 
+void Menu::availableBooksMenu() {
+    while(true) {
+        cout << "\n== Available Books Menu ==\n";
+        cout << "1 - Show books per year\n";
+        cout << "2 - show books per title\n";
+        cout << "3 - Show books per authors\n";
+        cout << "4 - Show books by default order\n";
+        cout << "0 - Exit\n";
+        cout << "Option: ";
+        string option;
+        getline(cin, option);
+        Library::orderByAuthors = false;
+        Library::orderByYear = false;
+        Library::orderByTitle = false;
+
+        if (!isNumber(option)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            switch(getInt(option)) {
+                case 0:
+                    return;
+                case 1:
+                    Library::orderByYear = true;
+                    library->addAvailableBooks();
+                    library->printAvailableBooks();
+                    break;
+                case 2:
+                    Library::orderByTitle = true;
+                    library->addAvailableBooks();
+                    library->printAvailableBooks();
+                    break;
+                case 3:
+                    Library::orderByAuthors = true;
+                    library->addAvailableBooks();
+                    library->printAvailableBooks();
+                    break;
+                case 4:
+                    library->addAvailableBooks();
+                    library->printAvailableBooks();
+                    break;
+                default:
+                    cout << "Option not available\n";
+                    cout << "Please enter an option between [1-4] or 0 to exit\n";
+            }
+        }
+        
+    }
+}
+
+Reader* Menu::getReader() {
+    while(true) {
+        cout << "Reader id: ";
+        string id;
+        getline(cin, id);
+        if (!isNumber(id)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            try {
+                return library->getReader(getInt(id));
+            }   
+            catch (ObjectNotFound &e) {
+                cout << e;
+            }
+        }
+    }
+}
+
+Book* Menu::getBook() {
+    while(true) {
+        cout << "Book id: ";
+        string id;
+        getline(cin, id);
+        if (!isNumber(id)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            try {
+                return library->getBook(getInt(id));
+            }   
+            catch (ObjectNotFound &e) {
+                cout << e;
+            }
+        }
+    }
+}
+
+void Menu::editBookCopies(Book* book) {
+    while(true) {
+        cout << "How many copies should the book have: ";
+        string newCopies;
+        getline(cin, newCopies);
+
+        if (!isNumber(newCopies)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            if (book->getCopies() == book->getCopiesAvailable()) {
+                book->setTotalCopies(getInt(newCopies));
+                cout << "Book " << book->getTitle() << " has now " << newCopies << endl;
+                return;
+            }
+            else if (book->getCopies() > book->getCopiesAvailable()) {
+                if (getInt(newCopies) < (book->getCopies() - book->getCopiesAvailable())) {
+                    cout << "The number of total copies cannot be lower than " << book->getCopies() - book->getCopiesAvailable() << endl;
+                }
+                else {
+                    book->setTotalCopies(getInt(newCopies));
+                    cout << "The book " << book->getTitle() << " has now " << newCopies << " copies." << endl;
+                    return;
+                }
+            }
+        }
+    }
+}
+
 void Menu::init() {
     library->loadFiles();
+
     mainMenu();
+
+    while(true) {
+        cout << "Do you want to save all the changes you may have made? ";
+        string answer;
+        getline(cin, answer);
+
+        if (answer == "y" || answer == "Y") {
+            library->saveFiles();
+            cout << "Your files are saved\n";
+            cout << "Thank you for your visit\n";
+            return;
+        }
+        else if (answer == "n" || answer == "N") {
+            cout << "Thank you for your visit\n";
+            return;
+        }
+        else {
+            cout << "Answer invalid, type y/Y or n/N\n";
+        }
+    }
 }
 
 void Menu::showAllReaders() const {
@@ -226,16 +552,18 @@ void Menu::removeReader() {
         }
         else {
             if (getInt(id) == 0) {
-                break;
+                return;
             }
             try {
                 if (library->removeReader(getInt(id))) {
                     cout << "Reader w/ id " << id << " removed\n";
-                    break;
+                    return;
                 }
-                break;
             }
             catch (ObjectNotFound &e) {
+                cout << e;
+            }
+            catch (BorrowsToDelivered &e) {
                 cout << e;
             }
         }
@@ -244,7 +572,7 @@ void Menu::removeReader() {
 
 void Menu::addBook() {
     while(true) {
-        string pages, copies;
+        string pages, copies, year;
         cout << "Add Book\n";
 
         cout << "Title: ";
@@ -270,7 +598,7 @@ void Menu::addBook() {
             }
             else {
 
-                cout << "Authros: (separate each author w/ ',')";
+                cout << "Authors: (separate each author w/ ',') ";
                 string authors;
                 getline(cin, authors);
                 
@@ -302,7 +630,21 @@ void Menu::addBook() {
                     }
                 }
 
-                Book* book = new Book(title, isbn, authors, getInt(pages), getInt(copies));
+                while(true) {
+                    
+                    cout << "Book year: ";
+
+                    getline(cin, year);
+
+                    if (!isNumber(year)) {
+                        cout << "Please enter a valid number\n";
+                    }
+                    else {
+                        break;
+                    }
+                }
+
+                Book* book = new Book(title, isbn, authors, getInt(pages), getInt(year), getInt(copies));
                 library->addBook(book);
                 break;
             }
@@ -337,7 +679,7 @@ void Menu::removeBook() {
 
 void Menu::menuEditReader(Reader* reader) {
     while(true) {
-        cout << "Edit Reader\n\n";
+        cout << "\nEdit Reader\n\n";
         cout << "1 - Email\n";
         cout << "2 - Phone Number\n";
         cout << "3 - Address\n";
@@ -351,34 +693,32 @@ void Menu::menuEditReader(Reader* reader) {
             cout << "Please enter a valid option [1-4] or 0 to exit\n";
         }
         else {
-            if (getInt(option) == 0) {
-                break;
-            }
-            else {
-                string newEmail = "";
-                string newAddress = "";
-                string newName = "";
-                int newNumber;
-                switch (getInt(option)) {
-                    case 1:
-                        newEmail = editReaderEmail();
-                        reader->setEmail(newEmail);
-                        break;
-                    case 2:
-                        newNumber = editReaderPhone();
-                        reader->setPhone(newNumber);
-                        break;
-                    case 3:
-                        newAddress = editReaderAddress();
-                        reader->setAddress(newAddress);
-                        break;
-                    case 4:
-                        newName = editReaderName();
-                        reader->setName(newName);
-                    default:
-                        cout << "Option not available\n";
-                        cout << "Please enter a valid option [1-4] or 0 to exit\n";
-                }
+            string newEmail = "";
+            string newAddress = "";
+            string newName = "";
+            int newNumber;
+            switch (getInt(option)) {
+                case 0:
+                    return;
+                case 1:
+                    newEmail = editReaderEmail();
+                    reader->setEmail(newEmail);
+                    break;
+                case 2:
+                    newNumber = editReaderPhone();
+                    reader->setPhone(newNumber);
+                    break;
+                case 3:
+                    newAddress = editReaderAddress();
+                    reader->setAddress(newAddress);
+                    break;
+                case 4:
+                    newName = editReaderName();
+                    reader->setName(newName);
+                    break;
+                default:
+                    cout << "Option not available\n";
+                    cout << "Please enter a valid option [1-4] or 0 to exit\n";
             }
         }
     }
@@ -421,6 +761,7 @@ int Menu::editReaderPhone() {
     return getInt(number);
 }
 
+
 void Menu::menuEditBook(Book* book) {
     bool exit = false;
     while(!exit) {
@@ -429,6 +770,7 @@ void Menu::menuEditBook(Book* book) {
         cout << "2 - Authors\n";
         cout << "3 - Pages\n";
         cout << "4 - Total Copies\n";
+        cout << "5 - Year\n";
         cout << "0 - Go back\n";
         
         cout << "\nOption: ";
@@ -443,6 +785,7 @@ void Menu::menuEditBook(Book* book) {
             string newAuthors = "";
             int newCopies;
             int newPages;
+            int newYear;
             switch (getInt(option)) {
                 case 0:
                     exit = true;
@@ -463,6 +806,9 @@ void Menu::menuEditBook(Book* book) {
                     newCopies = editBookCopies();
                     book->setTotalCopies(newCopies);
                     break;
+                case 5:
+                    newYear = editBookYear();
+                    book->setYear(newYear);
                 default:
                     cout << "Option not available\n";
                     cout << "Please enter a valid option [1-4] or 0 to exit\n";
@@ -517,6 +863,145 @@ int Menu::editBookCopies() {
     return getInt(newCopies);
 }
 
+int Menu::editBookYear() {
+    string newYear = "";
+    while(true) {
+        cout << "New year: ";
+        getline(cin, newYear);
+        if (!isNumber(newYear)) {
+            cout << "Please enter a valid number\n";
+            newYear = "";
+        }
+        else {
+            break;
+        }
+    }
+    return getInt(newYear);
+}
+
+void Menu::employeeMenu() {
+    bool exit = false;
+    while(!exit) {
+        cout << "\n== Employees Menu ==\n\n";
+        cout << "1 - View a employee\n";
+        cout << "2 - View all employees\n";
+        cout << "3 - Add employee\n";
+        cout << "4 - Edit employee info\n";
+        cout << "5 - Remove employee\n";
+        cout << "0 - Exit\n";
+        cout << "Option: ";
+        string option;
+        getline(cin, option);
+
+        if (!isNumber(option)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            Employee* employee;
+            switch(getInt(option)) {
+                case 0:
+                    exit = true;
+                    break;
+                case 1:
+                    employee = getEmployee();
+                    employee->printEmployee();
+                    break;
+                case 2:
+                    library->printEmployees();
+                    break;
+                case 3:
+                    addEmployee();
+                    break;
+                case 4: 
+                    employee = getEmployee();
+                    menuEditEmployee(employee);
+                    break;
+                case 5:
+                    removeEmployee();
+                    break;
+                default:
+                    cout << "Option not available\n";
+                    cout << "Please enter an option between [1-5] or 0 to exit\n";
+            }
+        }
+    }
+}
+
+void Menu::menuEditEmployee(Employee* employee) {
+    while(true) {
+        cout << "1 - Edit name\n";
+        cout << "2 - Edit password\n";
+        cout << "0 - Exit\n";
+        cout << "Option: ";
+        string option;
+        getline(cin, option);
+
+        if (!isNumber(option)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            string newName;
+            string newPassword;
+            switch (getInt(option)) {
+                case 0:
+                    return;
+                case 1:
+                    newName = editEmployeeName();
+                    employee->setName(newName);
+                    break;
+                case 2:
+                    newPassword = editEmployeePassword();
+                    employee->setPassword(newPassword);
+                    break;
+                default:
+                    cout << "Option not available\n";
+                    cout << "Please enter a option between [1-2] or 0 to exit\n";
+            }
+        }
+    }
+}
+
+Employee* Menu::getEmployee() {
+    while(true) {
+        cout << "Employee id: ";
+        string id;
+        getline(cin, id);
+
+        if (!isNumber(id)) {
+            cout << "Please enter a valid number\n";
+        }
+        else {
+            try {
+                return library->getEmployee(getInt(id));
+            }   
+            catch (ObjectNotFound &e) {
+                cout << e;
+            }
+        }
+    }
+}
+
+string Menu::editEmployeeName() {
+    while(true) {
+        cout << "New name: ";
+        string newName;
+        getline(cin, newName);
+        if (isNumber(newName)) {
+            cout << "Please enter a valid name\n";
+        }
+        else {
+            return newName;
+        }
+    }
+}
+
+string Menu::editEmployeePassword() {
+    cout << "New password: ";
+    string newPass;
+    getline(cin, newPass);
+    return newPass;
+}
+
 void Menu::addEmployee() {
     while(true) {
         string name, pos, pass;
@@ -567,7 +1052,6 @@ void Menu::addEmployee() {
 void Menu::removeEmployee() {
     while(true) {
         cout << "Remove Employee\n";
-
         cout << "ID: ";
         string id;
         getline(cin, id);
@@ -576,10 +1060,13 @@ void Menu::removeEmployee() {
             cout << "Please enter a valid number\n";
         }
         else {
+            if (getInt(id) == 0) {
+                return;
+            }
             try {
                 if (library->removeEmployee(getInt(id))) {
                     cout << "Employee w/ id " << id << " removed\n";
-                    break;
+                    return;
                 }
             }
             catch(ObjectNotFound &e) {

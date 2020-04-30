@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _EXCEPTION_H_
+#define _EXCEPTION_H_
 
 #include <iostream>
 #include <string>
@@ -99,3 +100,5 @@ class BorrowsToDelivered {
 
 		friend ostream& operator <<(ostream& os, const BorrowsToDelivered& obj);
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _UTIL_H_
+#define _UTIL_H_
 
 #include <iostream>
 #include <conio.h>
@@ -20,3 +21,5 @@ struct tm* getTMStruct(string date);
 string getDateString(time_t date);
 
 int getInt(string input);
+
+#endif

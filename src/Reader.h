@@ -1,9 +1,10 @@
-#pragma once
+#ifndef _READER_H_
+#define _READER_H_
 
-#include <string>
 #include <iostream>
+#include <string>
 #include <vector>
-#include "Borrow.h"
+#include <fstream>
 
 using namespace std;
 
@@ -36,6 +37,7 @@ class Reader {
          * @param phoneNumber 
          * @param email 
          */
+        
         Reader(const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books);
 
         Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, time_t date, vector<Borrow*> books);
@@ -64,8 +66,6 @@ class Reader {
          * @return string 
          */
         string getEmail() const;
-
-        string getPassword() const;
 
         /**
          * @brief Get the Book Loans object
@@ -109,3 +109,5 @@ class Reader {
         void writeReader(ofstream& file) const;
     
 };
+
+#endif

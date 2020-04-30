@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _EMPLOYEE_H_
+#define _EMPLOYEE_H_
 
 #include <iostream>
 #include <string>
@@ -6,7 +7,6 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-#include "Exception.h"
 using namespace std;
 
 enum Position {Adm, Sup, Emp};
@@ -18,7 +18,7 @@ class Employee {
         static int lastId;
 
         int id;
-        const string name;
+        string name;
         Position pos;
         string password;
 
@@ -52,6 +52,10 @@ class Employee {
 
         virtual string getPassword() const;
 
+        void setName(const string& newName);
+
+        void setPassword(const string& newPass);
+
             /**
          * @brief Set the Employees for all supervisors
          * 
@@ -71,3 +75,5 @@ class Employee {
         virtual void writeEmployee(ofstream& file) const;
 
 };
+
+#endif

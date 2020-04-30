@@ -1,9 +1,12 @@
-#pragma once
+#ifndef _SUPERVISOR_H_
+#define _SUPERVISOR_H_
 
 #include <vector>
 #include <string>
+
 #include "Employee.h"
-#include "Util.h"
+
+class Employee;
 
 using namespace std;
 
@@ -54,3 +57,5 @@ class Supervisor : public Employee {
 
         string getPassword() const;
 };
+
+#endif

@@ -1,6 +1,11 @@
 #include "Request.h"
 
+#include "Book.h"
+#include "Reader.h"
+#include "Employee.h"
+
 int Request::totalRequests = 0;
+int Request::lastId = 0;
 
 Request::Request(Book* book, Employee* employee, Reader* reader, time_t date) {
     this->book = book;
@@ -8,7 +13,18 @@ Request::Request(Book* book, Employee* employee, Reader* reader, time_t date) {
     this->reader = reader;
     date = date;
     totalRequests++;
-    id = totalRequests;
+    id = ++lastId;
+}
+
+Request::Request(int id, Book* book, Employee* employee, Reader* reader, time_t date) {
+    this->book = book;
+    this->employee = employee;
+    this->reader = reader;
+    this->date = date;
+    this->id = id;
+    totalRequests++;
+    if (id > lastId)
+        lastId = id;
 }
 
 Book* Request::getBook() const {

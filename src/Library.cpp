@@ -1,11 +1,23 @@
 #include "Library.h"
-#include "Util.h"
 
-Library::Library(string name) : name(name), availableBooks (Book(0, "", "", {}, 0, 0)) {
+#include "Admin.h"
+#include "Supervisor.h"
+#include "Book.h"
+#include "Borrow.h"
+#include "Reader.h"
+#include "Util.h"
+#include "BST.h"
+#include "Exception.h"
+
+bool Library::orderByAuthors = false;
+bool Library::orderByTitle = false;
+bool Library::orderByYear = false;
+
+Library::Library(string name) : name(name), availableBooks (Book(0, "", "", {}, 0, 0, 0)) {
     admin = NULL;
 }
 
-Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows) : name(name), availableBooks (Book(0, "", "", {}, 0, 0)) {
+Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows) : name(name), availableBooks (Book(0, "", "", {}, 0, 0, 0)) {
     this->books = books;
     this->employees = employees;
     this->readers = readers;
@@ -19,6 +31,10 @@ string Library::getName() const {
 
 vector<Book*> Library::getAllBooks() const {
     return books;
+}
+
+Employee* Library::getAdmin() const {
+    return admin;
 }
 
 vector<Employee*> Library::getAllEmployees() const {
@@ -39,7 +55,7 @@ vector<Borrow*> Library::getDelayedBorrows() const {
     vector<Borrow*>::const_iterator it;
 
     for (it = borrows.begin(); it != borrows.end(); it++) {
-        if ((*it)->getDays() > 0) {
+        if ((*it)->getDays() > 7) {
             delayedBorrows.push_back(*it);
         }
     }
@@ -94,13 +110,14 @@ void Library::loadBooks() {
     }
 
     while (!booksFile.eof()) {
-        string id, title, isbn, authors, pages, copies;
+        string id, title, isbn, authors, pages, copies, year;
         getline(booksFile, id, ';');
         getline(booksFile, title, ';');
         getline(booksFile, isbn, ';');
         getline(booksFile, authors, ';');
         getline(booksFile, pages, ';');
-        getline(booksFile, copies);
+        getline(booksFile, copies, ';');
+        getline(booksFile, year);
 
         if (id == "")
             continue;
@@ -112,7 +129,7 @@ void Library::loadBooks() {
             authorsList.push_back(author);
         }
 
-        Book* book = new Book(getInt(id), title, isbn, authorsList, getInt(pages), getInt(copies));
+        Book* book = new Book(getInt(id), title, isbn, authorsList, getInt(pages), getInt(year), getInt(copies));
 
         books.push_back(book);
     }
@@ -332,7 +349,7 @@ void Library::loadAdmin() {
 void Library::print() {
     printReaders();
     printBorrows();
-    printBooks();
+    printAllBooks();
     printEmployees();
 }
 
@@ -340,24 +357,42 @@ void Library::printReaders() const {
     for (size_t i = 0; i < readers.size(); i++) {
         readers[i]->printReader();
     }
+    cout << endl;
 }
 
-void Library::printBooks() const {
+void Library::printAllBooks() const {
     for (size_t i = 0; i < books.size(); i++) {
         books[i]->printBook();
     }
+    cout << endl;
+}
+
+void Library::printAvailableBooks() const {
+    BSTItrIn<Book> it(availableBooks);
+    if (availableBooks.isEmpty()) {
+        cout << "There are no books available\n";
+    }
+    else {
+        while(!it.isAtEnd()) {
+            it.retrieve().printBook();
+            it.advance();
+        }
+    }
+    cout << endl;
 }
 
 void Library::printEmployees() const {
     for (size_t i = 0; i < employees.size(); i++) {
         employees[i]->printEmployee();
     }
+    cout << endl;
 }
 
 void Library::printBorrows() const {
     for (size_t i = 0; i < borrows.size(); i++) {
         borrows[i]->printBorrow();
     }
+    cout << endl;
 }
 
 bool Library::removeBook(int id) {
@@ -423,7 +458,6 @@ Borrow* Library::removeBorrow(int id) {
                     }
                 } while (answer2 == 'N' || answer2 == 'n');
             }
-            // TODO
             (*it)->getBook()->incCopies();
             (*it)->getReader()->removeBorrow(id);
             return (*it);
@@ -509,17 +543,9 @@ void Library::saveFiles() {
     saveBorrows();
     saveBooks();
     saveEmployees();
+    saveSupervisors();
     saveReaders();
 }
-
-// template <class T>
-// void Library::save(T obj, string filename) {
-//     vector<T>::const_iterator it;
-
-//     for (it = obj.begin(); it != obj.end(); it++) {
-//         (*it)->write(filename);
-//     }
-// }
 
 void Library::saveBooks() {
     
@@ -563,11 +589,30 @@ void Library::saveEmployees() {
         throw FileUnkown("employees.txt");
     }
 
+    vector<Employee*> onlyEmployees = getEmployees();
+
     vector<Employee*>::const_iterator it;
 
-    for (it = employees.begin(); it != employees.end(); it++) {
+    for (it = onlyEmployees.begin(); it != onlyEmployees.end(); it++) {
         (*it)->writeEmployee(myfile);
-        
+    }
+    
+    myfile.close();
+}
+
+void Library::saveSupervisors() {
+    ofstream myfile("../files/supervisors.txt", ios::trunc);
+    
+    if (!myfile.is_open()) {
+        throw FileUnkown("employees.txt");
+    }
+
+    vector<Employee*> onlySupervisors = getSupervisors();
+
+    vector<Employee*>::const_iterator it;
+
+    for (it = onlySupervisors.begin(); it != onlySupervisors.end(); it++) {
+        (*it)->writeEmployee(myfile);
     }
     
     myfile.close();
@@ -597,6 +642,17 @@ Reader* Library::getReader(int id) const {
         }
     }
     throw ObjectNotFound(id, "Reader");
+}
+
+Borrow* Library::getBorrow(int id) const {
+    vector<Borrow*>::const_iterator it;
+
+    for (it = borrows.begin(); it != borrows.end(); it++) {
+        if ((*it)->getId() == id) {
+            return (*it);
+        }
+    }
+    throw ObjectNotFound(id, "Borrow");
 }
 
 Employee* Library::getEmployee(int id) const {
@@ -634,44 +690,44 @@ void Library::addEmployee(Employee* employee) {
 
 // ======================= // ============================
 
-void Library::addInactiveReaders() {
-    for (vector<Reader*>::const_iterator it = readers.begin(); it != readers.end(); it++) {
-        double days {trunc(difftime(time(0), (*it)->getLastBorrow())/86400)};
-        if (days > 365) {
-            inactiveReaders.insert(**it);
-        }
-    }
-}
+// void Library::addInactiveReaders() {
+//     for (vector<Reader*>::const_iterator it = readers.begin(); it != readers.end(); it++) {
+//         double days {trunc(difftime(time(0), (*it)->getLastBorrow())/86400)};
+//         if (days > 365) {
+//             inactiveReaders.insert(**it);
+//         }
+//     }
+// }
 
-void Library::addInactiveReader(const Reader& reader) {
-    inactiveReaders.insert(reader);
-}
+// void Library::addInactiveReader(const Reader& reader) {
+//     inactiveReaders.insert(reader);
+// }
 
-bool Library::removeInactiveReader(const Reader& reader) {
-    unordered_set<Reader, hrdr, eqrdr>::const_iterator it = inactiveReaders.find(reader);
-    if (it != inactiveReaders.end()) {
-        inactiveReaders.erase(it);
-        return true;
-    }
-    return false;
-}
+// bool Library::removeInactiveReader(const Reader& reader) {
+//     tabReader::const_iterator it = inactiveReaders.find(reader);
+//     if (it != inactiveReaders.end()) {
+//         inactiveReaders.erase(it);
+//         return true;
+//     }
+//     return false;
+// }
 
 void Library::addAvailableBooks() {
     availableBooks.makeEmpty();
-    
-    vector<Book*>::const_iterator it;
 
-    for (it = books.begin(); it != books.end(); it++) {
+    vector<Book*>::const_iterator it;
+    vector<Book*> allBooks = getAllBooks();
+    for (it = allBooks.begin(); it != allBooks.end(); it++) {
         if ((*it)->getCopiesAvailable() > 0) {
             availableBooks.insert(**it);
         }
     }
 }
 
-void Library::addAvailableBook(const Book& book) {
+void Library::addAvailableBook(Book book) {
     availableBooks.insert(book);
 }
 
-void Library::removeAvailableBook(const Book& book) {
+void Library::removeAvailableBook(Book book) {
     availableBooks.remove(book);
 }

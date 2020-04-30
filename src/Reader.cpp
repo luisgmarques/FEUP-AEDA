@@ -1,5 +1,8 @@
 #include "Reader.h"
 
+#include "Borrow.h"
+#include "Util.h"
+
 int Reader::totalReaders = 0;
 int Reader::lastId = 0;
 

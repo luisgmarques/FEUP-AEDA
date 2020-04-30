@@ -1,5 +1,7 @@
 #include "Employee.h"
 
+#include "Exception.h"
+
 int Employee::totalEmployees = 0;
 int Employee::lastId = 0;
 
@@ -37,6 +39,14 @@ string Employee::getPassword() const {
     return password;
 }
 
+void Employee::setName(const string& newName) {
+    name = newName;
+}
+
+void Employee::setPassword(const string& newPass) {
+    password = newPass;
+}
+
 void Employee::printEmployee() const {
     cout << setw(15) << "ID: " << id << endl;
     cout << setw(15) << "Name: " << name << endl;
@@ -54,7 +64,14 @@ void Employee::writeEmployee(ofstream& file) const {
 
     ostringstream ss;
 
-    ss << id << ';' << name << ';' << password << ';' << pos << endl;
+    ss << id << ';' << name << ';' << password;
+
+    if (pos == Emp) {
+        ss << endl;
+    }
+    else if (pos == Sup) {
+        ss << ';';
+    }
 
     file << ss.str();
 }

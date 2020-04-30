@@ -1,5 +1,7 @@
 #include "Supervisor.h"
 
+#include "Util.h"
+#include "Exception.h"
 Supervisor::Supervisor(const string& name, string pass, vector<Employee*> employees, Position pos) : Employee(name, pass, pos) {
     this->employees = employees;
 }
@@ -58,7 +60,7 @@ void Supervisor::writeEmployee(ofstream& file) const {
 
     for (size_t i = 0; i < employeesId.size(); i++) {
         if ((i + 1) == employeesId.size()) {
-            ss << employeesId[i];
+            ss << employeesId[i] << endl;
         }
         else {
             ss << employeesId[i] << ',';

@@ -1,49 +1,40 @@
-#pragma once
+#ifndef _LIBRARY_H_
+#define _LIBRARY_H_
 
+#include <iostream>
 #include <vector>
 #include <string> 
-#include <iostream>
-#include <queue>
 #include <unordered_set>
-#include "Book.h"
-#include "Employee.h"
-#include "Reader.h"
-#include "Borrow.h"
-#include "Request.h"
-#include "Admin.h"
-#include "Supervisor.h"
-#include "BST.h"
-#include "Util.h"
+#include <queue>
 
-class Menu;
-class Reader;
-class Book;
-class Employee;
+#include "BST.h"
+#include "Book.h"
+
 class Borrow;
-class Util;
+class Reader;
+class Employee;
+class Request;
+class Book;
+class Admin;
 
 using namespace std;
-
 
 /**
  * @brief 
  * 
  */
-struct eqrdr {
-    bool operator() (const Reader &reader1, const Reader &reader2) const {
-        return reader1.getId() == reader2.getId(); 
-    }
-};
+// struct hashReader {
+//     int operator() (const Reader &reader) const {
+//         return reader.getId();
+//     }
+    
+//     bool operator() (const Reader& reader1, const Reader& reader2) const {
+//         return (reader1.getId() == reader2.getId()); 
+//     }
 
-/**
- * @brief hash function
- * 
- */
-struct hrdr {
-    int operator() (const Reader &reader) const {
-        return reader.getId();
-    }
-};
+// };
+
+// typedef unordered_set<Reader, hashReader, hashReader> tabReader;
 
 /**
  * @brief 
@@ -52,18 +43,18 @@ struct hrdr {
 class Library {
     private:
     
-        Admin* admin;
+        Employee* admin;
 
         const string name;
-        
+
         vector<Book*> books;
         vector<Employee*> employees;
         vector<Reader*> readers;
         vector<Borrow*> borrows;
 
         BST<Book> availableBooks;
-        unordered_set<Reader, hrdr, eqrdr> inactiveReaders;
-        priority_queue<Request*> requests; 
+        priority_queue<Request*> requests;
+        //tabReader inactiveReaders;
 
     public:
 
@@ -72,6 +63,11 @@ class Library {
          * 
          * @param name 
          */
+        
+        bool static orderByYear;
+        bool static orderByTitle; 
+        bool static orderByAuthors;
+
         Library(string name);
 
         /**
@@ -89,18 +85,22 @@ class Library {
 
         void printReaders() const;
 
-        void printBooks() const;
+        void printAllBooks() const;
 
         void printEmployees() const;
 
         void printBorrows() const;
 
+        void printAvailableBooks() const;
+
         void addBorrow();
+
 
         // -- Get
 
         string getName() const;
 
+        Employee* getAdmin() const;
 
         vector<Book*> getAllBooks() const;
 
@@ -109,8 +109,11 @@ class Library {
 
         vector<Employee*> getAllEmployees() const;
 
+        
         vector<Employee*> getSupervisors() const;
 
+        Borrow* getBorrow(int id) const;
+        
         vector<Employee*> getEmployees() const;
 
         Employee* getEmployee(int id) const;
@@ -162,9 +165,9 @@ class Library {
 
         void addAvailableBooks();
 
-        void addAvailableBook(const Book& book);
+        void addAvailableBook(Book book);
 
-        void removeAvailableBook(const Book& book);
+        void removeAvailableBook(Book book);
 
         // -- Load
 
@@ -186,3 +189,5 @@ class Library {
         void saveBorrows();
 
 };
+
+#endif 

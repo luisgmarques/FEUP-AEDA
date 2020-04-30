@@ -1,17 +1,15 @@
-#pragma once
+#ifndef _BORROW_H_
+#define _BORROW_H_
 
 #include <math.h>
 #include <ctime>
 #include <iomanip>
-#include "Book.h"
-#include "Employee.h"
-#include "Reader.h"
-#include "Util.h"
 
 using namespace std;
 
 class Reader;
-
+class Employee;
+class Book;
 
 class Borrow {
     private:
@@ -92,3 +90,5 @@ class Borrow {
         void writeBorrow(ofstream& file) const;
 
 };
+
+#endif
