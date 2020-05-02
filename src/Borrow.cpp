@@ -12,7 +12,6 @@ Borrow::Borrow(Book* book, Reader* reader, Employee* employee, time_t date) {
     this->reader = reader;
     this->employee = employee;
     this->date = date;
-    isActive = true;
 }
 
 Borrow::Borrow(int id, Book* book, Reader* reader, Employee* employee, time_t date) {
@@ -22,7 +21,6 @@ Borrow::Borrow(int id, Book* book, Reader* reader, Employee* employee, time_t da
     this->reader = reader;
     this->employee = employee;
     this->date = date;
-    isActive = true;
 
     if (id > lastId) {
         lastId = id;

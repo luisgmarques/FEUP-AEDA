@@ -11,7 +11,7 @@ class Employee;
 using namespace std;
 
 /**
- * @brief 
+ * @brief Supervisor Class
  * 
  */
 class Supervisor : public Employee {
@@ -25,9 +25,21 @@ class Supervisor : public Employee {
          * @brief Construct a new Supervisor object
          * 
          * @param name 
-         * @param emplyees 
+         * @param pass 
+         * @param employees 
+         * @param pos 
          */
         Supervisor(const string& name, string pass, vector<Employee*> employees, Position pos = Sup);
+        
+        /**
+         * @brief Construct a new Supervisor object
+         * 
+         * @param id 
+         * @param name 
+         * @param pass 
+         * @param employees 
+         * @param pos 
+         */
         Supervisor(int id, const string& name, string pass, vector<Employee*> employees, Position pos = Sup);
 
         /**
@@ -37,6 +49,13 @@ class Supervisor : public Employee {
          */
         vector<Employee*> getEmployees() const;
 
+        /**
+         * @brief Get the Password 
+         * 
+         * @return string 
+         */
+        string getPassword() const;
+        
         /**
          * @brief Set the Employees object
          * 
@@ -51,11 +70,18 @@ class Supervisor : public Employee {
          */
         void addEmployee(Employee* employee);
 
+        /**
+         * @brief Print to Console Supervisor Info
+         * 
+         */
         void printEmployee() const;
 
+        /**
+         * @brief Write to a File Supervisor Info
+         * 
+         * @param file 
+         */
         void writeEmployee(ofstream& file) const;
-
-        string getPassword() const;
 };
 
 #endif

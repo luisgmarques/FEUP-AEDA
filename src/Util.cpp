@@ -67,3 +67,11 @@ int getInt(string input) {
 
     return num;    
 }
+
+void pressAnyKey() {
+    #if defined(__APPLE__) || defined(__unix__)
+		system("read");
+	#else 
+    	system("pause");
+	#endif
+}

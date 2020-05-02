@@ -12,6 +12,10 @@ class Borrow;
 
 using namespace std;
 
+/**
+ * @brief Menu Class
+ * 
+ */
 class Menu {
     private:
 
@@ -20,6 +24,12 @@ class Menu {
         Employee* employee;
 
     public:
+
+        /**
+         * @brief Construct a new Menu 
+         * 
+         * @param libraryName 
+         */
         Menu(string libraryName);
 
         void init();
@@ -69,7 +79,6 @@ class Menu {
         string editReaderName();
 
         void editBookCopies(Book* book);
-
 
         int editReaderPhone();
 

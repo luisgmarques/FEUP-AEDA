@@ -4,6 +4,7 @@
 #include "Util.h"
 
 int Book::totalDifferentBooks = 0;
+
 int Book::lastId = 0;
 
 Book::Book(string title, string isbn, vector<string> authors, int pages, int year, int copies) :

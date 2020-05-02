@@ -7,10 +7,15 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+
 using namespace std;
 
 enum Position {Adm, Sup, Emp};
 
+/**
+ * @brief Employee Class
+ * 
+ */
 class Employee {
     private:
 
@@ -43,24 +48,53 @@ class Employee {
          */
         Employee(int id, const string& name, string pass, Position pos = Emp);
 
-
+        /**
+         * @brief Get the Id 
+         * 
+         * @return int 
+         */
         int getId() const;
 
+        /**
+         * @brief Get the Name 
+         * 
+         * @return string 
+         */
         string getName() const;
 
+        /**
+         * @brief Get the Position 
+         * 
+         * @return Position 
+         */
         Position getPos() const;
 
+        /**
+         * @brief Get the Password 
+         * 
+         * @return string 
+         */
         virtual string getPassword() const;
 
+        /**
+         * @brief Set the Employee Name 
+         * 
+         * @param newName 
+         */
         void setName(const string& newName);
 
+        /**
+         * @brief Set the Employee Password 
+         * 
+         * @param newPass 
+         */
         void setPassword(const string& newPass);
 
-            /**
-         * @brief Set the Employees for all supervisors
-         * 
-         * @param employees 
-         */
+         /**
+          * @brief Set the Supervisors' Employees 
+          * 
+          * @param employees 
+          */
         virtual void setEmployees(vector<Employee*> employees) {}
 
         /**
@@ -70,10 +104,18 @@ class Employee {
          */
         virtual void addEmployee(Employee* employee) {}
 
+        /**
+         * @brief Print Employee Info
+         * 
+         */
         virtual void printEmployee() const;
 
+        /**
+         * @brief Write Employee Info to a File
+         * 
+         * @param file 
+         */
         virtual void writeEmployee(ofstream& file) const;
-
 };
 
 #endif

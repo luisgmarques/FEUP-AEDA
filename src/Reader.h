@@ -12,7 +12,10 @@ class Borrow;
 
 enum readerType {Deficient, Child, Adult};
 
-
+/**
+ * @brief Reader Class
+ * 
+ */
 class Reader {
     private:
 
@@ -36,14 +39,38 @@ class Reader {
          * @param name 
          * @param phoneNumber 
          * @param email 
+         * @param address 
+         * @param type 
+         * @param books 
          */
-        
         Reader(const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books);
 
+        /**
+         * @brief Construct a new Reader object
+         * 
+         * @param id 
+         * @param name 
+         * @param phoneNumber 
+         * @param email 
+         * @param address 
+         * @param type 
+         * @param date 
+         * @param books 
+         */
         Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, time_t date, vector<Borrow*> books);
 
+        /**
+         * @brief Get the Id object
+         * 
+         * @return int 
+         */
         int getId() const;
 
+        /**
+         * @brief Get the Type object
+         * 
+         * @return readerType 
+         */
         readerType getType() const;
         
         /**
@@ -81,17 +108,54 @@ class Reader {
          */
         vector<Borrow*> getDelayedBorrows() const;
 
+        /**
+         * @brief Get the Last Borrow object
+         * 
+         * @return time_t 
+         */
         time_t getLastBorrow() const;
 
+        /**
+         * @brief Set the Name object
+         * 
+         * @param name 
+         */
         void setName(string& name);
 
+        /**
+         * @brief Set the Email object
+         * 
+         * @param email 
+         */
         void setEmail(string& email);
 
+        /**
+         * @brief Set the Phone object
+         * 
+         * @param number 
+         */
         void setPhone(int number);
 
+        /**
+         * @brief Set the Address object
+         * 
+         * @param address 
+         */
         void setAddress(string& address);
 
+        /**
+         * @brief Set the Date object
+         * 
+         * @param date 
+         */
         void setDate(time_t date);
+
+        /**
+         * @brief Add Borrow to Reader
+         * 
+         * @param borrow 
+         */
+        void addBorrow(Borrow* borrow);
 
         /**
          * @brief 
@@ -102,12 +166,18 @@ class Reader {
          */
         bool removeBorrow(const int id);
 
-        void addBorrow(Borrow* borrow);
-
+        /**
+         * @brief Print Reader Info to Console
+         * 
+         */
         void printReader() const;
 
+        /**
+         * @brief Write to File Reader Info
+         * 
+         * @param file 
+         */
         void writeReader(ofstream& file) const;
-    
 };
 
 #endif

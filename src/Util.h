@@ -22,4 +22,6 @@ string getDateString(time_t date);
 
 int getInt(string input);
 
+void pressAnyKey();
+
 #endif

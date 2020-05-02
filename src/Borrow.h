@@ -1,7 +1,7 @@
 #ifndef _BORROW_H_
 #define _BORROW_H_
 
-#include <math.h>
+#include <cmath>
 #include <ctime>
 #include <iomanip>
 
@@ -11,29 +11,43 @@ class Reader;
 class Employee;
 class Book;
 
+/**
+ * @brief Book Borrow Class
+ * 
+ */
 class Borrow {
     private:
 
         static int totalBorrows;
+
         int id;
         int lastId = 0;
         Book* book;
         Reader* reader;
         Employee* employee;
         time_t date;
-        bool isActive;
 
     public:
 
         /**
-         * @brief Construct a new Book Loan object
+         * @brief Construct a new Borrow object
          * 
+         * @param id 
          * @param book 
          * @param reader 
          * @param employee 
          * @param date 
          */
         Borrow(int id, Book* book, Reader* reader, Employee* employee, time_t date);
+
+        /**
+         * @brief Construct a new Borrow object
+         * 
+         * @param book 
+         * @param reader 
+         * @param employee 
+         * @param date 
+         */
         Borrow(Book* book, Reader* reader, Employee* employee, time_t date);
 
         /**
@@ -85,10 +99,18 @@ class Borrow {
          */
         double getPenalty();
 
+        /**
+         * @brief Print Book Borrow Info
+         * 
+         */
         void printBorrow() const;
 
+        /**
+         * @brief Writes Borrow Book Info to a File
+         * 
+         * @param file 
+         */
         void writeBorrow(ofstream& file) const;
-
 };
 
 #endif

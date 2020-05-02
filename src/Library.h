@@ -9,6 +9,7 @@
 
 #include "BST.h"
 #include "Book.h"
+#include "Reader.h"
 
 class Borrow;
 class Reader;
@@ -23,18 +24,18 @@ using namespace std;
  * @brief 
  * 
  */
-// struct hashReader {
-//     int operator() (const Reader &reader) const {
-//         return reader.getId();
-//     }
+struct hashReader {
+    int operator() (const Reader &reader) const {
+        return reader.getId();
+    }
     
-//     bool operator() (const Reader& reader1, const Reader& reader2) const {
-//         return (reader1.getId() == reader2.getId()); 
-//     }
+    bool operator() (const Reader& reader1, const Reader& reader2) const {
+        return (reader1.getId() == reader2.getId()); 
+    }
 
-// };
+};
 
-// typedef unordered_set<Reader, hashReader, hashReader> tabReader;
+typedef unordered_set<Reader, hashReader, hashReader> tabReader;
 
 /**
  * @brief 
@@ -54,7 +55,7 @@ class Library {
 
         BST<Book> availableBooks;
         priority_queue<Request*> requests;
-        //tabReader inactiveReaders;
+        tabReader inactiveReaders;
 
     public:
 

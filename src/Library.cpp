@@ -687,30 +687,27 @@ void Library::addEmployee(Employee* employee) {
     cout << "Added employee " << employee->getName() << endl;
 }
 
+void Library::addInactiveReaders() {
+    for (vector<Reader*>::const_iterator it = readers.begin(); it != readers.end(); it++) {
+        double days {trunc(difftime(time(0), (*it)->getLastBorrow())/86400)};
+        if (days > 365) {
+            inactiveReaders.insert(**it);
+        }
+    }
+}
 
-// ======================= // ============================
+void Library::addInactiveReader(const Reader& reader) {
+    inactiveReaders.insert(reader);
+}
 
-// void Library::addInactiveReaders() {
-//     for (vector<Reader*>::const_iterator it = readers.begin(); it != readers.end(); it++) {
-//         double days {trunc(difftime(time(0), (*it)->getLastBorrow())/86400)};
-//         if (days > 365) {
-//             inactiveReaders.insert(**it);
-//         }
-//     }
-// }
-
-// void Library::addInactiveReader(const Reader& reader) {
-//     inactiveReaders.insert(reader);
-// }
-
-// bool Library::removeInactiveReader(const Reader& reader) {
-//     tabReader::const_iterator it = inactiveReaders.find(reader);
-//     if (it != inactiveReaders.end()) {
-//         inactiveReaders.erase(it);
-//         return true;
-//     }
-//     return false;
-// }
+bool Library::removeInactiveReader(const Reader& reader) {
+    tabReader::const_iterator it = inactiveReaders.find(reader);
+    if (it != inactiveReaders.end()) {
+        inactiveReaders.erase(it);
+        return true;
+    }
+    return false;
+}
 
 void Library::addAvailableBooks() {
     availableBooks.makeEmpty();
