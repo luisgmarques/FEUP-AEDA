@@ -18,8 +18,8 @@ class Reader;
 class Request {
     private:
 
-        static int totalRequests;
-        static int lastId;
+        static int total_requests;
+        static int last_id;
 
         int id;
         Book* book;
@@ -49,6 +49,8 @@ class Request {
          * @param date 
          */
         Request(Book* book, Employee* employee, Reader* reader, time_t date);
+
+        int getId() const;
 
         /**
          * @brief Get the Book object

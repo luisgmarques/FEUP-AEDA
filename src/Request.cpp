@@ -4,16 +4,16 @@
 #include "Reader.h"
 #include "Employee.h"
 
-int Request::totalRequests = 0;
-int Request::lastId = 0;
+int Request::total_requests = 0;
+int Request::last_id = 0;
 
 Request::Request(Book* book, Employee* employee, Reader* reader, time_t date) {
     this->book = book;
     this->employee = employee;
     this->reader = reader;
     date = date;
-    totalRequests++;
-    id = ++lastId;
+    total_requests++;
+    id = ++last_id;
 }
 
 Request::Request(int id, Book* book, Employee* employee, Reader* reader, time_t date) {
@@ -22,9 +22,13 @@ Request::Request(int id, Book* book, Employee* employee, Reader* reader, time_t 
     this->reader = reader;
     this->date = date;
     this->id = id;
-    totalRequests++;
-    if (id > lastId)
-        lastId = id;
+    total_requests++;
+    if (id > last_id)
+        last_id = id;
+}
+
+int Request::getId() const {
+    return id;
 }
 
 Book* Request::getBook() const {

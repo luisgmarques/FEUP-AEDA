@@ -19,10 +19,10 @@ class Admin : public Employee {
         /**
          * @brief Construct a new Admin object
          * 
-         * @param id 
-         * @param pass 
-         * @param name 
-         * @param pos 
+         * @param id user id
+         * @param pass user password
+         * @param name user username/name
+         * @param pos {adm}
          */
         Admin(int id, string pass, const string& name, Position pos = Adm);
 

@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['getauthors_18',['getAuthors',['../class_book.html#a6474834030195b721d498199649ce320',1,'Book']]],
+  ['getbook_19',['getBook',['../class_borrow.html#acdca611315c18ddad7c6cd0bf92f6366',1,'Borrow::getBook()'],['../class_request.html#a3cea17ff2cd4eb6dda718b9fec0fd969',1,'Request::getBook()']]],
+  ['getborrows_20',['getBorrows',['../class_reader.html#a0dcfab8503b36182b261f3aebecd2d0a',1,'Reader']]],
+  ['getcopies_21',['getCopies',['../class_book.html#a4d0bd573fbd74bcbb0c1433a827fa596',1,'Book']]],
+  ['getcopiesavailable_22',['getCopiesAvailable',['../class_book.html#a2947ee8fe6ceab8644e17d2549a4fb4f',1,'Book']]],
+  ['getdate_23',['getDate',['../class_borrow.html#a87756f72bcc088d93db5d2467295cf5f',1,'Borrow::getDate()'],['../class_request.html#a19b178c01a5b921fbb9e16a4b1bbcc5c',1,'Request::getDate()']]],
+  ['getdays_24',['getDays',['../class_borrow.html#adbfe57ab245cb7bac037da79a39aba11',1,'Borrow']]],
+  ['getdelayedborrows_25',['getDelayedBorrows',['../class_reader.html#afab05e983b8f3383f9b1f7078c0e0eaf',1,'Reader']]],
+  ['getemail_26',['getEmail',['../class_reader.html#a6ad57004629bad8f4c2ed7e369c0fbe7',1,'Reader']]],
+  ['getemployee_27',['getEmployee',['../class_borrow.html#a1d66006e1c21acac04f83d1299f01b2d',1,'Borrow::getEmployee()'],['../class_request.html#af4be687199eadb23763fd8d67256df02',1,'Request::getEmployee()']]],
+  ['getemployees_28',['getEmployees',['../class_supervisor.html#ae6a7f755bf4622b83305d88adc281004',1,'Supervisor']]],
+  ['getfilename_29',['getFileName',['../class_file_unkown.html#a3ba18bc217567e1063b7e44ecd7446f6',1,'FileUnkown']]],
+  ['getid_30',['getId',['../class_book.html#a5bdfb21b05e8c83b8c29fda4e5d83411',1,'Book::getId()'],['../class_borrow.html#a53aba0708fe3f27c311c406281296e1e',1,'Borrow::getId()'],['../class_employee.html#a59e25c1c6eeaff55c13ac06ff1c581a2',1,'Employee::getId()'],['../class_object_not_found.html#add5eef9998a6ed30f5147f7d08121e63',1,'ObjectNotFound::getId()'],['../class_reader.html#a4e9b4cdad38440da47d51d36aec18413',1,'Reader::getId()']]],
+  ['getlastborrow_31',['getLastBorrow',['../class_reader.html#a1f58c6e232a5aa8876b929fbd5e11376',1,'Reader']]],
+  ['getname_32',['getName',['../class_employee.html#a8e7c3870f6b4b08a5c7ccccd32ca8f37',1,'Employee::getName()'],['../class_reader.html#aa1b859dec70fe9f5a0778176645bd726',1,'Reader::getName()']]],
+  ['getobjectname_33',['getObjectName',['../class_object_not_found.html#a776e52d3ac00abb4f2bad179293428da',1,'ObjectNotFound']]],
+  ['getpassword_34',['getPassword',['../class_admin.html#ac4589b3bf9d96f8657fed953ecb560ee',1,'Admin::getPassword()'],['../class_employee.html#ad5c775f3eed194f1700e98b3a0e3e5cf',1,'Employee::getPassword()'],['../class_supervisor.html#abbfa408e5a322c8a19996f546f91de2b',1,'Supervisor::getPassword()']]],
+  ['getpenalty_35',['getPenalty',['../class_borrow.html#a580ecd563d8779cb8271374d341127fa',1,'Borrow']]],
+  ['getphone_5fnumber_36',['getphone_number',['../class_reader.html#a3b681a68739f57915ebdc91e3770a3d2',1,'Reader']]],
+  ['getpos_37',['getPos',['../class_employee.html#a94da591781f42cefd66467a4506da950',1,'Employee']]],
+  ['getreader_38',['getReader',['../class_borrow.html#a5b42201c3d8dd2a2434f1137e326a8fb',1,'Borrow::getReader()'],['../class_request.html#a39faa621bf7477825c34f32e958e15fb',1,'Request::getReader()']]],
+  ['gettitle_39',['getTitle',['../class_book.html#a6ace4ac1026bcbb79f503274173246a5',1,'Book']]],
+  ['gettype_40',['getType',['../class_reader.html#a3a4ae61f0840ea5b0030de690ca6e117',1,'Reader']]],
+  ['getyear_41',['getYear',['../class_book.html#aab03e9542045e6995b9286f6d8405fde',1,'Book']]]
+];

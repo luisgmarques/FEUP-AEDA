@@ -3,32 +3,33 @@
 #include "Borrow.h"
 #include "Util.h"
 
-int Reader::totalReaders = 0;
-int Reader::lastId = 0;
+int Reader::total_readers = 0;
+int Reader::last_id = 0;
 
-Reader::Reader(const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books) : name(name) {
-    ++totalReaders;
+Reader::Reader(const string& name, int phone_number, const string& email, string address, int type, vector<Borrow*> books) : name(name) {
+    ++total_readers;
     this->name = name;
-    this->phoneNumber = phoneNumber;
+    this->phone_number = phone_number;
     this->books = books;
     this->email = email;
     this->address = address;
     this->type = readerType(type);
-    id = ++lastId;
+    last_borrow_date = 0;
+    id = ++last_id;
 }
 
-Reader::Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, time_t date, vector<Borrow*> books) : name(name) {
-     ++totalReaders;
+Reader::Reader(int id, const string& name, int phone_number, const string& email, string address, int type, time_t date, vector<Borrow*> books) : name(name) {
+     ++total_readers;
      this->name = name;
-    this->phoneNumber = phoneNumber;
+    this->phone_number = phone_number;
     this->books = books;
     this->email = email;
     this->address = address;
     this->type = readerType(type);
-    this->lastBorrowDate = date;
+    this->last_borrow_date = date;
     this->id = id;
-    if (id > lastId) { 
-        lastId = id;
+    if (id > last_id) { 
+        last_id = id;
     }
 }
 
@@ -44,8 +45,8 @@ string Reader::getName() const {
     return name;
 }
 
-int Reader::getPhoneNumber() const {
-    return phoneNumber;
+int Reader::getphone_number() const {
+    return phone_number;
 }
 
 string Reader::getEmail() const {
@@ -58,21 +59,21 @@ vector<Borrow*> Reader::getBorrows() const {
 
 vector<Borrow*> Reader::getDelayedBorrows() const {
 
-    vector<Borrow*> dealyedBorrows;
+    vector<Borrow*> dealyed_borrows;
 
     vector<Borrow*>::const_iterator it;
 
     for (it = books.begin(); it != books.end(); it++) {
         if ((*it)->getDays() > 7) {
-            dealyedBorrows.push_back(*it);
+            dealyed_borrows.push_back(*it);
         }
     }
 
-    return dealyedBorrows;
+    return dealyed_borrows;
 }
 
 time_t Reader::getLastBorrow() const {
-    return lastBorrowDate;
+    return last_borrow_date;
 }
 
 bool Reader::removeBorrow(const int id) {
@@ -96,7 +97,7 @@ void Reader::setEmail(string& email) {
 }
 
 void Reader::setPhone(int number) {
-    this->phoneNumber = number;
+    this->phone_number = number;
 }
 
 void Reader::setAddress(string& address) {
@@ -104,7 +105,7 @@ void Reader::setAddress(string& address) {
 }
 
 void Reader::setDate(time_t date) {
-    this->lastBorrowDate = date;
+    this->last_borrow_date = date;
 }
 
 void Reader::printReader() const {
@@ -116,12 +117,12 @@ void Reader::printReader() const {
     else if (type == Adult)
         sType = "Adult";
     cout << setw(15) << "Name: " << name << " (" << sType << ") " << endl;
-    cout << setw(15) << "Phone Number: " << phoneNumber << endl;
+    cout << setw(15) << "Phone Number: " << phone_number << endl;
     cout << setw(15) << "Email: " << email << endl;
     cout << setw(15) << "Address: " << address << endl;
     cout << setw(15) << "Last Borrow: ";
-    if (lastBorrowDate != 0)
-        cout << getDateString(lastBorrowDate) << endl;
+    if (last_borrow_date != 0)
+        cout << getDateString(last_borrow_date) << endl;
     else
         cout << "N/A" << endl;
     cout << '\n';
@@ -131,7 +132,7 @@ void Reader::writeReader(ofstream& file) const {
     
     stringstream ss;
 
-    ss << id << ';' << name  << ';' << phoneNumber << ';' << email << ';' << address << ';' << type << ';';
+    ss << id << ';' << name  << ';' << phone_number << ';' << email << ';' << address << ';' << type << ';';
 
     for (size_t i = 0; i < books.size(); i++) {
         if (i + 1 == books.size()) {
@@ -143,8 +144,8 @@ void Reader::writeReader(ofstream& file) const {
     }
 
     ss << ';';
-    if (lastBorrowDate != 0)
-        ss << getDateString(lastBorrowDate);
+    if (last_borrow_date != 0)
+        ss << getDateString(last_borrow_date);
 
     ss << '\n';
 

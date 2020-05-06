@@ -13,11 +13,11 @@ bool Library::orderByAuthors = false;
 bool Library::orderByTitle = false;
 bool Library::orderByYear = false;
 
-Library::Library(string name) : name(name), availableBooks (Book(0, "", "", {}, 0, 0, 0)) {
+Library::Library(string name) : name(name), available_books (Book(0, "", "", {}, 0, 0, 0)) {
     admin = NULL;
 }
 
-Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows) : name(name), availableBooks (Book(0, "", "", {}, 0, 0, 0)) {
+Library::Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows) : name(name), available_books (Book(0, "", "", {}, 0, 0, 0)) {
     this->books = books;
     this->employees = employees;
     this->readers = readers;
@@ -50,16 +50,16 @@ vector<Borrow*> Library::getBorrows() const {
 }
 
 vector<Borrow*> Library::getDelayedBorrows() const {
-    vector<Borrow*> delayedBorrows;
+    vector<Borrow*> delayed_borrows;
 
     vector<Borrow*>::const_iterator it;
 
     for (it = borrows.begin(); it != borrows.end(); it++) {
         if ((*it)->getDays() > 7) {
-            delayedBorrows.push_back(*it);
+            delayed_borrows.push_back(*it);
         }
     }
-    return delayedBorrows;
+    return delayed_borrows;
 }
 
 void Library::loadFiles() {
@@ -102,22 +102,22 @@ void Library::loadFiles() {
 }
 
 void Library::loadBooks() {
-    ifstream booksFile("../files/books.txt");
+    ifstream books_file("../files/books.txt");
 
-    if (!booksFile.is_open()) {
-        booksFile.close();
+    if (!books_file.is_open()) {
+        books_file.close();
         throw FileUnkown("books.txt");
     }
 
-    while (!booksFile.eof()) {
+    while (!books_file.eof()) {
         string id, title, isbn, authors, pages, copies, year;
-        getline(booksFile, id, ';');
-        getline(booksFile, title, ';');
-        getline(booksFile, isbn, ';');
-        getline(booksFile, authors, ';');
-        getline(booksFile, pages, ';');
-        getline(booksFile, copies, ';');
-        getline(booksFile, year);
+        getline(books_file, id, ';');
+        getline(books_file, title, ';');
+        getline(books_file, isbn, ';');
+        getline(books_file, authors, ';');
+        getline(books_file, pages, ';');
+        getline(books_file, copies, ';');
+        getline(books_file, year);
 
         if (id == "")
             continue;
@@ -134,22 +134,22 @@ void Library::loadBooks() {
         books.push_back(book);
     }
 
-    booksFile.close();
+    books_file.close();
 }
 
 void Library::loadEmployees() {
-    ifstream employeesFile("../files/employees.txt");
+    ifstream employees_file("../files/employees.txt");
 
-    if (!employeesFile.is_open()) {
-        employeesFile.close();
+    if (!employees_file.is_open()) {
+        employees_file.close();
         throw FileUnkown("employees.txt");
     }
 
-    while (!employeesFile.eof()) {
+    while (!employees_file.eof()) {
         string id, name, pass, pos;
-        getline(employeesFile, id, ';');
-        getline(employeesFile, name, ';');
-        getline(employeesFile, pass);
+        getline(employees_file, id, ';');
+        getline(employees_file, name, ';');
+        getline(employees_file, pass);
 
         if (id == "")
             continue;
@@ -159,23 +159,23 @@ void Library::loadEmployees() {
         employees.push_back(employee);
     }
 
-    employeesFile.close();
+    employees_file.close();
 }
 
 void Library::loadSupervisors() {
-    ifstream supervisorFile("../files/supervisors.txt");
+    ifstream supervisors_file("../files/supervisors.txt");
 
-    if (!supervisorFile.is_open()) {
-        supervisorFile.close();
+    if (!supervisors_file.is_open()) {
+        supervisors_file.close();
         throw FileUnkown("supervisors.txt");
     }
 
-    while (!supervisorFile.eof()) {
+    while (!supervisors_file.eof()) {
         string id, name, pass, employeesId;
-        getline(supervisorFile, id, ';');
-        getline(supervisorFile, name, ';');
-        getline(supervisorFile, pass, ';');
-        getline(supervisorFile, employeesId);
+        getline(supervisors_file, id, ';');
+        getline(supervisors_file, name, ';');
+        getline(supervisors_file, pass, ';');
+        getline(supervisors_file, employeesId);
 
         if (id == "")
             continue;
@@ -206,27 +206,27 @@ void Library::loadSupervisors() {
 
         this->employees.push_back(supervisor); 
     }
-    supervisorFile.close();
+    supervisors_file.close();
 }
 
 void Library::loadReaders() {
-    ifstream readersFile("../files/readers.txt");
+    ifstream readers_file("../files/readers.txt");
 
-    if (!readersFile.is_open()) {
-        readersFile.close();
+    if (!readers_file.is_open()) {
+        readers_file.close();
         throw FileUnkown("readers.txt");
     }
 
-    while (!readersFile.eof()) {
+    while (!readers_file.eof()) {
         string id, name, pass, number, email, address, type, date, borrows;
-        getline(readersFile, id, ';');
-        getline(readersFile, name, ';');
-        getline(readersFile, number, ';');
-        getline(readersFile, email, ';');
-        getline(readersFile, address, ';');
-        getline(readersFile, type, ';');
-        getline(readersFile, borrows, ';');
-        getline(readersFile, date);
+        getline(readers_file, id, ';');
+        getline(readers_file, name, ';');
+        getline(readers_file, number, ';');
+        getline(readers_file, email, ';');
+        getline(readers_file, address, ';');
+        getline(readers_file, type, ';');
+        getline(readers_file, borrows, ';');
+        getline(readers_file, date);
 
         time_t dateTime = 0;
         if (date != "") {
@@ -266,24 +266,24 @@ void Library::loadReaders() {
         readers.push_back(reader);
     }
 
-    readersFile.close();
+    readers_file.close();
 }
 
 void Library::loadBorrows() {
-    ifstream borrowsFile("../files/borrows.txt");
+    ifstream borrows_file("../files/borrows.txt");
 
-    if (!borrowsFile.is_open()) {
-        borrowsFile.close();
+    if (!borrows_file.is_open()) {
+        borrows_file.close();
         throw FileUnkown("borrows.txt");
     }
 
-    while (!borrowsFile.eof()) {
+    while (!borrows_file.eof()) {
         string id, bookId, readerId, employeeId, date;
-        getline(borrowsFile, id, ';');
-        getline(borrowsFile, bookId, ';');
-        getline(borrowsFile, readerId, ';');
-        getline(borrowsFile, employeeId, ';');
-        getline(borrowsFile, date);
+        getline(borrows_file, id, ';');
+        getline(borrows_file, bookId, ';');
+        getline(borrows_file, readerId, ';');
+        getline(borrows_file, employeeId, ';');
+        getline(borrows_file, date);
 
         if (id == "")
             continue;
@@ -324,25 +324,25 @@ void Library::loadBorrows() {
         borrows.push_back(borrow);
     }
 
-    borrowsFile.close();
+    borrows_file.close();
 }
 
 void Library::loadAdmin() {
-    ifstream adminFile("../files/admin.txt");
+    ifstream admin_file("../files/admin.txt");
 
-    if (!adminFile.is_open()) {
-        adminFile.close();
+    if (!admin_file.is_open()) {
+        admin_file.close();
         throw FileUnkown("admin.txt");
     }
     string id, name, pass;
 
-    getline(adminFile, id, ';');
-    getline(adminFile, name, ';');
-    getline(adminFile, pass);
+    getline(admin_file, id, ';');
+    getline(admin_file, name, ';');
+    getline(admin_file, pass);
 
     admin = new Admin(getInt(id), name, pass);
 
-    adminFile.close();
+    admin_file.close();
 }
 
 
@@ -350,7 +350,7 @@ void Library::print() {
     printReaders();
     printBorrows();
     printAllBooks();
-    printEmployees();
+    printAllEmployees();
 }
 
 void Library::printReaders() const {
@@ -358,6 +358,14 @@ void Library::printReaders() const {
         readers[i]->printReader();
     }
     cout << endl;
+}
+
+void Library::printInactiveReaders() const {
+    tabReader::const_iterator it;
+
+    for (it = inactive_readers.begin(); it != inactive_readers.end(); it++) {
+        it->printReader();
+    }
 }
 
 void Library::printAllBooks() const {
@@ -368,8 +376,8 @@ void Library::printAllBooks() const {
 }
 
 void Library::printAvailableBooks() const {
-    BSTItrIn<Book> it(availableBooks);
-    if (availableBooks.isEmpty()) {
+    BSTItrIn<Book> it(available_books);
+    if (available_books.isEmpty()) {
         cout << "There are no books available\n";
     }
     else {
@@ -381,7 +389,7 @@ void Library::printAvailableBooks() const {
     cout << endl;
 }
 
-void Library::printEmployees() const {
+void Library::printAllEmployees() const {
     for (size_t i = 0; i < employees.size(); i++) {
         employees[i]->printEmployee();
     }
@@ -607,11 +615,11 @@ void Library::saveSupervisors() {
         throw FileUnkown("employees.txt");
     }
 
-    vector<Employee*> onlySupervisors = getSupervisors();
+    vector<Employee*> only_supervisors = getSupervisors();
 
     vector<Employee*>::const_iterator it;
 
-    for (it = onlySupervisors.begin(); it != onlySupervisors.end(); it++) {
+    for (it = only_supervisors.begin(); it != only_supervisors.end(); it++) {
         (*it)->writeEmployee(myfile);
     }
     
@@ -691,40 +699,82 @@ void Library::addInactiveReaders() {
     for (vector<Reader*>::const_iterator it = readers.begin(); it != readers.end(); it++) {
         double days {trunc(difftime(time(0), (*it)->getLastBorrow())/86400)};
         if (days > 365) {
-            inactiveReaders.insert(**it);
+            inactive_readers.insert(**it);
         }
     }
 }
 
 void Library::addInactiveReader(const Reader& reader) {
-    inactiveReaders.insert(reader);
+    inactive_readers.insert(reader);
+}
+
+void Library::addRequest(Request* request) {
+    Book* book = request->getBook();
+
+    book->addRequest(*request);
+}
+
+void Library::removeRequest(Book* book, const int request_id) {
+    priority_queue<Request> book_requets = book->getRequests();
+
+    while(!book_requets.empty()) {
+        Request request = book_requets.top();
+
+        if (request.getId() == request_id) {
+            book->removeRequest();
+            cout << "Request removed\n";
+            return;
+        } 
+        book_requets.pop();
+    }
+    throw ObjectNotFound(request_id, "Request");
+}
+
+void Library::giveupRequest(Book* book, const int request_id) {
+    priority_queue<Request> book_requests = book->getRequests();
+    priority_queue<Request> new_book_requests;
+
+    bool request_found = false;
+
+    while(!book_requests.empty()) {
+        if (book_requests.top().getId() != request_id) {
+            new_book_requests.push(book_requests.top());
+            request_found = true;
+        }
+        book_requests.pop();
+    }
+    if (request_found) {
+        book->setRequests(new_book_requests);
+        return;
+    }
+    throw ObjectNotFound(request_id, "Request");
 }
 
 bool Library::removeInactiveReader(const Reader& reader) {
-    tabReader::const_iterator it = inactiveReaders.find(reader);
-    if (it != inactiveReaders.end()) {
-        inactiveReaders.erase(it);
+    tabReader::const_iterator it = inactive_readers.find(reader);
+    if (it != inactive_readers.end()) {
+        inactive_readers.erase(it);
         return true;
     }
     return false;
 }
 
 void Library::addAvailableBooks() {
-    availableBooks.makeEmpty();
+    available_books.makeEmpty();
 
     vector<Book*>::const_iterator it;
-    vector<Book*> allBooks = getAllBooks();
-    for (it = allBooks.begin(); it != allBooks.end(); it++) {
+    vector<Book*> all_books = getAllBooks();
+    for (it = all_books.begin(); it != all_books.end(); it++) {
         if ((*it)->getCopiesAvailable() > 0) {
-            availableBooks.insert(**it);
+            available_books.insert(**it);
         }
     }
 }
 
 void Library::addAvailableBook(Book book) {
-    availableBooks.insert(book);
+    available_books.insert(book);
 }
 
 void Library::removeAvailableBook(Book book) {
-    availableBooks.remove(book);
+    available_books.remove(book);
 }

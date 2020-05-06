@@ -3,37 +3,37 @@
 #include "Exception.h"
 #include "Util.h"
 
-int Book::totalDifferentBooks = 0;
+int Book::total_different_books = 0;
 
-int Book::lastId = 0;
+int Book::last_id = 0;
 
-Book::Book(string title, string isbn, vector<string> authors, int pages, int year, int copies) :
+Book::Book(string title, string isbn, vector<string> authors, int pages, int year, int total_copies) :
     title(title), isbn(isbn), authors(authors), pages(pages) {
         this->year = year;
-        this->copies = copies;
-        copies_available = copies;
-        id = ++totalDifferentBooks;
+        this->total_copies = total_copies;
+        available_copies = total_copies;
+        id = ++total_different_books;
 }
 
-Book::Book(int id, string title, string isbn, vector<string> authors, int pages, int year, int copies) :
+Book::Book(int id, string title, string isbn, vector<string> authors, int pages, int year, int total_copies) :
     title(title), isbn(isbn), authors(authors), pages(pages) {
-        totalDifferentBooks++;
-        this->copies = copies;
-        copies_available = copies;
+        total_different_books++;
+        this->total_copies = total_copies;
+        available_copies = total_copies;
         this->id = id;
         this->year = year;
-        if (id > lastId) {
-            lastId = id;
+        if (id > last_id) {
+            last_id = id;
         }
 }
 
-Book::Book(string title, string isbn, string authors, int pages, int year, int copies) :
+Book::Book(string title, string isbn, string authors, int pages, int year, int total_copies) :
     title(title), isbn(isbn), pages(pages) {
         setAuthors(authors);
-        this->copies = copies;
-        copies_available = copies;
+        this->total_copies = total_copies;
+        available_copies = total_copies;
         this->year = year;
-        id = ++totalDifferentBooks;
+        id = ++total_different_books;
 }
 
 int Book::getId() const {
@@ -41,11 +41,11 @@ int Book::getId() const {
 }
 
 int Book::getCopies() const {
-    return copies;
+    return total_copies;
 }
 
 int Book::getCopiesAvailable() const {
-    return copies_available;
+    return available_copies;
 }
 
 vector<string> Book::getAuthors() const {
@@ -58,6 +58,14 @@ string Book::getTitle() const {
 
 int Book::getYear() const {
     return year;
+}
+
+priority_queue<Request> Book::getRequests() const {
+    return requests;
+}
+
+void Book::setRequests(priority_queue<Request> requests) {
+    this->requests = requests;
 }
 
 void Book::setTitle(string& title) {
@@ -83,22 +91,30 @@ void Book::setYear(int year) {
 }
 
 void Book::setTotalCopies(int copies) {
-    if (copies < copies_available) {
+    if (copies < available_copies) {
         
-        copies_available = copies - (this->copies - copies_available);
+        available_copies = copies - (this->total_copies - available_copies);
     }
     else {
-        copies_available += copies - this->copies;
+        available_copies += copies - this->total_copies;
     }
-    this->copies = copies;
+    this->total_copies = copies;
+}
+
+void Book::addRequest(Request request) {
+    requests.push(request);
+}
+
+void Book::removeRequest() {
+    requests.pop();
 }
 
 void Book::incCopies() {
-    copies_available++;
+    available_copies++;
 }
 
 void Book::decCopies() {
-    copies_available--;
+    available_copies--;
 }
 
 void Book::printBook() const{
@@ -115,8 +131,8 @@ void Book::printBook() const{
     }
     cout << setw(15) << "ISBN: " << isbn << endl;
     cout << setw(15) << "Pages: " << pages << endl;
-    cout << setw(15) << "Total Copies: " << copies << endl;
-    cout << setw(15) << "Avail. Copies: " << copies_available << endl;
+    cout << setw(15) << "Total Copies: " << total_copies << endl;
+    cout << setw(15) << "Avail. Copies: " << available_copies << endl;
     cout << setw(15) << "Year: " << year << endl;
     cout << '\n';
 }
@@ -136,7 +152,7 @@ void Book::writeBook(ofstream& file) const{
         }
     }
 
-    ss << pages << ';' << copies << getDateString(year) << endl;
+    ss << pages << ';' << total_copies << getDateString(year) << endl;
 
     file << ss.str();
 }

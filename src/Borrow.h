@@ -18,10 +18,10 @@ class Book;
 class Borrow {
     private:
 
-        static int totalBorrows;
+        static int total_borrows;
 
         int id;
-        int lastId = 0;
+        int last_id = 0;
         Book* book;
         Reader* reader;
         Employee* employee;

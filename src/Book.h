@@ -5,9 +5,12 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <queue>
 #include <sstream>
 #include <iomanip>
 #include <algorithm>    // std::min
+
+#include "Request.h"
 
 using namespace std;
 
@@ -18,17 +21,23 @@ using namespace std;
 class Book {
     private:
 
-        static int totalDifferentBooks;
-        static int lastId;
+        static int total_different_books; // keeps tracking of all books crated
 
-        int id;
-        string title;
-        string isbn;
-        vector<string> authors;
-        int pages;
-        int copies;
-        int copies_available;
+        static int last_id;              // last id used to identify the new book
+
+        int id; // book id
+
+        string title; // book title
+
+        string isbn; // book isbn
+
+        vector<string> authors; // book authors
+
+        int pages; // 
+        int total_copies;
+        int available_copies;
         int year;
+        priority_queue<Request> requests;
 
     public:
 
@@ -42,7 +51,7 @@ class Book {
          * @param year 
          * @param copies 
          */
-        Book(string title, string isbn, vector<string> authors, int pages, int year, int copies = 0);
+        Book(string title, string isbn, vector<string> authors, int pages, int year, int total_copies = 0);
 
         /**
          * @brief Construct a new Book object
@@ -55,7 +64,7 @@ class Book {
          * @param year 
          * @param copies 
          */
-        Book(int id, string title, string isbn, vector<string> authors, int pages, int year, int copies = 0);
+        Book(int id, string title, string isbn, vector<string> authors, int pages, int year, int total_copies = 0);
 
         /**
          * @brief Construct a new Book object
@@ -65,9 +74,9 @@ class Book {
          * @param authors 
          * @param pages 
          * @param year 
-         * @param copies 
+         * @param total_copies 
          */
-        Book(string title, string isbn, string authors, int pages, int year, int copies = 0);
+        Book(string title, string isbn, string authors, int pages, int year, int total_copies = 0);
 
         /**
          * @brief Get the Id 
@@ -111,6 +120,8 @@ class Book {
          */
         int getYear() const;
 
+        priority_queue<Request> getRequests() const;
+
         /**
          * @brief Set the Book Title 
          * 
@@ -146,14 +157,20 @@ class Book {
          */
         void setYear(int year);
 
+        void setRequests(priority_queue<Request> requests);
+
+        void addRequest(Request request);
+
+        void removeRequest();
+
         /**
-         * @brief Increments Copies by 1
+         * @brief Increments Available Copies by 1
          * 
          */
         void incCopies();
 
         /**
-         * @brief Decrements Copies by 1
+         * @brief Decrements Available Copies by 1
          * 
          */
         void decCopies();

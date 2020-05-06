@@ -19,17 +19,17 @@ enum readerType {Deficient, Child, Adult};
 class Reader {
     private:
 
-        static int totalReaders;
-        static int lastId;
+        static int total_readers;
+        static int last_id;
 
         int id;
         string name;
-        int phoneNumber;
+        int phone_number;
         readerType type;
         string email;
         string address;
         vector<Borrow*> books;
-        time_t lastBorrowDate = 0; 
+        time_t last_borrow_date; 
 
     public:
 
@@ -37,27 +37,27 @@ class Reader {
          * @brief Construct a new Reader object
          * 
          * @param name 
-         * @param phoneNumber 
+         * @param phone_number 
          * @param email 
          * @param address 
          * @param type 
          * @param books 
          */
-        Reader(const string& name, int phoneNumber, const string& email, string address, int type, vector<Borrow*> books);
+        Reader(const string& name, int phone_number, const string& email, string address, int type, vector<Borrow*> books);
 
         /**
          * @brief Construct a new Reader object
          * 
          * @param id 
          * @param name 
-         * @param phoneNumber 
+         * @param phone_number 
          * @param email 
          * @param address 
          * @param type 
          * @param date 
          * @param books 
          */
-        Reader(int id, const string& name, int phoneNumber, const string& email, string address, int type, time_t date, vector<Borrow*> books);
+        Reader(int id, const string& name, int phone_number, const string& email, string address, int type, time_t date, vector<Borrow*> books);
 
         /**
          * @brief Get the Id object
@@ -85,7 +85,7 @@ class Reader {
          * 
          * @return int 
          */
-        int getPhoneNumber() const;
+        int getphone_number() const;
 
         /**
          * @brief Get the Email object

@@ -2,24 +2,24 @@
 
 #include "Exception.h"
 
-int Employee::totalEmployees = 0;
-int Employee::lastId = 0;
+int Employee::total_employees = 0;
+int Employee::last_id = 0;
 
 Employee::Employee(const string& name, string pass, Position pos) : name(name) {
-    totalEmployees++;
-    id = ++lastId;
+    total_employees++;
+    id = ++last_id;
     this->pos = pos;
     password = pass;
 }
 
 Employee::Employee(int id, const string& name, string pass, Position pos) : name(name) {
-    totalEmployees++;
+    total_employees++;
     this->id = id;
     this->pos = pos;
     password = pass;
 
-    if (id > lastId) {
-        lastId = id;
+    if (id > last_id) {
+        last_id = id;
     }
 }
 
@@ -39,12 +39,12 @@ string Employee::getPassword() const {
     return password;
 }
 
-void Employee::setName(const string& newName) {
-    name = newName;
+void Employee::setName(const string& new_name) {
+    name = new_name;
 }
 
-void Employee::setPassword(const string& newPass) {
-    password = newPass;
+void Employee::setPassword(const string& new_pass) {
+    password = new_pass;
 }
 
 void Employee::printEmployee() const {

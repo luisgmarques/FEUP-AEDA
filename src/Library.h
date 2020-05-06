@@ -53,9 +53,8 @@ class Library {
         vector<Reader*> readers;
         vector<Borrow*> borrows;
 
-        BST<Book> availableBooks;
-        priority_queue<Request*> requests;
-        tabReader inactiveReaders;
+        BST<Book> available_books;
+        tabReader inactive_readers;
 
     public:
 
@@ -82,19 +81,11 @@ class Library {
          */
         Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows);
 
-        void print();
 
-        void printReaders() const;
+        
 
-        void printAllBooks() const;
 
-        void printEmployees() const;
 
-        void printBorrows() const;
-
-        void printAvailableBooks() const;
-
-        void addBorrow();
 
 
         // -- Get
@@ -105,12 +96,10 @@ class Library {
 
         vector<Book*> getAllBooks() const;
 
-        vector<Book*> getAvailableBooks() const;
-
+        vector<Book*> getavailable_books() const;
 
         vector<Employee*> getAllEmployees() const;
 
-        
         vector<Employee*> getSupervisors() const;
 
         Borrow* getBorrow(int id) const;
@@ -122,7 +111,6 @@ class Library {
         Reader* getReader(int id) const;
 
         Book* getBook(int id) const;
-
 
         vector<Reader*> getReaders() const;
 
@@ -143,6 +131,16 @@ class Library {
 
         void addRequest(Request* request);
 
+        void addAvailableBooks();
+
+        void addInactiveReaders();
+
+        void addInactiveReader(const Reader& reader);
+
+        void addAvailableBook(Book book);
+
+        void addRequest(Request request);
+
         // -- Remove
 
         bool removeBook(int id);
@@ -153,42 +151,64 @@ class Library {
 
         Borrow* removeBorrow(int id);
 
+        bool removeInactiveReader(const Reader& reader);
+
+        void removeAvailableBook(Book book);
+
+        void removeRequest(Book* book, const int request_id);
 
         // -- Distributes employees to the supervisors
 
         void allocateEmployees();
 
-        void addInactiveReaders();
+        void giveupRequest(Book* book, const int request_id);
 
-        void addInactiveReader(const Reader& reader);
 
-        bool removeInactiveReader(const Reader& reader);
+        // Prints to console
 
-        void addAvailableBooks();
+        void print();
 
-        void addAvailableBook(Book book);
+        void printReaders() const;
 
-        void removeAvailableBook(Book book);
+        void printAllBooks() const;
 
-        // -- Load
+        void printAllEmployees() const;
+
+        void printBorrows() const;
+
+        void printAvailableBooks() const;
+
+        void printInactiveReaders() const;
+
+        // -- Load from txt files
 
         void loadFiles();
+
         void loadBooks();
+
         void loadEmployees();
+
         void loadSupervisors();
+
         void loadReaders();
+
         void loadBorrows();
+
         void loadAdmin();
 
-        // -- Save
+        // -- Save to txt files
 
         void saveFiles();
-        void saveBooks();
-        void saveEmployees();
-        void saveSupervisors();
-        void saveReaders();
-        void saveBorrows();
 
+        void saveBooks();
+
+        void saveEmployees();
+
+        void saveSupervisors();
+
+        void saveReaders();
+
+        void saveBorrows();
 };
 
 #endif 

@@ -19,8 +19,8 @@ enum Position {Adm, Sup, Emp};
 class Employee {
     private:
 
-        static int totalEmployees;
-        static int lastId;
+        static int total_employees;
+        static int last_id;
 
         int id;
         string name;

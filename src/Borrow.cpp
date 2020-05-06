@@ -4,10 +4,10 @@
 #include "Reader.h"
 #include "Util.h"
 
-int Borrow::totalBorrows = 0;
+int Borrow::total_borrows = 0;
 
 Borrow::Borrow(Book* book, Reader* reader, Employee* employee, time_t date) {
-    id = ++totalBorrows;
+    id = ++total_borrows;
     this->book = book;
     this->reader = reader;
     this->employee = employee;
@@ -15,15 +15,15 @@ Borrow::Borrow(Book* book, Reader* reader, Employee* employee, time_t date) {
 }
 
 Borrow::Borrow(int id, Book* book, Reader* reader, Employee* employee, time_t date) {
-    totalBorrows++;
+    total_borrows++;
     this->id = id;
     this->book = book;
     this->reader = reader;
     this->employee = employee;
     this->date = date;
 
-    if (id > lastId) {
-        lastId = id;
+    if (id > last_id) {
+        last_id = id;
     }
 }
 
