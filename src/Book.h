@@ -120,6 +120,8 @@ class Book {
          */
         int getYear() const;
 
+        int getPages() const;
+
         priority_queue<Request> getRequests() const;
 
         /**

@@ -15,6 +15,8 @@ enum readerType {Deficient, Child, Adult};
 /**
  * @brief Reader Class
  * 
+ *  All reader info
+ * 
  */
 class Reader {
     private:
@@ -46,7 +48,7 @@ class Reader {
         Reader(const string& name, int phone_number, const string& email, string address, int type, vector<Borrow*> books);
 
         /**
-         * @brief Construct a new Reader object
+         * @brief Construct Reader object from file
          * 
          * @param id 
          * @param name 
@@ -60,107 +62,109 @@ class Reader {
         Reader(int id, const string& name, int phone_number, const string& email, string address, int type, time_t date, vector<Borrow*> books);
 
         /**
-         * @brief Get the Id object
+         * @brief Get the Reader id
          * 
          * @return int 
          */
         int getId() const;
 
         /**
-         * @brief Get the Type object
+         * @brief Get the Reader Type 
          * 
          * @return readerType 
          */
         readerType getType() const;
         
         /**
-         * @brief Get the Name object
+         * @brief Get the Name 
          * 
          * @return string 
          */
         string getName() const;
 
         /**
-         * @brief Get the Phone Number object
+         * @brief Get the Phone Number 
          * 
          * @return int 
          */
-        int getphone_number() const;
+        int getPhoneNumber() const;
 
         /**
-         * @brief Get the Email object
+         * @brief Get the Email 
          * 
          * @return string 
          */
         string getEmail() const;
 
         /**
-         * @brief Get the Book Loans object
+         * @brief Get the Book Borrows
          * 
          * @return vector<Borrow*> 
          */
         vector<Borrow*> getBorrows() const;
 
         /**
-         * @brief Get the Delayed Book Loans object
+         * @brief Get the Delayed Book Loans 
          * 
          * @return vector<Borrow*> 
          */
         vector<Borrow*> getDelayedBorrows() const;
 
         /**
-         * @brief Get the Last Borrow object
+         * @brief Get the Last Borrow Date
          * 
          * @return time_t 
          */
-        time_t getLastBorrow() const;
+        time_t getLastBorrowDate() const;
+
+        string getAddress() const;
 
         /**
-         * @brief Set the Name object
+         * @brief Set the new Name 
          * 
-         * @param name 
+         * @param name Reader new name
          */
         void setName(string& name);
 
         /**
-         * @brief Set the Email object
+         * @brief Set the new Email 
          * 
-         * @param email 
+         * @param email Reader new email
          */
         void setEmail(string& email);
 
         /**
-         * @brief Set the Phone object
+         * @brief Set the new Phone 
          * 
-         * @param number 
+         * @param number Reader new phone number
          */
         void setPhone(int number);
 
         /**
-         * @brief Set the Address object
+         * @brief Set the Address 
          * 
-         * @param address 
+         * @param address Reader new address
          */
         void setAddress(string& address);
 
         /**
-         * @brief Set the Date object
+         * @brief Set the Borrow Date 
          * 
-         * @param date 
+         * @param date Reader last borrow date
          */
         void setDate(time_t date);
 
         /**
          * @brief Add Borrow to Reader
          * 
-         * @param borrow 
+         * @param borrow Reader new borrow
          */
         void addBorrow(Borrow* borrow);
 
         /**
-         * @brief 
+         * @brief Remove borrow from reader
          * 
-         * @param id 
+         * @param id Borrow id 
          * @return true 
          * @return false 
          */
@@ -173,7 +177,7 @@ class Reader {
         void printReader() const;
 
         /**
-         * @brief Write to File Reader Info
+         * @brief Write Reader Info to file
          * 
          * @param file 
          */

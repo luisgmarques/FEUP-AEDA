@@ -21,9 +21,9 @@ ostream& operator <<(ostream& os, const MaxBorrowsLimit& obj) {
 }
 
 ostream& operator <<(ostream& os, const NoCopiesAvailable& obj) {
-    return os << "Book with title " << obj.name << "has no more copies\n";
+    return os << "Book with title " << obj.name << "has no copies available\n";
 }
 
 ostream& operator <<(ostream& os, const BorrowsToDelivered& obj) {
-    return os << "Reader " << obj.name << "still has " << obj.borrows << " borrows\n";
+    return os << "Reader " << obj.name << "still has " << obj.borrows << " borrows to be delivered\n";
 }

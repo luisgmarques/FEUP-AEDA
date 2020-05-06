@@ -45,7 +45,7 @@ string Reader::getName() const {
     return name;
 }
 
-int Reader::getphone_number() const {
+int Reader::getPhoneNumber() const {
     return phone_number;
 }
 
@@ -72,8 +72,12 @@ vector<Borrow*> Reader::getDelayedBorrows() const {
     return dealyed_borrows;
 }
 
-time_t Reader::getLastBorrow() const {
+time_t Reader::getLastBorrowDate() const {
     return last_borrow_date;
+}
+
+string Reader::getAddress() const {
+    return address;
 }
 
 bool Reader::removeBorrow(const int id) {
@@ -108,29 +112,39 @@ void Reader::setDate(time_t date) {
     this->last_borrow_date = date;
 }
 
+void Reader::addBorrow(Borrow* borrow) {
+    books.push_back(borrow);
+}
+
 void Reader::printReader() const {
-    string sType;
+    string reader_type;
+
     if (type == Deficient)
-        sType = "Deficient";
+        reader_type = "Deficient";
+
     else if (type == Child)
-        sType = "Child";
+        reader_type = "Child";
+
     else if (type == Adult)
-        sType = "Adult";
-    cout << setw(15) << "Name: " << name << " (" << sType << ") " << endl;
+        reader_type = "Adult";
+
+    cout << setw(15) << "ID: " << id << endl;
+    cout << setw(15) << "Name: " << name << " (" << reader_type << ")\n";
     cout << setw(15) << "Phone Number: " << phone_number << endl;
     cout << setw(15) << "Email: " << email << endl;
     cout << setw(15) << "Address: " << address << endl;
     cout << setw(15) << "Last Borrow: ";
+
     if (last_borrow_date != 0)
         cout << getDateString(last_borrow_date) << endl;
     else
-        cout << "N/A" << endl;
-    cout << '\n';
+        cout << "N/A\n";
+    cout << endl; 
 }
 
 void Reader::writeReader(ofstream& file) const {
     
-    stringstream ss;
+    ostringstream ss;
 
     ss << id << ';' << name  << ';' << phone_number << ';' << email << ';' << address << ';' << type << ';';
 
@@ -144,14 +158,11 @@ void Reader::writeReader(ofstream& file) const {
     }
 
     ss << ';';
+
     if (last_borrow_date != 0)
         ss << getDateString(last_borrow_date);
 
     ss << '\n';
 
     file << ss.str();
-}
-
-void Reader::addBorrow(Borrow* borrow) {
-    books.push_back(borrow);
 }

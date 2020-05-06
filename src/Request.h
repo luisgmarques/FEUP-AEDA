@@ -30,7 +30,7 @@ class Request {
     public:
 
         /**
-         * @brief Construct a new Request object
+         * @brief Construct a Request object from file
          * 
          * @param id 
          * @param book 
@@ -80,12 +80,13 @@ class Request {
          */
         time_t getDate() const;
 
+        void printRequest() const;
+
         /**
          * @brief Compare Readers 
          * 
          * @param rq 
-         * @return true 
-         * @return false 
+         * @return bool
          */
         bool operator <(const Request rq) const;
 };

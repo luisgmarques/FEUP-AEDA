@@ -75,3 +75,24 @@ void pressAnyKey() {
     	system("pause");
 	#endif
 }
+
+
+// trim from start 
+void ltrim(string &s) {
+    s.erase(s.begin(), find_if(s.begin(), s.end(), [](int ch) {
+        return !isspace(ch);
+    }));
+}
+
+// trim from end 
+void rtrim(string &s) {
+    s.erase(find_if(s.rbegin(), s.rend(), [](int ch) {
+        return !isspace(ch);
+    }).base(), s.end());
+}
+
+// trim from both ends 
+void trim(string &s) {
+    ltrim(s);
+    rtrim(s);
+}

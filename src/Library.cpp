@@ -96,7 +96,13 @@ void Library::loadFiles() {
     try {
         loadBorrows();
     }
-    catch (FileUnkown &e){
+    catch (FileUnkown &e) {
+        cout << e;
+    }
+    try {
+        loadRequests();
+    }
+    catch (FileUnkown &e) {
         cout << e;
     }
 }
@@ -345,6 +351,42 @@ void Library::loadAdmin() {
     admin_file.close();
 }
 
+void Library::loadRequests() {
+    ifstream requests_file("../files/requests.txt");
+
+    if (!requests_file.is_open()) {
+        requests_file.close();
+        throw FileUnkown("requests.txt");
+    }
+
+    string id, book_id, reader_id, employee_id, date;
+
+    while (!requests_file.eof()) {
+        getline(requests_file, id, ';');
+        getline(requests_file, book_id, ';');
+        getline(requests_file, reader_id, ';');
+        getline(requests_file, employee_id, ';');
+        getline(requests_file, date);
+
+        Book* book = getBook(getInt(book_id));
+        Reader* reader = getReader(getInt(reader_id));
+        Employee* employee = getEmployee(getInt(employee_id));
+
+        time_t date_time = 0;
+        if (date != "") {
+            struct tm* tm = getTMStruct(date);
+            date_time = mktime(tm);
+        }
+
+        Request* request = new Request(getInt(id), book, employee, reader, date_time);
+        request->printRequest();
+        book->addRequest(*request);
+
+    }
+
+    requests_file.close();
+}
+
 
 void Library::print() {
     printReaders();
@@ -423,12 +465,10 @@ void Library::addBorrow(Borrow* borrow) {
     Book* book = borrow->getBook();
 
     if (reader->getBorrows().size() >= 3) {
-        cout << "Reader cannot borrow more than 3 books\n";
         throw MaxBorrowsLimit(reader->getId(), reader->getName());
     }
     else {
         if (book->getCopiesAvailable() < 1) {
-            cout << "No availbles copies for this book\n";
             throw NoCopiesAvailable(book->getId(), book->getTitle());
         }
         else {
@@ -479,7 +519,12 @@ bool Library::removeEmployee(int id) {
 
     for (it = employees.begin(); it != employees.end(); it++) {
         if ((*it)->getId() == id) {
-            // TODO employee with borrow associated
+            for (vector<Borrow*>::const_iterator it2 = borrows.begin(); it2 != borrows.end(); it2++) {
+                if ((*it2)->getEmployee() == (*it)) {
+                    cout << "Employee " << (*it)->getName() << " has borrows associated\n";
+                    return false;
+                }
+            }
             employees.erase(it);
             allocateEmployees();
             cout << "Employees reallocated\n";
@@ -685,7 +730,25 @@ Book* Library::getBook(int id) const {
     throw ObjectNotFound(id, "Book");
 }
 
+bool Library::addCopie(Book* book) {
+    book->incCopies();
+
+    priority_queue<Request> book_requests = book->getRequests();
+
+    if (!book_requests.empty())
+        return true;
+    return false;
+}
+
 void Library::addBook(Book* book) {
+    vector<Book*>::const_iterator it;
+    for (it = books.begin(); it != books.end(); it++) {
+        if (book == (*it)) {
+            book->incCopies();
+            cout << "Added one more copie\n";
+            return;
+        }
+    }
     this->books.push_back(book);
     cout << "Added book " << book->getTitle() << " to library\n";
 }
@@ -696,8 +759,12 @@ void Library::addEmployee(Employee* employee) {
 }
 
 void Library::addInactiveReaders() {
-    for (vector<Reader*>::const_iterator it = readers.begin(); it != readers.end(); it++) {
-        double days {trunc(difftime(time(0), (*it)->getLastBorrow())/86400)};
+    vector<Reader*>::const_iterator it;
+
+    for (it = readers.begin(); it != readers.end(); it++) {
+       
+        int days = (int) trunc(difftime (time(NULL), (*it)->getLastBorrowDate()) / 86400); // Number of days
+       
         if (days > 365) {
             inactive_readers.insert(**it);
         }
@@ -777,4 +844,10 @@ void Library::addAvailableBook(Book book) {
 
 void Library::removeAvailableBook(Book book) {
     available_books.remove(book);
+}
+
+
+void Library::makeRequest(Book* book, Reader* reader, Employee* employee) {
+    Request request(book, employee, reader, time(NULL));
+    book->addRequest(request);
 }

@@ -60,6 +60,10 @@ int Book::getYear() const {
     return year;
 }
 
+int Book::getPages() const {
+    return pages;
+}
+
 priority_queue<Request> Book::getRequests() const {
     return requests;
 }
@@ -144,11 +148,13 @@ void Book::writeBook(ofstream& file) const{
     ss << id << ';' << title << ';' << isbn;
 
     for (size_t i = 0; i < authors.size(); i++) {
+        string author = authors[i];
+        trim(author);
         if (i + 1 == authors.size()) {
-            ss << authors[i] << ';';
+            ss << author << ';';
         }
         else {
-            ss << authors[i] << ',';
+            ss << author << ',';
         }
     }
 

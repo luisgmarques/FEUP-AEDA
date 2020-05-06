@@ -64,6 +64,8 @@ class App {
         void availableBooksMenu();
 
 
+        void notifyReader(Book* book);
+
 
         // === Add === //
 

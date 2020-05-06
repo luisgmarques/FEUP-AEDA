@@ -3,6 +3,7 @@
 #include "Book.h"
 #include "Reader.h"
 #include "Employee.h"
+#include "Util.h"
 
 int Request::total_requests = 0;
 int Request::last_id = 0;
@@ -47,7 +48,15 @@ time_t Request::getDate() const {
     return date;
 }
 
-bool Request::operator<(const Request rq) const {
+void Request::printRequest() const {
+    cout << setw(15) << "ID: " << id << endl;
+    cout << setw(15) << "Book: " << book->getTitle() << endl;
+    cout << setw(15) << "Reader: " << reader->getName() << endl;
+    cout << setw(15) << "Employee: " << employee->getName() << endl;
+    cout << setw(15) << "Date: " << getDateString(date) << endl;
+}
+
+bool Request::operator < (const Request rq) const {
     int days = (int) trunc(difftime(date, rq.getDate())/86400);
 
     if (days == 0) {

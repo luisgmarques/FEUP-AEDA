@@ -48,8 +48,7 @@ time_t Borrow::getDate() const {
 }
 
 int Borrow::getDays() {
-    time_t today = time(NULL);
-    return (int) trunc((difftime(today, date) / 86400));
+    return (int) trunc(difftime (time(NULL), date) / 86400);
 }
 
 double Borrow::getPenalty() {
@@ -79,5 +78,4 @@ void Borrow::writeBorrow(ofstream& file) const {
     ss << id << ';' << book->getId() << ';' << reader->getId() << ';' << employee->getId() << ';' << getDateString(date) << endl;
 
     file << ss.str();
-
 }

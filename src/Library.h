@@ -163,6 +163,10 @@ class Library {
 
         void giveupRequest(Book* book, const int request_id);
 
+        void makeRequest(Book* book, Reader* reader, Employee* employee);
+
+        bool addCopie(Book* book);
+
 
         // Prints to console
 
@@ -195,6 +199,8 @@ class Library {
         void loadBorrows();
 
         void loadAdmin();
+
+        void loadRequests();
 
         // -- Save to txt files
 
