@@ -145,20 +145,20 @@ void Book::writeBook(ofstream& file) const{
 
     ostringstream ss;
 
-    ss << id << ';' << title << ';' << isbn;
+    ss << id << " ; " << title << " ; " << isbn << " ; ";
 
     for (size_t i = 0; i < authors.size(); i++) {
         string author = authors[i];
         trim(author);
         if (i + 1 == authors.size()) {
-            ss << author << ';';
+            ss << author << " ; ";
         }
         else {
             ss << author << ',';
         }
     }
 
-    ss << pages << ';' << total_copies << getDateString(year) << endl;
+    ss << pages << " ; " << total_copies << " ; " << year << endl;
 
     file << ss.str();
 }

@@ -64,13 +64,13 @@ void Employee::writeEmployee(ofstream& file) const {
 
     ostringstream ss;
 
-    ss << id << ';' << name << ';' << password;
+    ss << id << " ; " << name << " ; " << password;
 
     if (pos == Emp) {
         ss << endl;
     }
     else if (pos == Sup) {
-        ss << ';';
+        ss << " ; ";
     }
 
     file << ss.str();

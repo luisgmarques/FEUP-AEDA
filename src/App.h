@@ -45,6 +45,8 @@ class App {
 
         // === Menu === //
 
+        int initMenu();
+
         void mainMenu();
 
         void readerMenu();
@@ -52,6 +54,8 @@ class App {
         void borrowMenu();
 
         void bookMenu();
+
+        void requestMenu();
 
         void employeeMenu();
 
@@ -93,16 +97,14 @@ class App {
 
         // === Remove === //
 
-        void removeReader();
+        void removeReader(int id);
 
         void removeBorrow(int id);
 
-        void removeBook();
+        void removeBook(int id);
 
-        void removeEmployee();
-
-        void removeBorrow();
-
+        void removeEmployee(int id);
+        
 
 
         // ===== Edit info ====== //

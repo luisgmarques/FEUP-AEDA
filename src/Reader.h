@@ -10,7 +10,7 @@ using namespace std;
 
 class Borrow;
 
-enum readerType {Deficient, Child, Adult};
+enum readerType {DisabledPerson, Child, Adult};
 
 /**
  * @brief Reader Class

@@ -56,6 +56,14 @@ void Request::printRequest() const {
     cout << setw(15) << "Date: " << getDateString(date) << endl;
 }
 
+void Request::writeRequest(ofstream& file) const {
+    ostringstream oss;
+
+    oss << id << " ; " << book->getId() << " ; " << reader->getId() << " ; " << employee->getId() << " ; " << getDateString(date) << endl;
+
+    file << oss.str();
+}
+
 bool Request::operator < (const Request rq) const {
     int days = (int) trunc(difftime(date, rq.getDate())/86400);
 

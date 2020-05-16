@@ -2,8 +2,8 @@
 #define _LIBRARY_H_
 
 #include <iostream>
-#include <vector>
 #include <string> 
+#include <vector>
 #include <unordered_set>
 #include <queue>
 
@@ -14,6 +14,7 @@
 class Borrow;
 class Reader;
 class Employee;
+class Supervisor;
 class Request;
 class Book;
 class Admin;
@@ -103,10 +104,16 @@ class Library {
         vector<Employee*> getSupervisors() const;
 
         Borrow* getBorrow(int id) const;
+
+        Borrow* getBorrow(int id, Employee* employee);
         
         vector<Employee*> getEmployees() const;
 
         Employee* getEmployee(int id) const;
+
+        vector<Borrow*> getEmployeesBorrows(Employee* employee);
+
+        vector<Borrow*> getEmployeesDelayedBorrows(vector<Borrow*> employee_borrows);
 
         Reader* getReader(int id) const;
 
@@ -155,7 +162,7 @@ class Library {
 
         void removeAvailableBook(Book book);
 
-        void removeRequest(Book* book, const int request_id);
+        void removeRequest(const int request_id);
 
         // -- Distributes employees to the supervisors
 
@@ -172,17 +179,23 @@ class Library {
 
         void print();
 
+        void printMyEmployees(Supervisor* supervisor) const;
+
         void printReaders() const;
 
         void printAllBooks() const;
 
         void printAllEmployees() const;
 
-        void printBorrows() const;
+        void printAllBorrows() const;
+
+        void printEmployeeBorrows(vector<Borrow*> employee_borrows) const;
 
         void printAvailableBooks() const;
 
         void printInactiveReaders() const;
+
+        void printAllRequests() const;
 
         // -- Load from txt files
 
@@ -215,6 +228,8 @@ class Library {
         void saveReaders();
 
         void saveBorrows();
+
+        void saveRequests();
 };
 
 #endif 

@@ -1,6 +1,8 @@
 #ifndef _BORROW_H_
 #define _BORROW_H_
 
+#include <iostream>
+#include <string>
 #include <cmath>
 #include <ctime>
 #include <iomanip>
@@ -111,6 +113,8 @@ class Borrow {
          * @param file 
          */
         void writeBorrow(ofstream& file) const;
+
+        bool operator <(const Borrow& borrow) const;
 };
 
 #endif

@@ -119,8 +119,8 @@ void Reader::addBorrow(Borrow* borrow) {
 void Reader::printReader() const {
     string reader_type;
 
-    if (type == Deficient)
-        reader_type = "Deficient";
+    if (type == DisabledPerson)
+        reader_type = "Disabled person";
 
     else if (type == Child)
         reader_type = "Child";
@@ -139,6 +139,7 @@ void Reader::printReader() const {
         cout << getDateString(last_borrow_date) << endl;
     else
         cout << "N/A\n";
+        
     cout << endl; 
 }
 
@@ -146,7 +147,7 @@ void Reader::writeReader(ofstream& file) const {
     
     ostringstream ss;
 
-    ss << id << ';' << name  << ';' << phone_number << ';' << email << ';' << address << ';' << type << ';';
+    ss << id << " ; " << name  << " ; " << phone_number << " ; " << email << " ; " << address << " ; " << type << " ; ";
 
     for (size_t i = 0; i < books.size(); i++) {
         if (i + 1 == books.size()) {
@@ -157,7 +158,7 @@ void Reader::writeReader(ofstream& file) const {
         }
     }
 
-    ss << ';';
+    ss << " ; ";
 
     if (last_borrow_date != 0)
         ss << getDateString(last_borrow_date);

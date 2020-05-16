@@ -61,6 +61,10 @@ double Borrow::getPenalty() {
     return (days - 7) * 0.25;
 }
 
+bool Borrow::operator<(const Borrow& borrow) const {
+    return (id < borrow.id);
+}
+
 void Borrow::printBorrow() const {
     
     cout << setw(15) << "ID: " << id << endl;
@@ -75,7 +79,7 @@ void Borrow::writeBorrow(ofstream& file) const {
 
     ostringstream ss;
 
-    ss << id << ';' << book->getId() << ';' << reader->getId() << ';' << employee->getId() << ';' << getDateString(date) << endl;
+    ss << id << " ; " << book->getId() << " ; " << reader->getId() << " ; " << employee->getId() << " ; " << getDateString(date) << endl;
 
     file << ss.str();
 }

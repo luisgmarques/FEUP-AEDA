@@ -17,13 +17,12 @@ using namespace std;
 * @return object's index on vector, -1 if it does not exist
 */
 template <class Comparable>
-int sequentialSearch(const vector<Comparable> &v, Comparable x)
-{
+int sequentialSearch(const vector<Comparable> &v, Comparable x) {
 
-		for (unsigned int i = 0; i < v.size(); i++)
-			if ((*v[i]) == x)
-				return i;
-		return -1;
+	for (unsigned int i = 0; i < v.size(); i++)
+		if ((*v[i]) == x)
+			return i;
+	return -1;
 
 }
 
@@ -36,8 +35,7 @@ int sequentialSearch(const vector<Comparable> &v, Comparable x)
 * @return object's index on vector, -1 if it does not exist
 */
 template <class Comparable>
-int sequentialSearchNoPointer(const vector<Comparable> &v, Comparable x)
-{
+int sequentialSearchNoPointer(const vector<Comparable> &v, Comparable x) {
 	for (unsigned int i = 0; i < v.size(); i++)
 		if (v[i]== x)
 			return i;

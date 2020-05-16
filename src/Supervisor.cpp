@@ -68,7 +68,6 @@ void Supervisor::writeEmployee(ofstream& file) const {
     }
 
     file << ss.str();
-
 }
 
 string Supervisor::getPassword() const {

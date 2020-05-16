@@ -2,11 +2,11 @@
 #define _EMPLOYEE_H_
 
 #include <iostream>
-#include <string>
 #include <vector>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <string>
 
 using namespace std;
 
@@ -96,6 +96,13 @@ class Employee {
           * @param employees 
           */
         virtual void setEmployees(vector<Employee*> employees) {}
+
+        /**
+         * @brief Get the Supervisors' Employees
+         * 
+         * @return vector<Employee*> 
+         */
+        virtual vector<Employee*> getEmployees() const {vector<Employee*> empty; return empty;}
 
         /**
          * @brief Add employee, usable for supervisors

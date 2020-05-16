@@ -82,6 +82,8 @@ class Request {
 
         void printRequest() const;
 
+        void writeRequest(ofstream& file) const;
+
         /**
          * @brief Compare Readers 
          * 

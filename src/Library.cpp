@@ -7,6 +7,7 @@
 #include "Reader.h"
 #include "Util.h"
 #include "BST.h"
+#include "Sort.h"
 #include "Exception.h"
 
 bool Library::orderByAuthors = false;
@@ -55,6 +56,19 @@ vector<Borrow*> Library::getDelayedBorrows() const {
     vector<Borrow*>::const_iterator it;
 
     for (it = borrows.begin(); it != borrows.end(); it++) {
+        if ((*it)->getDays() > 7) {
+            delayed_borrows.push_back(*it);
+        }
+    }
+    return delayed_borrows;
+}
+
+vector<Borrow*> Library::getEmployeesDelayedBorrows(vector<Borrow*> employee_borrows) {
+    vector<Borrow*> delayed_borrows;
+
+    vector<Borrow*>::const_iterator it;
+
+    for (it = employee_borrows.begin(); it != employee_borrows.end(); it++) {
         if ((*it)->getDays() > 7) {
             delayed_borrows.push_back(*it);
         }
@@ -128,6 +142,15 @@ void Library::loadBooks() {
         if (id == "")
             continue;
 
+        trim(id);
+        trim(title);
+        trim(isbn);
+        trim(authors);
+        trim(pages);
+        trim(copies);
+        trim(year);
+
+
         vector<string> authorsList;
         stringstream ssAuthors(authors);
         string author;
@@ -157,6 +180,9 @@ void Library::loadEmployees() {
         getline(employees_file, name, ';');
         getline(employees_file, pass);
 
+        trim(name);
+        trim(pass);
+
         if (id == "")
             continue;
 
@@ -185,6 +211,11 @@ void Library::loadSupervisors() {
 
         if (id == "")
             continue;
+
+        trim(id);
+        trim(name);
+        trim(pass);
+        trim(employeesId);
 
         vector<Employee*> employees;
         
@@ -234,14 +265,25 @@ void Library::loadReaders() {
         getline(readers_file, borrows, ';');
         getline(readers_file, date);
 
+        if (name == "")
+            continue;
+
+        trim(id);
+        trim(name);
+        trim(number);
+        trim(email);
+        trim(address);
+        trim(type);
+        trim(borrows);
+        trim(date);
+
         time_t dateTime = 0;
         if (date != "") {
             struct tm* tm = getTMStruct(date);
             dateTime = mktime(tm);
         }
 
-        if (name == "")
-            continue;
+
         
         // -- Reader borrows
 
@@ -318,9 +360,14 @@ void Library::loadBorrows() {
             }
         }
 
-        for (eIt = employees.begin(); eIt != employees.end(); eIt++) {
-            if ((*eIt)->getId() == getInt(employeeId)) {
-                employee = (*eIt);
+        if (getInt(employeeId) == 0) {
+            employee = this->admin;
+        }
+        else {
+            for (eIt = employees.begin(); eIt != employees.end(); eIt++) {
+                if ((*eIt)->getId() == getInt(employeeId)) {
+                    employee = (*eIt);
+                }
             }
         }
 
@@ -346,6 +393,10 @@ void Library::loadAdmin() {
     getline(admin_file, name, ';');
     getline(admin_file, pass);
 
+    trim(id);
+    trim(name);
+    trim(pass);
+
     admin = new Admin(getInt(id), name, pass);
 
     admin_file.close();
@@ -368,6 +419,12 @@ void Library::loadRequests() {
         getline(requests_file, employee_id, ';');
         getline(requests_file, date);
 
+        trim(id);
+        trim(book_id);
+        trim(reader_id);
+        trim(employee_id);
+        trim(date);
+
         Book* book = getBook(getInt(book_id));
         Reader* reader = getReader(getInt(reader_id));
         Employee* employee = getEmployee(getInt(employee_id));
@@ -379,9 +436,8 @@ void Library::loadRequests() {
         }
 
         Request* request = new Request(getInt(id), book, employee, reader, date_time);
-        request->printRequest();
+        
         book->addRequest(*request);
-
     }
 
     requests_file.close();
@@ -390,9 +446,22 @@ void Library::loadRequests() {
 
 void Library::print() {
     printReaders();
-    printBorrows();
+    printAllBorrows();
     printAllBooks();
     printAllEmployees();
+}
+
+void Library::printMyEmployees(Supervisor* supervisor) const {
+    vector<Employee*> employees = supervisor->getEmployees();
+
+    vector<Employee*>::const_iterator it;
+
+    for (it = employees.begin(); it != employees.end(); it++) {
+        (*it)->printEmployee();
+        cout << endl;
+    }
+
+    cout << endl;
 }
 
 void Library::printReaders() const {
@@ -438,11 +507,76 @@ void Library::printAllEmployees() const {
     cout << endl;
 }
 
-void Library::printBorrows() const {
+void Library::printAllBorrows() const {
     for (size_t i = 0; i < borrows.size(); i++) {
         borrows[i]->printBorrow();
+        cout << endl;
     }
     cout << endl;
+}
+
+vector<Borrow*> Library::getEmployeesBorrows(Employee* employee) {
+    vector<Borrow*> employee_borrows;
+    vector<Borrow*>::const_iterator borrow_it;
+    
+    if (employee->getPos() == Emp) {
+
+        for (borrow_it = borrows.begin(); borrow_it != borrows.end(); borrow_it++) {
+            if ((*borrow_it)->getEmployee() == employee) {
+                employee_borrows.push_back((*borrow_it));
+            }
+        }
+        
+    }
+
+    else if (employee->getPos() == Sup) {
+        vector<Employee*>::const_iterator employee_it;
+
+        for (borrow_it = borrows.begin(); borrow_it != borrows.end(); borrow_it++) {
+            if ((*borrow_it)->getEmployee() == employee) {
+                employee_borrows.push_back((*borrow_it));
+            }
+        }
+
+        for (size_t j = 0; j < employee->getEmployees().size(); j++) {
+            Employee * emp = employee->getEmployees()[j];
+
+            for (borrow_it = borrows.begin(); borrow_it != borrows.end(); borrow_it++) {
+                if ((*borrow_it)->getEmployee() == emp) {
+                    employee_borrows.push_back((*borrow_it));
+                }
+            }
+        }
+    }
+    return employee_borrows;
+}
+
+void Library::printEmployeeBorrows(vector<Borrow*> employee_borrows) const {
+    
+    for (size_t i = 0; i < employee_borrows.size(); i++) {
+        employee_borrows[i]->printBorrow();
+        cout << '\n';
+    }
+
+    cout << '\n';
+}
+
+void Library::printAllRequests() const {
+    vector<priority_queue<Request>> requests;
+
+    vector<Book*>::const_iterator book_it;
+
+    for (book_it = books.begin(); book_it != books.end(); book_it++) {
+        requests.push_back(((*book_it))->getRequests());
+    }
+
+    for (size_t i = 0; i < requests.size(); i++) {
+        while(!requests[i].empty()) {
+            requests[i].top().printRequest();
+            requests[i].pop();
+            cout << "\n";
+        }
+    }
 }
 
 bool Library::removeBook(int id) {
@@ -454,6 +588,9 @@ bool Library::removeBook(int id) {
                 books.erase(it);
                 (*it)->decCopies();
                 return true;
+            }
+            else if ((*it)->getRequests().size() > 0) {
+                return false;
             }
         }
     }
@@ -586,6 +723,11 @@ void Library::allocateEmployees() {
     vector<Employee*> emps = getEmployees();
 
     int numSup = supervisors.size();
+    vector<Employee*> no_employees;
+
+    for (int i = 0; i < numSup; i++) {
+        supervisors[i]->setEmployees(no_employees);
+    }
 
     for (size_t i = 0; i < emps.size(); i++) {
         supervisors[i % numSup]->addEmployee(emps[i]);
@@ -598,6 +740,7 @@ void Library::saveFiles() {
     saveEmployees();
     saveSupervisors();
     saveReaders();
+    saveRequests();
 }
 
 void Library::saveBooks() {
@@ -686,6 +829,31 @@ void Library::saveBorrows() {
     myfile.close();
 }
 
+void Library::saveRequests() {
+    ofstream requests_file("../files/requests.txt", ios::trunc);
+
+    if (!requests_file.is_open()) {
+        throw FileUnkown("requests.txt");
+    }
+
+    vector<priority_queue<Request>> requests;
+
+    vector<Book*>::const_iterator book_it;
+
+    for (book_it = books.begin(); book_it != books.end(); book_it++) {
+        requests.push_back((*book_it)->getRequests());
+    } 
+
+    for (size_t i = 0; i < requests.size(); i++) {
+        while(!requests[i].empty()) {
+            requests[i].top().writeRequest(requests_file);
+            requests[i].pop();
+        }
+    }
+
+    requests_file.close();
+}
+
 Reader* Library::getReader(int id) const {
     vector<Reader*>::const_iterator it;
 
@@ -701,6 +869,18 @@ Borrow* Library::getBorrow(int id) const {
     vector<Borrow*>::const_iterator it;
 
     for (it = borrows.begin(); it != borrows.end(); it++) {
+        if ((*it)->getId() == id) {
+            return (*it);
+        }
+    }
+    throw ObjectNotFound(id, "Borrow");
+}
+
+Borrow* Library::getBorrow(int id, Employee* employee) {
+    vector<Borrow*> employee_borrows = getEmployeesBorrows(employee);
+    vector<Borrow*>::const_iterator it;
+
+    for (it = employee_borrows.begin(); it != employee_borrows.end(); it++) {
         if ((*it)->getId() == id) {
             return (*it);
         }
@@ -781,18 +961,25 @@ void Library::addRequest(Request* request) {
     book->addRequest(*request);
 }
 
-void Library::removeRequest(Book* book, const int request_id) {
-    priority_queue<Request> book_requets = book->getRequests();
+void Library::removeRequest(const int request_id) {
+    vector<priority_queue<Request>> requests;
 
-    while(!book_requets.empty()) {
-        Request request = book_requets.top();
+    vector<Book*>::const_iterator book_it;
 
-        if (request.getId() == request_id) {
-            book->removeRequest();
-            cout << "Request removed\n";
-            return;
-        } 
-        book_requets.pop();
+    for (book_it = books.begin(); book_it != books.end(); book_it++) {
+        requests.push_back(((*book_it))->getRequests());
+    }
+
+    for (size_t i = 0; i < requests.size(); i++) {
+        while(!requests[i].empty()) {
+            cout << "request id: " << request_id << endl;
+            cout << "request from queeu: " << requests[i].top().getId() << endl;
+            if (requests[i].top().getId() == request_id) {
+                requests[i].top().getBook()->removeRequest();
+                return;
+            }
+            requests[i].pop();
+        }
     }
     throw ObjectNotFound(request_id, "Request");
 }
