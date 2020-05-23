@@ -172,7 +172,7 @@ class Library {
 
         void makeRequest(Book* book, Reader* reader, Employee* employee);
 
-        bool addCopie(Book* book);
+        bool addCopy(Book* book);
 
 
         // Prints to console

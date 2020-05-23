@@ -23,7 +23,7 @@ class Book {
 
         static int total_different_books; // keeps tracking of all books crated
 
-        static int last_id;              // last id used to identify the new book
+        static int last_id; // last id used to identify the new book
 
         int id; // book id
 
@@ -33,11 +33,15 @@ class Book {
 
         vector<string> authors; // book authors
 
-        int pages; // 
-        int total_copies;
-        int available_copies;
-        int year;
-        priority_queue<Request> requests;
+        int pages; // book total pages
+        
+        int total_copies; // total copies 
+
+        int available_copies; // available copies
+
+        int year; // book's year
+
+        priority_queue<Request> requests; // book's requests
 
     public:
 
@@ -120,8 +124,18 @@ class Book {
          */
         int getYear() const;
 
+        /**
+         * @brief Get the Pages
+         * 
+         * @return int pages
+         */
         int getPages() const;
 
+        /**
+         * @brief Get the Requests 
+         * 
+         * @return requests
+         */
         priority_queue<Request> getRequests() const;
 
         /**
@@ -159,10 +173,24 @@ class Book {
          */
         void setYear(int year);
 
+        /**
+         * @brief Set the Requests
+         * 
+         * @param requests 
+         */
         void setRequests(priority_queue<Request> requests);
 
+        /**
+         * @brief Add request
+         * 
+         * @param request 
+         */
         void addRequest(Request request);
 
+        /**
+         * @brief Remove request
+         * 
+         */
         void removeRequest();
 
         /**

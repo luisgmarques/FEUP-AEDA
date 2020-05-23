@@ -12,7 +12,7 @@ Request::Request(Book* book, Employee* employee, Reader* reader, time_t date) {
     this->book = book;
     this->employee = employee;
     this->reader = reader;
-    date = date;
+    this->date = date;
     total_requests++;
     id = ++last_id;
 }

@@ -18,9 +18,9 @@ using namespace std;
 int main() {
     string libraryName = "MyLibrary";
 
-    App menu(libraryName);
+    App app(libraryName);
 
-    menu.init();
+    app.init();
 
     cout << "\nThank you for your visit\n";
     cout << "Goodbye\n\n";

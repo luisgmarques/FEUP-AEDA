@@ -114,6 +114,13 @@ class Borrow {
          */
         void writeBorrow(ofstream& file) const;
 
+        /**
+         * @brief 
+         * 
+         * @param borrow 
+         * @return true 
+         * @return false 
+         */
         bool operator <(const Borrow& borrow) const;
 };
 

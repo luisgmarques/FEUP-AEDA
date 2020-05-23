@@ -419,6 +419,9 @@ void Library::loadRequests() {
         getline(requests_file, employee_id, ';');
         getline(requests_file, date);
 
+        if (id == "")
+            continue;
+
         trim(id);
         trim(book_id);
         trim(reader_id);
@@ -910,7 +913,7 @@ Book* Library::getBook(int id) const {
     throw ObjectNotFound(id, "Book");
 }
 
-bool Library::addCopie(Book* book) {
+bool Library::addCopy(Book* book) {
     book->incCopies();
 
     priority_queue<Request> book_requests = book->getRequests();
@@ -973,7 +976,7 @@ void Library::removeRequest(const int request_id) {
     for (size_t i = 0; i < requests.size(); i++) {
         while(!requests[i].empty()) {
             cout << "request id: " << request_id << endl;
-            cout << "request from queeu: " << requests[i].top().getId() << endl;
+            cout << "request from queue: " << requests[i].top().getId() << endl;
             if (requests[i].top().getId() == request_id) {
                 requests[i].top().getBook()->removeRequest();
                 return;
@@ -1035,6 +1038,11 @@ void Library::removeAvailableBook(Book book) {
 
 
 void Library::makeRequest(Book* book, Reader* reader, Employee* employee) {
-    Request request(book, employee, reader, time(NULL));
+    time_t date_time = 0;
+    time_t date = time(NULL);
+    struct tm* tm = localtime(&date);
+    date_time = mktime(tm);
+
+    Request request(book, employee, reader, date_time);
     book->addRequest(request);
 }

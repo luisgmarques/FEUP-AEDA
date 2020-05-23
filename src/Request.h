@@ -80,8 +80,17 @@ class Request {
          */
         time_t getDate() const;
 
+        /**
+         * @brief print request to console
+         * 
+         */
         void printRequest() const;
 
+        /**
+         * @brief Save request to file
+         * 
+         * @param file 
+         */
         void writeRequest(ofstream& file) const;
 
         /**

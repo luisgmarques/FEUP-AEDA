@@ -13,6 +13,7 @@ App::App(string libraryName) {
 }
 
 int App::login() {
+    clearScreen();
     cout << "== Staff Login ==\n\n";
     while(true) {
         cout << "ID: ";
@@ -23,7 +24,7 @@ int App::login() {
         }
         else {
             Employee* emp;
-            if (getInt(id) == 0) {
+            if (getInt(id) == 0) {\
                 while(true) {
                     cout << "Password: ";
                     string pass = getPassword();
@@ -176,6 +177,7 @@ void App::borrowMenu() {
                 case 1:
                     clearScreen();
                     addBorrow();
+                    clearScreen();
                     break;
                 case 2:
                     clearScreen();
@@ -291,28 +293,30 @@ void App::readerMenu() {
             cout << "Please enter a valid number\n";
         }
         else {
+            clearScreen();
             Reader* reader;
             switch (getInt(option)) {
                 case 0:
-                    clearScreen();
                     exit = true;
                     break;
                 case 1:
                     reader = getReader();
                     reader->printReader();
                     pressAnyKey();
+                    clearScreen();
                     break;
                 case 2:
                     library->printReaders();
                     pressAnyKey();
+                    clearScreen();
                     break;
                 case 3:
                     library->addInactiveReaders();
                     library->printInactiveReaders();
                     pressAnyKey();
+                    clearScreen();
                     break;
                 case 4:
-                    clearScreen();
                     addReader();
                     break;
                 case 5:
@@ -354,6 +358,7 @@ void App::bookMenu() {
             continue;
         }
         else {
+            clearScreen();
             Book* book = NULL;
             priority_queue<Request> book_requests;
             bool no_requests = true;
@@ -362,44 +367,40 @@ void App::bookMenu() {
                     book = getBook();
                     book->printBook();
                     pressAnyKey();
-                    clearScreen();
                     break;
                 case 2:
-                    clearScreen();
                     availableBooksMenu();
                     break;
                 case 3:
                     library->printAllBooks();
                     pressAnyKey();
-                    clearScreen();
                     break;
                 case 4:
-                    clearScreen();
                     addBook();
+                    pressAnyKey();
                     break;
                 case 5:
-                    clearScreen();
                     book = getBook();
                     menuEditBook(book);
                     break;
                 case 6:
-                    clearScreen();
                     book = getBook();
                     editBookCopies(book);
+                    pressAnyKey();
                     break;
                 case 7:
-                    clearScreen();
                     book = getBook();
                     removeBook(book->getId());
+                    pressAnyKey();
                     break;
                 case 8:
                     book = getBook();
-                    if (library->addCopie(book)) {
+                    if (library->addCopy(book)) {
                         notifyReader(book);
                     }
+                    pressAnyKey();
                     break;
                 case 9:
-                    clearScreen();
                     book = getBook();
                     book_requests = book->getRequests();
                     while(!book_requests.empty()) {
@@ -412,14 +413,14 @@ void App::bookMenu() {
                     pressAnyKey();
                     break;
                 case 0:
-                    clearScreen();
                     exit = true;
                     break;
                 default:
-                    clearScreen();
                     cout << "Option not available\n";
                     cout << "Enter an option between [1-7] or 0 to exit\n";
             }
+            
+            clearScreen();
         }
     }
 }
@@ -442,22 +443,21 @@ void App::requestMenu() {
             continue;
         }
 
+        clearScreen();
         switch(getInt(option)) {
             case 0:
-                clearScreen();
                 exit = true;
                 break;
             case 1:
-                clearScreen();
                 library->printAllRequests();
                 pressAnyKey();
+                clearScreen();
                 break;
             case 2:
                 clearScreen();
                 library->removeRequest(1);
                 cout << "Request removed\n";
                 break;
-
         }   
     }
 }
@@ -505,6 +505,7 @@ void App::availableBooksMenu() {
             cout << "Please enter a valid number\n";
         }
         else {
+            clearScreen();
             switch(getInt(option)) {
                 case 0:
                     clearScreen();
@@ -532,6 +533,8 @@ void App::availableBooksMenu() {
                     cout << "Option not available\n";
                     cout << "Please enter an option between [1-4] or 0 to exit\n";
             }
+            pressAnyKey();
+            clearScreen();
         }
         
     }
@@ -842,6 +845,7 @@ void App::removeBook(int id) {
         }
         catch (ObjectNotFound &e) {
             cout << e;
+            return;
         }
     }
 }
@@ -863,13 +867,13 @@ void App::menuEditReader(Reader* reader) {
             cout << "Please enter a valid option [1-4] or 0 to exit\n";
         }
         else {
+            clearScreen();
             string newEmail = "";
             string newAddress = "";
             string new_name = "";
             int newNumber;
             switch (getInt(option)) {
                 case 0:
-                    clearScreen();
                     return;
                 case 1:
                     cout << "Current email is: " << reader->getEmail() << endl;
@@ -1089,10 +1093,10 @@ void App::employeeMenu() {
             cout << "Please enter a valid number\n";
         }
         else {
+            clearScreen();
             Employee* employee;
             switch(getInt(option)) {
                 case 0:
-                    clearScreen();
                     exit = true;
                     break;
                 case 1:
@@ -1137,11 +1141,11 @@ void App::menuEditEmployee(Employee* employee) {
             cout << "Please enter a valid number\n";
         }
         else {
+            clearScreen();
             string new_name;
             string new_password;
             switch (getInt(option)) {
                 case 0:
-                    clearScreen();
                     return;
                 case 1:
                     cout << "Current employee name: " << employee->getName() << endl;
@@ -1279,7 +1283,6 @@ void App::addEmployee() {
 }
 
 void App::removeEmployee(int id) {
-    
     try {
         if (library->removeEmployee(id)) {
             cout << "Employee w/ id " << id << " removed\n";
@@ -1289,7 +1292,6 @@ void App::removeEmployee(int id) {
     catch(ObjectNotFound &e) {
         cout << e;
     }
-
 }
 
 void App::addBorrow() {
