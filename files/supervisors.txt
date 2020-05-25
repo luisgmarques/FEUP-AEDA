@@ -1,4 +1,4 @@
-11 ; Carlos Bastos ; asd ; 1,5,10
-12 ; Bruno Nunes ; qw ; 2,6
-13 ; Monica Antunes ; zxc ; 3,7
-14 ; Barbara Monteiro ; 123 ; 4,8
+11 ; Carlos Bastos ; asd ; 1,6
+12 ; Bruno Nunes ; qw ; 2,7
+13 ; Monica Antunes ; zxc ; 3,8
+14 ; Barbara Monteiro ; 123 ; 4,10

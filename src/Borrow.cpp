@@ -5,6 +5,7 @@
 #include "Util.h"
 
 int Borrow::total_borrows = 0;
+int Borrow::last_id = 0;
 
 Borrow::Borrow(Book* book, Reader* reader, Employee* employee, time_t date) {
     id = ++total_borrows;

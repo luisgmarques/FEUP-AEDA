@@ -1,7 +1,7 @@
 #include "Supervisor.h"
-
 #include "Util.h"
 #include "Exception.h"
+
 Supervisor::Supervisor(const string& name, string pass, vector<Employee*> employees, Position pos) : Employee(name, pass, pos) {
     this->employees = employees;
 }

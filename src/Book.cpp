@@ -115,6 +115,7 @@ void Book::removeRequest() {
 
 void Book::incCopies() {
     available_copies++;
+    total_copies++;
 }
 
 void Book::decCopies() {

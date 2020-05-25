@@ -83,12 +83,6 @@ class Library {
         Library(const string& name, vector<Book*> books, vector<Employee*> employees, vector<Reader*> readers, vector<Borrow*> borrows);
 
 
-        
-
-
-
-
-
         // -- Get
 
         string getName() const;
@@ -162,7 +156,7 @@ class Library {
 
         void removeAvailableBook(Book book);
 
-        void removeRequest(const int request_id);
+        void removeRequest();
 
         // -- Distributes employees to the supervisors
 

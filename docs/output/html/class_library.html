@@ -102,12 +102,21 @@ vector&lt; <a class="el" href="class_employee.html">Employee</a> * &gt;&#160;</t
 <tr class="memitem:a68cad3634bef655553cb9d0536b43cc2"><td class="memItemLeft" align="right" valign="top"><a id="a68cad3634bef655553cb9d0536b43cc2"></a>
 <a class="el" href="class_borrow.html">Borrow</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getBorrow</b> (int id) const</td></tr>
 <tr class="separator:a68cad3634bef655553cb9d0536b43cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc653a9b9a6bb478cbee2ca9f66402ea"><td class="memItemLeft" align="right" valign="top"><a id="afc653a9b9a6bb478cbee2ca9f66402ea"></a>
+<a class="el" href="class_borrow.html">Borrow</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getBorrow</b> (int id, <a class="el" href="class_employee.html">Employee</a> *employee)</td></tr>
+<tr class="separator:afc653a9b9a6bb478cbee2ca9f66402ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2027ba6444346f28fa51eb4af926dcb4"><td class="memItemLeft" align="right" valign="top"><a id="a2027ba6444346f28fa51eb4af926dcb4"></a>
 vector&lt; <a class="el" href="class_employee.html">Employee</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getEmployees</b> () const</td></tr>
 <tr class="separator:a2027ba6444346f28fa51eb4af926dcb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5a833aaca0887ea42d81733bfe745fd"><td class="memItemLeft" align="right" valign="top"><a id="ac5a833aaca0887ea42d81733bfe745fd"></a>
 <a class="el" href="class_employee.html">Employee</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getEmployee</b> (int id) const</td></tr>
 <tr class="separator:ac5a833aaca0887ea42d81733bfe745fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3985a953cc4efddfb88e57d373d5c4b"><td class="memItemLeft" align="right" valign="top"><a id="ae3985a953cc4efddfb88e57d373d5c4b"></a>
+vector&lt; <a class="el" href="class_borrow.html">Borrow</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getEmployeesBorrows</b> (<a class="el" href="class_employee.html">Employee</a> *employee)</td></tr>
+<tr class="separator:ae3985a953cc4efddfb88e57d373d5c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab036084dd537eb13c8c445e3732b6085"><td class="memItemLeft" align="right" valign="top"><a id="ab036084dd537eb13c8c445e3732b6085"></a>
+vector&lt; <a class="el" href="class_borrow.html">Borrow</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getEmployeesDelayedBorrows</b> (vector&lt; <a class="el" href="class_borrow.html">Borrow</a> * &gt; employee_borrows)</td></tr>
+<tr class="separator:ab036084dd537eb13c8c445e3732b6085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfac4480cc5acd06a10db85645543211"><td class="memItemLeft" align="right" valign="top"><a id="adfac4480cc5acd06a10db85645543211"></a>
 <a class="el" href="class_reader.html">Reader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getReader</b> (int id) const</td></tr>
 <tr class="separator:adfac4480cc5acd06a10db85645543211"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,9 +132,6 @@ vector&lt; <a class="el" href="class_borrow.html">Borrow</a> * &gt;&#160;</td><t
 <tr class="memitem:aa8c7ef8da580d0a94f4fd49edbd453f7"><td class="memItemLeft" align="right" valign="top"><a id="aa8c7ef8da580d0a94f4fd49edbd453f7"></a>
 vector&lt; <a class="el" href="class_borrow.html">Borrow</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getDelayedBorrows</b> () const</td></tr>
 <tr class="separator:aa8c7ef8da580d0a94f4fd49edbd453f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bc008ac2ad514e9cdc12496793ee705"><td class="memItemLeft" align="right" valign="top"><a id="a4bc008ac2ad514e9cdc12496793ee705"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addBorrow</b> ()</td></tr>
-<tr class="separator:a4bc008ac2ad514e9cdc12496793ee705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2996f2fc786be395cb28497e8e0cb0db"><td class="memItemLeft" align="right" valign="top"><a id="a2996f2fc786be395cb28497e8e0cb0db"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addBook</b> (<a class="el" href="class_book.html">Book</a> *book)</td></tr>
 <tr class="separator:a2996f2fc786be395cb28497e8e0cb0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,33 +180,51 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>removeInactiveReader<
 <tr class="memitem:abfe85ca0ad2e0fc18338a919428ed91f"><td class="memItemLeft" align="right" valign="top"><a id="abfe85ca0ad2e0fc18338a919428ed91f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeAvailableBook</b> (<a class="el" href="class_book.html">Book</a> book)</td></tr>
 <tr class="separator:abfe85ca0ad2e0fc18338a919428ed91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ed74c7d8997ca7cc3ee730b7e341f2f"><td class="memItemLeft" align="right" valign="top"><a id="a8ed74c7d8997ca7cc3ee730b7e341f2f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removeRequest</b> (<a class="el" href="class_book.html">Book</a> *book, const int request_id)</td></tr>
-<tr class="separator:a8ed74c7d8997ca7cc3ee730b7e341f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa76255935c48c437fe1ec511215a0224"><td class="memItemLeft" align="right" valign="top"><a id="aa76255935c48c437fe1ec511215a0224"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>removeRequest</b> ()</td></tr>
+<tr class="separator:aa76255935c48c437fe1ec511215a0224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13b7f5040383030662bd81b13df94af5"><td class="memItemLeft" align="right" valign="top"><a id="a13b7f5040383030662bd81b13df94af5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>allocateEmployees</b> ()</td></tr>
 <tr class="separator:a13b7f5040383030662bd81b13df94af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19dccebd24d84adfcf086a2986e1ef2e"><td class="memItemLeft" align="right" valign="top"><a id="a19dccebd24d84adfcf086a2986e1ef2e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>giveupRequest</b> (<a class="el" href="class_book.html">Book</a> *book, const int request_id)</td></tr>
 <tr class="separator:a19dccebd24d84adfcf086a2986e1ef2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1e2d4aa099153b3d2183dd08da1c8ca"><td class="memItemLeft" align="right" valign="top"><a id="ae1e2d4aa099153b3d2183dd08da1c8ca"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>makeRequest</b> (<a class="el" href="class_book.html">Book</a> *book, <a class="el" href="class_reader.html">Reader</a> *reader, <a class="el" href="class_employee.html">Employee</a> *employee)</td></tr>
+<tr class="separator:ae1e2d4aa099153b3d2183dd08da1c8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a412808eff7d714b66b3b4c25153afe2f"><td class="memItemLeft" align="right" valign="top"><a id="a412808eff7d714b66b3b4c25153afe2f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>addCopy</b> (<a class="el" href="class_book.html">Book</a> *book)</td></tr>
+<tr class="separator:a412808eff7d714b66b3b4c25153afe2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae583de273dbec964f974544879157679"><td class="memItemLeft" align="right" valign="top"><a id="ae583de273dbec964f974544879157679"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>print</b> ()</td></tr>
 <tr class="separator:ae583de273dbec964f974544879157679"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b0740e0a003bd2fa76f9b38ce0e4765"><td class="memItemLeft" align="right" valign="top"><a id="a4b0740e0a003bd2fa76f9b38ce0e4765"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printMyEmployees</b> (<a class="el" href="class_supervisor.html">Supervisor</a> *supervisor) const</td></tr>
+<tr class="separator:a4b0740e0a003bd2fa76f9b38ce0e4765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6f82689e1237c7b81ba238c1d2d733a"><td class="memItemLeft" align="right" valign="top"><a id="ae6f82689e1237c7b81ba238c1d2d733a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printReaders</b> () const</td></tr>
 <tr class="separator:ae6f82689e1237c7b81ba238c1d2d733a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac94e3e49f7c38dfb52391290ef4a2d1d"><td class="memItemLeft" align="right" valign="top"><a id="ac94e3e49f7c38dfb52391290ef4a2d1d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printAllBooks</b> () const</td></tr>
 <tr class="separator:ac94e3e49f7c38dfb52391290ef4a2d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57e91bc586cabb42a9ee69a7bb679fda"><td class="memItemLeft" align="right" valign="top"><a id="a57e91bc586cabb42a9ee69a7bb679fda"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printEmployees</b> () const</td></tr>
-<tr class="separator:a57e91bc586cabb42a9ee69a7bb679fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a257313d3626bf3c2f1fdb49e08283024"><td class="memItemLeft" align="right" valign="top"><a id="a257313d3626bf3c2f1fdb49e08283024"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printBorrows</b> () const</td></tr>
-<tr class="separator:a257313d3626bf3c2f1fdb49e08283024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a999b7e433ab76521719865c4500385e4"><td class="memItemLeft" align="right" valign="top"><a id="a999b7e433ab76521719865c4500385e4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printAllEmployees</b> () const</td></tr>
+<tr class="separator:a999b7e433ab76521719865c4500385e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ce2d5d023313dc6ef0f6d6ae20f96d"><td class="memItemLeft" align="right" valign="top"><a id="ad3ce2d5d023313dc6ef0f6d6ae20f96d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printAllBorrows</b> () const</td></tr>
+<tr class="separator:ad3ce2d5d023313dc6ef0f6d6ae20f96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec1140c573bcff553dfbc1794759e6d7"><td class="memItemLeft" align="right" valign="top"><a id="aec1140c573bcff553dfbc1794759e6d7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printEmployeeBorrows</b> (vector&lt; <a class="el" href="class_borrow.html">Borrow</a> * &gt; employee_borrows) const</td></tr>
+<tr class="separator:aec1140c573bcff553dfbc1794759e6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a405d7c7e7487ae6fcaac998b88a77ef0"><td class="memItemLeft" align="right" valign="top"><a id="a405d7c7e7487ae6fcaac998b88a77ef0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printAvailableBooks</b> () const</td></tr>
 <tr class="separator:a405d7c7e7487ae6fcaac998b88a77ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a618d5c42020277088b80e4a5a0232c6f"><td class="memItemLeft" align="right" valign="top"><a id="a618d5c42020277088b80e4a5a0232c6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printInactiveReaders</b> () const</td></tr>
+<tr class="separator:a618d5c42020277088b80e4a5a0232c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d1968aacd25959b766a1a1d310b693a"><td class="memItemLeft" align="right" valign="top"><a id="a4d1968aacd25959b766a1a1d310b693a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printAllRequests</b> () const</td></tr>
+<tr class="separator:a4d1968aacd25959b766a1a1d310b693a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdec0d2b30bbeb6256a440424ec79e84"><td class="memItemLeft" align="right" valign="top"><a id="afdec0d2b30bbeb6256a440424ec79e84"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>loadFiles</b> ()</td></tr>
 <tr class="separator:afdec0d2b30bbeb6256a440424ec79e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,6 +246,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loadBorrows</b> ()</t
 <tr class="memitem:a4fd345bff2937ad1a019fee9d17e7e98"><td class="memItemLeft" align="right" valign="top"><a id="a4fd345bff2937ad1a019fee9d17e7e98"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>loadAdmin</b> ()</td></tr>
 <tr class="separator:a4fd345bff2937ad1a019fee9d17e7e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb624a960c7631910713b37096eeda4e"><td class="memItemLeft" align="right" valign="top"><a id="abb624a960c7631910713b37096eeda4e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadRequests</b> ()</td></tr>
+<tr class="separator:abb624a960c7631910713b37096eeda4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3a329d6dd59a9c01e289c9fccd0baa4"><td class="memItemLeft" align="right" valign="top"><a id="ad3a329d6dd59a9c01e289c9fccd0baa4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>saveFiles</b> ()</td></tr>
 <tr class="separator:ad3a329d6dd59a9c01e289c9fccd0baa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,6 +267,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>saveReaders</b> ()</t
 <tr class="memitem:a04f418766d0ab2e5b2610b0bb51aee0d"><td class="memItemLeft" align="right" valign="top"><a id="a04f418766d0ab2e5b2610b0bb51aee0d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>saveBorrows</b> ()</td></tr>
 <tr class="separator:a04f418766d0ab2e5b2610b0bb51aee0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c36a4c41dd8970fa0d5a436e748bad4"><td class="memItemLeft" align="right" valign="top"><a id="a1c36a4c41dd8970fa0d5a436e748bad4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>saveRequests</b> ()</td></tr>
+<tr class="separator:a1c36a4c41dd8970fa0d5a436e748bad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -371,8 +401,8 @@ tabReader&#160;</td><td class="memItemRight" valign="bottom"><b>inactive_readers
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/<a class="el" href="_library_8h_source.html">Library.h</a></li>
-<li>Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/Library.cpp</li>
+<li>src/<a class="el" href="_library_8h_source.html">Library.h</a></li>
+<li>src/Library.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

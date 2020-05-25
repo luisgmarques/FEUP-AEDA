@@ -13,7 +13,7 @@ ostream& operator<<(ostream& os, const ObjectNotFound& obj) {
 }
 
 ostream& operator <<(ostream& os, const FileUnkown& obj) {
-    return os << obj.getFileName() << "not exists\n";
+    return os << "The file " << obj.getFileName() << " does not exists\n";
 }
 
 ostream& operator <<(ostream& os, const MaxBorrowsLimit& obj) {
@@ -21,9 +21,9 @@ ostream& operator <<(ostream& os, const MaxBorrowsLimit& obj) {
 }
 
 ostream& operator <<(ostream& os, const NoCopiesAvailable& obj) {
-    return os << "Book with title " << obj.name << "has no copies available\n";
+    return os << "Book with title " << obj.name << " has no copies available\n";
 }
 
 ostream& operator <<(ostream& os, const BorrowsToDelivered& obj) {
-    return os << "Reader " << obj.name << "still has " << obj.borrows << " borrows to be delivered\n";
+    return os << "Reader " << obj.name << " still has " << obj.borrows << " borrows to be delivered\n";
 }

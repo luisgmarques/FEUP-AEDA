@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projeto AEDA: Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/Book.h Source File</title>
+<title>Projeto AEDA: src/Book.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_bf83022e8d7cfd604a11ac320635cab2.html">luisg</a></li><li class="navelem"><a class="el" href="dir_ad8d0118a85fb2a5a56db59b3e57452f.html">Desktop</a></li><li class="navelem"><a class="el" href="dir_6c4097da1fdba3a63cd48a7b3e85fcd4.html">FEUP</a></li><li class="navelem"><a class="el" href="dir_62dfe4ad84de26355a5ba0d8a7845f4e.html">AEDA</a></li><li class="navelem"><a class="el" href="dir_4a9928f27ac19dd41f5409b2457479fb.html">#ESPECIAL</a></li><li class="navelem"><a class="el" href="dir_28ed8da782ea89417eff5451b8999bd3.html">FEUP-AEDA</a></li><li class="navelem"><a class="el" href="dir_9b723bf8c2bc2cf7992bd627dbb1585e.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,78 +90,83 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_book.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_book.html">Book</a> {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> total_different_books; <span class="comment">// keeps tracking of all books crated</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> last_id;              <span class="comment">// last id used to identify the new book</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">int</span> id; <span class="comment">// book id</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">string</span> title; <span class="comment">// book title</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">string</span> isbn; <span class="comment">// book isbn</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        vector&lt;string&gt; authors; <span class="comment">// book authors</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">int</span> pages; <span class="comment">// </span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">int</span> total_copies;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">int</span> available_copies;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">int</span> year;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        priority_queue&lt;Request&gt; requests;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="class_book.html">Book</a>(<span class="keywordtype">string</span> title, <span class="keywordtype">string</span> isbn, vector&lt;string&gt; authors, <span class="keywordtype">int</span> pages, <span class="keywordtype">int</span> year, <span class="keywordtype">int</span> total_copies = 0);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="class_book.html">Book</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">string</span> title, <span class="keywordtype">string</span> isbn, vector&lt;string&gt; authors, <span class="keywordtype">int</span> pages, <span class="keywordtype">int</span> year, <span class="keywordtype">int</span> total_copies = 0);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="class_book.html">Book</a>(<span class="keywordtype">string</span> title, <span class="keywordtype">string</span> isbn, <span class="keywordtype">string</span> authors, <span class="keywordtype">int</span> pages, <span class="keywordtype">int</span> year, <span class="keywordtype">int</span> total_copies = 0);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">int</span> getId() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">string</span> getTitle() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordtype">int</span> getCopies() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordtype">int</span> getCopiesAvailable() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        vector&lt;string&gt; getAuthors() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordtype">int</span> getYear() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        priority_queue&lt;Request&gt; getRequests() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordtype">void</span> setTitle(<span class="keywordtype">string</span>&amp; title);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordtype">void</span> setAuthors(<span class="keywordtype">string</span>&amp; authors);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordtype">void</span> setPages(<span class="keywordtype">int</span> pages);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordtype">void</span> setTotalCopies(<span class="keywordtype">int</span> copies);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordtype">void</span> setYear(<span class="keywordtype">int</span> year);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordtype">void</span> setRequests(priority_queue&lt;Request&gt; requests);</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_book.html#a9cb720942d2bbcc1b134cb9cae2824d5">   24</a></span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_book.html#a9cb720942d2bbcc1b134cb9cae2824d5">total_different_books</a>; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_book.html#ad188fabaa4fb4aef286b4f991870592e">   26</a></span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_book.html#ad188fabaa4fb4aef286b4f991870592e">last_id</a>; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_book.html#a11f9b412838b3bf70af317313e020420">   28</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_book.html#a11f9b412838b3bf70af317313e020420">id</a>; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_book.html#a694d90d6902d5f9d280db89ba533fad6">   30</a></span>&#160;        <span class="keywordtype">string</span> <a class="code" href="class_book.html#a694d90d6902d5f9d280db89ba533fad6">title</a>; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_book.html#a2949738b3e231f371b94543175386359">   32</a></span>&#160;        <span class="keywordtype">string</span> <a class="code" href="class_book.html#a2949738b3e231f371b94543175386359">isbn</a>; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_book.html#ab2bc06e04240ad81300d31fca7c25169">   34</a></span>&#160;        vector&lt;string&gt; <a class="code" href="class_book.html#ab2bc06e04240ad81300d31fca7c25169">authors</a>; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_book.html#af4911f9ba822e0c95ab759f30077539b">   36</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_book.html#af4911f9ba822e0c95ab759f30077539b">pages</a>; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_book.html#a612e491b8c02d324ac45832881699918">   38</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_book.html#a612e491b8c02d324ac45832881699918">total_copies</a>; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_book.html#a90bc0956856ce93d636402785852ba34">   40</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_book.html#a90bc0956856ce93d636402785852ba34">available_copies</a>; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_book.html#a62717bd851774f8bcb7781a1ab55c4c2">   42</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_book.html#a62717bd851774f8bcb7781a1ab55c4c2">year</a>; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_book.html#ae1d2f1fe91585a7ee3e9c6494e6526d9">   44</a></span>&#160;        priority_queue&lt;Request&gt; <a class="code" href="class_book.html#ae1d2f1fe91585a7ee3e9c6494e6526d9">requests</a>; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="class_book.html">Book</a>(<span class="keywordtype">string</span> title, <span class="keywordtype">string</span> isbn, vector&lt;string&gt; authors, <span class="keywordtype">int</span> pages, <span class="keywordtype">int</span> year, <span class="keywordtype">int</span> total_copies = 0);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="class_book.html">Book</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">string</span> title, <span class="keywordtype">string</span> isbn, vector&lt;string&gt; authors, <span class="keywordtype">int</span> pages, <span class="keywordtype">int</span> year, <span class="keywordtype">int</span> total_copies = 0);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <a class="code" href="class_book.html">Book</a>(<span class="keywordtype">string</span> title, <span class="keywordtype">string</span> isbn, <span class="keywordtype">string</span> authors, <span class="keywordtype">int</span> pages, <span class="keywordtype">int</span> year, <span class="keywordtype">int</span> total_copies = 0);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">int</span> getId() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">string</span> getTitle() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordtype">int</span> getCopies() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordtype">int</span> getCopiesAvailable() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        vector&lt;string&gt; getAuthors() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordtype">int</span> getYear() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordtype">int</span> getPages() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        priority_queue&lt;Request&gt; getRequests() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordtype">void</span> setTitle(<span class="keywordtype">string</span>&amp; title);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordtype">void</span> setAuthors(<span class="keywordtype">string</span>&amp; authors);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordtype">void</span> setPages(<span class="keywordtype">int</span> pages);</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordtype">void</span> addRequest(<a class="code" href="class_request.html">Request</a> request);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordtype">void</span> removeRequest();</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordtype">void</span> incCopies();</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordtype">void</span> decCopies();</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordtype">void</span> printBook() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keywordtype">void</span> writeBook(ofstream&amp; file) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordtype">bool</span> operator &lt;(<span class="keyword">const</span> <a class="code" href="class_book.html">Book</a>&amp; book) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;};</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordtype">void</span> setTotalCopies(<span class="keywordtype">int</span> copies);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordtype">void</span> setYear(<span class="keywordtype">int</span> year);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordtype">void</span> setRequests(priority_queue&lt;Request&gt; requests);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keywordtype">void</span> addRequest(<a class="code" href="class_request.html">Request</a> request);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordtype">void</span> removeRequest();</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordtype">void</span> incCopies();</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordtype">void</span> decCopies();</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordtype">void</span> printBook() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keywordtype">void</span> writeBook(ofstream&amp; file) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keywordtype">bool</span> operator &lt;(<span class="keyword">const</span> <a class="code" href="class_book.html">Book</a>&amp; book) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;};</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_book_html"><div class="ttname"><a href="class_book.html">Book</a></div><div class="ttdoc">Book Class.</div><div class="ttdef"><b>Definition:</b> Book.h:21</div></div>
+<div class="ttc" id="aclass_book_html_ad188fabaa4fb4aef286b4f991870592e"><div class="ttname"><a href="class_book.html#ad188fabaa4fb4aef286b4f991870592e">Book::last_id</a></div><div class="ttdeci">static int last_id</div><div class="ttdef"><b>Definition:</b> Book.h:26</div></div>
+<div class="ttc" id="aclass_book_html_a9cb720942d2bbcc1b134cb9cae2824d5"><div class="ttname"><a href="class_book.html#a9cb720942d2bbcc1b134cb9cae2824d5">Book::total_different_books</a></div><div class="ttdeci">static int total_different_books</div><div class="ttdef"><b>Definition:</b> Book.h:24</div></div>
+<div class="ttc" id="aclass_book_html_af4911f9ba822e0c95ab759f30077539b"><div class="ttname"><a href="class_book.html#af4911f9ba822e0c95ab759f30077539b">Book::pages</a></div><div class="ttdeci">int pages</div><div class="ttdef"><b>Definition:</b> Book.h:36</div></div>
+<div class="ttc" id="aclass_book_html"><div class="ttname"><a href="class_book.html">Book</a></div><div class="ttdoc">Book Class that represents a book.</div><div class="ttdef"><b>Definition:</b> Book.h:21</div></div>
+<div class="ttc" id="aclass_book_html_a2949738b3e231f371b94543175386359"><div class="ttname"><a href="class_book.html#a2949738b3e231f371b94543175386359">Book::isbn</a></div><div class="ttdeci">string isbn</div><div class="ttdef"><b>Definition:</b> Book.h:32</div></div>
+<div class="ttc" id="aclass_book_html_a694d90d6902d5f9d280db89ba533fad6"><div class="ttname"><a href="class_book.html#a694d90d6902d5f9d280db89ba533fad6">Book::title</a></div><div class="ttdeci">string title</div><div class="ttdef"><b>Definition:</b> Book.h:30</div></div>
+<div class="ttc" id="aclass_book_html_a90bc0956856ce93d636402785852ba34"><div class="ttname"><a href="class_book.html#a90bc0956856ce93d636402785852ba34">Book::available_copies</a></div><div class="ttdeci">int available_copies</div><div class="ttdef"><b>Definition:</b> Book.h:40</div></div>
+<div class="ttc" id="aclass_book_html_a612e491b8c02d324ac45832881699918"><div class="ttname"><a href="class_book.html#a612e491b8c02d324ac45832881699918">Book::total_copies</a></div><div class="ttdeci">int total_copies</div><div class="ttdef"><b>Definition:</b> Book.h:38</div></div>
+<div class="ttc" id="aclass_book_html_a11f9b412838b3bf70af317313e020420"><div class="ttname"><a href="class_book.html#a11f9b412838b3bf70af317313e020420">Book::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition:</b> Book.h:28</div></div>
+<div class="ttc" id="aclass_book_html_a62717bd851774f8bcb7781a1ab55c4c2"><div class="ttname"><a href="class_book.html#a62717bd851774f8bcb7781a1ab55c4c2">Book::year</a></div><div class="ttdeci">int year</div><div class="ttdef"><b>Definition:</b> Book.h:42</div></div>
+<div class="ttc" id="aclass_book_html_ab2bc06e04240ad81300d31fca7c25169"><div class="ttname"><a href="class_book.html#ab2bc06e04240ad81300d31fca7c25169">Book::authors</a></div><div class="ttdeci">vector&lt; string &gt; authors</div><div class="ttdef"><b>Definition:</b> Book.h:34</div></div>
 <div class="ttc" id="aclass_request_html"><div class="ttname"><a href="class_request.html">Request</a></div><div class="ttdoc">Request Class.</div><div class="ttdef"><b>Definition:</b> Request.h:18</div></div>
+<div class="ttc" id="aclass_book_html_ae1d2f1fe91585a7ee3e9c6494e6526d9"><div class="ttname"><a href="class_book.html#ae1d2f1fe91585a7ee3e9c6494e6526d9">Book::requests</a></div><div class="ttdeci">priority_queue&lt; Request &gt; requests</div><div class="ttdef"><b>Definition:</b> Book.h:44</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projeto AEDA: Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/Search.h Source File</title>
+<title>Projeto AEDA: Search.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +62,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_bf83022e8d7cfd604a11ac320635cab2.html">luisg</a></li><li class="navelem"><a class="el" href="dir_ad8d0118a85fb2a5a56db59b3e57452f.html">Desktop</a></li><li class="navelem"><a class="el" href="dir_6c4097da1fdba3a63cd48a7b3e85fcd4.html">FEUP</a></li><li class="navelem"><a class="el" href="dir_62dfe4ad84de26355a5ba0d8a7845f4e.html">AEDA</a></li><li class="navelem"><a class="el" href="dir_4a9928f27ac19dd41f5409b2457479fb.html">#ESPECIAL</a></li><li class="navelem"><a class="el" href="dir_28ed8da782ea89417eff5451b8999bd3.html">FEUP-AEDA</a></li><li class="navelem"><a class="el" href="dir_9b723bf8c2bc2cf7992bd627dbb1585e.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Search.h</div>  </div>
@@ -77,26 +73,24 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Comparable&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="group___template.html#gacd555ad1f1fc3b2011aab63641f98151">   20</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="group___template.html#gacd555ad1f1fc3b2011aab63641f98151">sequentialSearch</a>(<span class="keyword">const</span> vector&lt;Comparable&gt; &amp;v, Comparable x)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; v.size(); i++)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="keywordflow">if</span> ((*v[i]) == x)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> i;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Comparable&gt;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="group___template.html#gada542f6ca0126d949ac4f038116a57dd">   39</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="group___template.html#gada542f6ca0126d949ac4f038116a57dd">sequentialSearchNoPointer</a>(<span class="keyword">const</span> vector&lt;Comparable&gt; &amp;v, Comparable x)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; v.size(); i++)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (v[i]== x)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">return</span> i;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="group___template.html#gacd555ad1f1fc3b2011aab63641f98151">   20</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="group___template.html#gacd555ad1f1fc3b2011aab63641f98151">sequentialSearch</a>(<span class="keyword">const</span> vector&lt;Comparable&gt; &amp;v, Comparable x) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; v.size(); i++)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> ((*v[i]) == x)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="keywordflow">return</span> i;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Comparable&gt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="group___template.html#gada542f6ca0126d949ac4f038116a57dd">   38</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="group___template.html#gada542f6ca0126d949ac4f038116a57dd">sequentialSearchNoPointer</a>(<span class="keyword">const</span> vector&lt;Comparable&gt; &amp;v, Comparable x) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; v.size(); i++)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (v[i]== x)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">return</span> i;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup___template_html_gada542f6ca0126d949ac4f038116a57dd"><div class="ttname"><a href="group___template.html#gada542f6ca0126d949ac4f038116a57dd">sequentialSearchNoPointer</a></div><div class="ttdeci">int sequentialSearchNoPointer(const vector&lt; Comparable &gt; &amp;v, Comparable x)</div><div class="ttdoc">Searches for an object of class Comparable in a vector of objects of the same class.</div><div class="ttdef"><b>Definition:</b> Search.h:39</div></div>
+<div class="ttc" id="agroup___template_html_gada542f6ca0126d949ac4f038116a57dd"><div class="ttname"><a href="group___template.html#gada542f6ca0126d949ac4f038116a57dd">sequentialSearchNoPointer</a></div><div class="ttdeci">int sequentialSearchNoPointer(const vector&lt; Comparable &gt; &amp;v, Comparable x)</div><div class="ttdoc">Searches for an object of class Comparable in a vector of objects of the same class.</div><div class="ttdef"><b>Definition:</b> Search.h:38</div></div>
 <div class="ttc" id="agroup___template_html_gacd555ad1f1fc3b2011aab63641f98151"><div class="ttname"><a href="group___template.html#gacd555ad1f1fc3b2011aab63641f98151">sequentialSearch</a></div><div class="ttdeci">int sequentialSearch(const vector&lt; Comparable &gt; &amp;v, Comparable x)</div><div class="ttdoc">Searches for an object of class Comparable in a vector of pointers to objects of the same class.</div><div class="ttdef"><b>Definition:</b> Search.h:20</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

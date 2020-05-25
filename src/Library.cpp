@@ -1,5 +1,4 @@
 #include "Library.h"
-
 #include "Admin.h"
 #include "Supervisor.h"
 #include "Book.h"
@@ -7,7 +6,6 @@
 #include "Reader.h"
 #include "Util.h"
 #include "BST.h"
-#include "Sort.h"
 #include "Exception.h"
 
 bool Library::orderByAuthors = false;
@@ -79,41 +77,11 @@ vector<Borrow*> Library::getEmployeesDelayedBorrows(vector<Borrow*> employee_bor
 void Library::loadFiles() {
     try {
         loadEmployees();
-    }
-    catch (FileUnkown &e) {
-        cout << e;
-    }
-    try {
         loadBooks();
-    }
-    catch (FileUnkown &e) {
-        cout << e;
-    }
-    try {
         loadSupervisors();
-    }
-    catch (FileUnkown &e) {
-        cout << e;
-    }
-    try {
         loadAdmin();
-    }
-    catch (FileUnkown &e) {
-        cout << e;
-    }
-    try {
         loadReaders();
-    }
-    catch (FileUnkown &e) {
-        cout << e;
-    }
-    try {
         loadBorrows();
-    }
-    catch (FileUnkown &e) {
-        cout << e;
-    }
-    try {
         loadRequests();
     }
     catch (FileUnkown &e) {
@@ -265,6 +233,7 @@ void Library::loadReaders() {
         getline(readers_file, borrows, ';');
         getline(readers_file, date);
 
+        // reached the end of file
         if (name == "")
             continue;
 
@@ -613,7 +582,7 @@ void Library::addBorrow(Borrow* borrow) {
         }
         else {
             book->decCopies();
-            reader->getBorrows().push_back(borrow);
+            reader->addBorrow(borrow);
             reader->setDate(borrow->getDate());
             borrows.push_back(borrow);
             cout << "Borrow completed\n";
@@ -630,7 +599,7 @@ Borrow* Library::removeBorrow(int id) {
             if (penalty > 0) {
                 char answer, answer2;
                 cout << "You're delivering a book out of time.\n";
-                cout << "You must pay €" << penalty << endl;
+                cout << "You must pay " << penalty << "eur" << endl;
                 do {
                     cout << "Pay? [Y] / [N]: ";
                     answer = cin.get();
@@ -648,7 +617,9 @@ Borrow* Library::removeBorrow(int id) {
             }
             (*it)->getBook()->incCopies();
             (*it)->getReader()->removeBorrow(id);
-            return (*it);
+            Borrow* borrow_returned = (*it);
+            borrows.erase(it);
+            return borrow_returned;
         }
     }
     throw ObjectNotFound(id, "Borrow");
@@ -667,7 +638,7 @@ bool Library::removeEmployee(int id) {
             }
             employees.erase(it);
             allocateEmployees();
-            cout << "Employees reallocated\n";
+            cout << "Warning: Employees reallocated\n";
             return true;
         }
     }
@@ -880,6 +851,14 @@ Borrow* Library::getBorrow(int id) const {
 }
 
 Borrow* Library::getBorrow(int id, Employee* employee) {
+    if (employee->getPos() == Adm) {
+        try {
+           return getBorrow(id);
+        }
+        catch (ObjectNotFound e) {
+            throw e;
+        }
+    }
     vector<Borrow*> employee_borrows = getEmployeesBorrows(employee);
     vector<Borrow*>::const_iterator it;
 
@@ -964,7 +943,7 @@ void Library::addRequest(Request* request) {
     book->addRequest(*request);
 }
 
-void Library::removeRequest(const int request_id) {
+void Library::removeRequest() {
     vector<priority_queue<Request>> requests;
 
     vector<Book*>::const_iterator book_it;
@@ -973,18 +952,20 @@ void Library::removeRequest(const int request_id) {
         requests.push_back(((*book_it))->getRequests());
     }
 
+    cout << "Request id: ";
+    string request_id;
+    getline(cin, request_id);
+
     for (size_t i = 0; i < requests.size(); i++) {
         while(!requests[i].empty()) {
-            cout << "request id: " << request_id << endl;
-            cout << "request from queue: " << requests[i].top().getId() << endl;
-            if (requests[i].top().getId() == request_id) {
+            if (requests[i].top().getId() == getInt(request_id)) {
                 requests[i].top().getBook()->removeRequest();
                 return;
             }
             requests[i].pop();
         }
     }
-    throw ObjectNotFound(request_id, "Request");
+    throw ObjectNotFound(getInt(request_id), "Request");
 }
 
 void Library::giveupRequest(Book* book, const int request_id) {

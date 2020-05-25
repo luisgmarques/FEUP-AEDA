@@ -73,8 +73,20 @@ $(function() {
 : <a class="el" href="class_employee.html#aa298dd608aff8609f1ae939d056af798">Employee</a>
 , <a class="el" href="class_supervisor.html#a8561ea77ed28f8b49442c3b9e9a99cc0">Supervisor</a>
 </li>
+<li>addRequest()
+: <a class="el" href="class_book.html#a2b7fb8304ebcfb97e457699cbaabef93">Book</a>
+</li>
 <li>Admin()
 : <a class="el" href="class_admin.html#ac21545a6a9437e13211ae633dae0fd0d">Admin</a>
+</li>
+<li>App()
+: <a class="el" href="class_app.html#a838e4582e6f3c53134c1529bed5197fc">App</a>
+</li>
+<li>authors
+: <a class="el" href="class_book.html#ab2bc06e04240ad81300d31fca7c25169">Book</a>
+</li>
+<li>available_copies
+: <a class="el" href="class_book.html#a90bc0956856ce93d636402785852ba34">Book</a>
 </li>
 </ul>
 
@@ -100,11 +112,11 @@ $(function() {
 
 
 <h3><a id="index_e"></a>- e -</h3><ul>
-<li>Employee()
-: <a class="el" href="class_employee.html#a6354a033cfe199f763ba540d33d3272c">Employee</a>
-</li>
 <li>employee
-: <a class="el" href="class_menu.html#ab677af8ddc40b700455c7fd3c47e8866">Menu</a>
+: <a class="el" href="class_app.html#a2758c7ab883209085da417e0ef73203a">App</a>
+</li>
+<li>Employee()
+: <a class="el" href="class_employee.html#a164715cd720052a4ead9775bb58bcc12">Employee</a>
 </li>
 </ul>
 
@@ -151,7 +163,8 @@ $(function() {
 , <a class="el" href="class_request.html#af4be687199eadb23763fd8d67256df02">Request</a>
 </li>
 <li>getEmployees()
-: <a class="el" href="class_supervisor.html#ae6a7f755bf4622b83305d88adc281004">Supervisor</a>
+: <a class="el" href="class_employee.html#a6f27b1218b25283b6821fe6d0b008b48">Employee</a>
+, <a class="el" href="class_supervisor.html#ae6a7f755bf4622b83305d88adc281004">Supervisor</a>
 </li>
 <li>getFileName()
 : <a class="el" href="class_file_unkown.html#a3ba18bc217567e1063b7e44ecd7446f6">FileUnkown</a>
@@ -163,8 +176,8 @@ $(function() {
 , <a class="el" href="class_object_not_found.html#add5eef9998a6ed30f5147f7d08121e63">ObjectNotFound</a>
 , <a class="el" href="class_reader.html#a4e9b4cdad38440da47d51d36aec18413">Reader</a>
 </li>
-<li>getLastBorrow()
-: <a class="el" href="class_reader.html#a1f58c6e232a5aa8876b929fbd5e11376">Reader</a>
+<li>getLastBorrowDate()
+: <a class="el" href="class_reader.html#af06d2ec4375a9453a72c9b3e2f1ea89b">Reader</a>
 </li>
 <li>getName()
 : <a class="el" href="class_employee.html#a8e7c3870f6b4b08a5c7ccccd32ca8f37">Employee</a>
@@ -172,6 +185,9 @@ $(function() {
 </li>
 <li>getObjectName()
 : <a class="el" href="class_object_not_found.html#a776e52d3ac00abb4f2bad179293428da">ObjectNotFound</a>
+</li>
+<li>getPages()
+: <a class="el" href="class_book.html#a84022f28b18d6009a5de702a306a0b76">Book</a>
 </li>
 <li>getPassword()
 : <a class="el" href="class_admin.html#ac4589b3bf9d96f8657fed953ecb560ee">Admin</a>
@@ -181,8 +197,8 @@ $(function() {
 <li>getPenalty()
 : <a class="el" href="class_borrow.html#a580ecd563d8779cb8271374d341127fa">Borrow</a>
 </li>
-<li>getphone_number()
-: <a class="el" href="class_reader.html#a3b681a68739f57915ebdc91e3770a3d2">Reader</a>
+<li>getPhoneNumber()
+: <a class="el" href="class_reader.html#ab498f3ba0d2dbe8ed40a5611b2917b8e">Reader</a>
 </li>
 <li>getPos()
 : <a class="el" href="class_employee.html#a94da591781f42cefd66467a4506da950">Employee</a>
@@ -190,6 +206,9 @@ $(function() {
 <li>getReader()
 : <a class="el" href="class_borrow.html#a5b42201c3d8dd2a2434f1137e326a8fb">Borrow</a>
 , <a class="el" href="class_request.html#a39faa621bf7477825c34f32e958e15fb">Request</a>
+</li>
+<li>getRequests()
+: <a class="el" href="class_book.html#a6ec9257c1ad5a8044050bae291dc8659">Book</a>
 </li>
 <li>getTitle()
 : <a class="el" href="class_book.html#a6ace4ac1026bcbb79f503274173246a5">Book</a>
@@ -204,18 +223,27 @@ $(function() {
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>id
+: <a class="el" href="class_book.html#a11f9b412838b3bf70af317313e020420">Book</a>
+</li>
 <li>incCopies()
 : <a class="el" href="class_book.html#ae4313a04f1a5683538e2193870735063">Book</a>
+</li>
+<li>isbn
+: <a class="el" href="class_book.html#a2949738b3e231f371b94543175386359">Book</a>
 </li>
 </ul>
 
 
 <h3><a id="index_l"></a>- l -</h3><ul>
-<li>Library()
-: <a class="el" href="class_library.html#adf6eb143b82118944c6f52f4705754bc">Library</a>
+<li>last_id
+: <a class="el" href="class_book.html#ad188fabaa4fb4aef286b4f991870592e">Book</a>
 </li>
 <li>library
-: <a class="el" href="class_menu.html#ab5cd41cae7480de2f7f42d7cc5ee5f4d">Menu</a>
+: <a class="el" href="class_app.html#a74d3c55bc09672b60b31218844196420">App</a>
+</li>
+<li>Library()
+: <a class="el" href="class_library.html#adf6eb143b82118944c6f52f4705754bc">Library</a>
 </li>
 </ul>
 
@@ -226,9 +254,6 @@ $(function() {
 </li>
 <li>MaxBorrowsLimit()
 : <a class="el" href="class_max_borrows_limit.html#a17720c2cd5f5e916e136af1399b589a6">MaxBorrowsLimit</a>
-</li>
-<li>Menu()
-: <a class="el" href="class_menu.html#a12e977affaa66398488f7e4195950dda">Menu</a>
 </li>
 </ul>
 
@@ -246,6 +271,7 @@ $(function() {
 </li>
 <li>operator&lt;()
 : <a class="el" href="class_book.html#a49093682e197d1e07a5adb9c3c5bd0fa">Book</a>
+, <a class="el" href="class_borrow.html#aca7cba1011fba36c9cc6b6983fe5845c">Borrow</a>
 , <a class="el" href="class_request.html#aae03a366b87ac07165dba0503889c7e6">Request</a>
 </li>
 <li>operator&lt;&lt;
@@ -262,6 +288,9 @@ $(function() {
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
+<li>pages
+: <a class="el" href="class_book.html#af4911f9ba822e0c95ab759f30077539b">Book</a>
+</li>
 <li>printBook()
 : <a class="el" href="class_book.html#a8c3d773c73aeea9b6a9b1f72a1ca9854">Book</a>
 </li>
@@ -275,6 +304,9 @@ $(function() {
 <li>printReader()
 : <a class="el" href="class_reader.html#a6c38776496cb114ae7a80fee9f0bc6ee">Reader</a>
 </li>
+<li>printRequest()
+: <a class="el" href="class_request.html#a3eb14ef54a6e377b086587c50dbed402">Request</a>
+</li>
 </ul>
 
 
@@ -285,8 +317,14 @@ $(function() {
 <li>removeBorrow()
 : <a class="el" href="class_reader.html#a6526400cf184348a6f1a18c4748a14a8">Reader</a>
 </li>
+<li>removeRequest()
+: <a class="el" href="class_book.html#aecf279741d647d62e741d72ac40cfc65">Book</a>
+</li>
 <li>Request()
 : <a class="el" href="class_request.html#a49e963046e93e91ffa17448533e22f7c">Request</a>
+</li>
+<li>requests
+: <a class="el" href="class_book.html#ae1d2f1fe91585a7ee3e9c6494e6526d9">Book</a>
 </li>
 </ul>
 
@@ -321,6 +359,9 @@ $(function() {
 <li>setPhone()
 : <a class="el" href="class_reader.html#a16f6ed21d9ff0de82b443176199a5a53">Reader</a>
 </li>
+<li>setRequests()
+: <a class="el" href="class_book.html#a29c05c216084ca82ab66006fdbd3d567">Book</a>
+</li>
 <li>setTitle()
 : <a class="el" href="class_book.html#a016835198c8f7884542f12307a2ae64e">Book</a>
 </li>
@@ -336,9 +377,22 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_t"></a>- t -</h3><ul>
+<li>title
+: <a class="el" href="class_book.html#a694d90d6902d5f9d280db89ba533fad6">Book</a>
+</li>
+<li>total_copies
+: <a class="el" href="class_book.html#a612e491b8c02d324ac45832881699918">Book</a>
+</li>
+<li>total_different_books
+: <a class="el" href="class_book.html#a9cb720942d2bbcc1b134cb9cae2824d5">Book</a>
+</li>
+</ul>
+
+
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>usr
-: <a class="el" href="class_menu.html#ae491a43b7638e8572a45604e70a7f2e0">Menu</a>
+: <a class="el" href="class_app.html#a83db590a6e7f28718c1f141781cf0419">App</a>
 </li>
 </ul>
 
@@ -356,6 +410,16 @@ $(function() {
 </li>
 <li>writeReader()
 : <a class="el" href="class_reader.html#a203cff98d9acd9b2ccaed48fc797c222">Reader</a>
+</li>
+<li>writeRequest()
+: <a class="el" href="class_request.html#ab1615be260c9a534acc98c3a60261c17">Request</a>
+</li>
+</ul>
+
+
+<h3><a id="index_y"></a>- y -</h3><ul>
+<li>year
+: <a class="el" href="class_book.html#a62717bd851774f8bcb7781a1ab55c4c2">Book</a>
 </li>
 </ul>
 </div><!-- contents -->

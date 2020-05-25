@@ -23,12 +23,12 @@ class App {
 
         Employee* employee; /**< Employee logged in the system */
 
-        int usr; /**< Employee position {adm, sup, emp} */
+        int usr; /**< Employee logged in position {adm, sup, emp} */
 
     public:
 
         /**
-         * @brief Construct a new Menu 
+         * @brief Construct a new Menu
          * 
          * @param libraryName 
          */

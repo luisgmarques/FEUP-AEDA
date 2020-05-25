@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projeto AEDA: Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/Request.h Source File</title>
+<title>Projeto AEDA: src/Request.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_bf83022e8d7cfd604a11ac320635cab2.html">luisg</a></li><li class="navelem"><a class="el" href="dir_ad8d0118a85fb2a5a56db59b3e57452f.html">Desktop</a></li><li class="navelem"><a class="el" href="dir_6c4097da1fdba3a63cd48a7b3e85fcd4.html">FEUP</a></li><li class="navelem"><a class="el" href="dir_62dfe4ad84de26355a5ba0d8a7845f4e.html">AEDA</a></li><li class="navelem"><a class="el" href="dir_4a9928f27ac19dd41f5409b2457479fb.html">#ESPECIAL</a></li><li class="navelem"><a class="el" href="dir_28ed8da782ea89417eff5451b8999bd3.html">FEUP-AEDA</a></li><li class="navelem"><a class="el" href="dir_9b723bf8c2bc2cf7992bd627dbb1585e.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -112,14 +112,18 @@ $(function() {
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        time_t getDate() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">bool</span> operator &lt;(<span class="keyword">const</span> <a class="code" href="class_request.html">Request</a> rq) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordtype">void</span> printRequest() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordtype">void</span> writeRequest(ofstream&amp; file) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordtype">bool</span> operator &lt;(<span class="keyword">const</span> <a class="code" href="class_request.html">Request</a> rq) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_employee_html"><div class="ttname"><a href="class_employee.html">Employee</a></div><div class="ttdoc">Employee Class.</div><div class="ttdef"><b>Definition:</b> Employee.h:19</div></div>
-<div class="ttc" id="aclass_book_html"><div class="ttname"><a href="class_book.html">Book</a></div><div class="ttdoc">Book Class.</div><div class="ttdef"><b>Definition:</b> Book.h:21</div></div>
-<div class="ttc" id="aclass_reader_html"><div class="ttname"><a href="class_reader.html">Reader</a></div><div class="ttdoc">Reader Class.</div><div class="ttdef"><b>Definition:</b> Reader.h:19</div></div>
+<div class="ttc" id="aclass_book_html"><div class="ttname"><a href="class_book.html">Book</a></div><div class="ttdoc">Book Class that represents a book.</div><div class="ttdef"><b>Definition:</b> Book.h:21</div></div>
+<div class="ttc" id="aclass_reader_html"><div class="ttname"><a href="class_reader.html">Reader</a></div><div class="ttdoc">Reader Class.</div><div class="ttdef"><b>Definition:</b> Reader.h:21</div></div>
 <div class="ttc" id="aclass_request_html"><div class="ttname"><a href="class_request.html">Request</a></div><div class="ttdoc">Request Class.</div><div class="ttdef"><b>Definition:</b> Request.h:18</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -21,9 +21,9 @@ class Borrow {
     private:
 
         static int total_borrows;
+        static int last_id;
 
         int id;
-        int last_id = 0;
         Book* book;
         Reader* reader;
         Employee* employee;

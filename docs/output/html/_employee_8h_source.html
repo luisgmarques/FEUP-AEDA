@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projeto AEDA: Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/Employee.h Source File</title>
+<title>Projeto AEDA: src/Employee.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_bf83022e8d7cfd604a11ac320635cab2.html">luisg</a></li><li class="navelem"><a class="el" href="dir_ad8d0118a85fb2a5a56db59b3e57452f.html">Desktop</a></li><li class="navelem"><a class="el" href="dir_6c4097da1fdba3a63cd48a7b3e85fcd4.html">FEUP</a></li><li class="navelem"><a class="el" href="dir_62dfe4ad84de26355a5ba0d8a7845f4e.html">AEDA</a></li><li class="navelem"><a class="el" href="dir_4a9928f27ac19dd41f5409b2457479fb.html">#ESPECIAL</a></li><li class="navelem"><a class="el" href="dir_28ed8da782ea89417eff5451b8999bd3.html">FEUP-AEDA</a></li><li class="navelem"><a class="el" href="dir_9b723bf8c2bc2cf7992bd627dbb1585e.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,11 +75,11 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _EMPLOYEE_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
@@ -116,17 +116,20 @@ $(function() {
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="class_employee.html#ab589e00144c5aa2eceb200b53a5656ba">   98</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_employee.html#ab589e00144c5aa2eceb200b53a5656ba">setEmployees</a>(vector&lt;Employee*&gt; employees) {}</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_employee.html#aa298dd608aff8609f1ae939d056af798">  105</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_employee.html#aa298dd608aff8609f1ae939d056af798">addEmployee</a>(<a class="code" href="class_employee.html">Employee</a>* employee) {}</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_employee.html#a6f27b1218b25283b6821fe6d0b008b48">  105</a></span>&#160;        <span class="keyword">virtual</span> vector&lt;Employee*&gt; <a class="code" href="class_employee.html#a6f27b1218b25283b6821fe6d0b008b48">getEmployees</a>()<span class="keyword"> const </span>{vector&lt;Employee*&gt; empty; <span class="keywordflow">return</span> empty;}</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> printEmployee() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> writeEmployee(ofstream&amp; file) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="class_employee.html#aa298dd608aff8609f1ae939d056af798">  112</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_employee.html#aa298dd608aff8609f1ae939d056af798">addEmployee</a>(<a class="code" href="class_employee.html">Employee</a>* employee) {}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> printEmployee() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> writeEmployee(ofstream&amp; file) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_employee_html"><div class="ttname"><a href="class_employee.html">Employee</a></div><div class="ttdoc">Employee Class.</div><div class="ttdef"><b>Definition:</b> Employee.h:19</div></div>
-<div class="ttc" id="aclass_employee_html_aa298dd608aff8609f1ae939d056af798"><div class="ttname"><a href="class_employee.html#aa298dd608aff8609f1ae939d056af798">Employee::addEmployee</a></div><div class="ttdeci">virtual void addEmployee(Employee *employee)</div><div class="ttdoc">Add employee, usable for supervisors.</div><div class="ttdef"><b>Definition:</b> Employee.h:105</div></div>
+<div class="ttc" id="aclass_employee_html_a6f27b1218b25283b6821fe6d0b008b48"><div class="ttname"><a href="class_employee.html#a6f27b1218b25283b6821fe6d0b008b48">Employee::getEmployees</a></div><div class="ttdeci">virtual vector&lt; Employee * &gt; getEmployees() const</div><div class="ttdoc">Get the Supervisors' Employees.</div><div class="ttdef"><b>Definition:</b> Employee.h:105</div></div>
+<div class="ttc" id="aclass_employee_html_aa298dd608aff8609f1ae939d056af798"><div class="ttname"><a href="class_employee.html#aa298dd608aff8609f1ae939d056af798">Employee::addEmployee</a></div><div class="ttdeci">virtual void addEmployee(Employee *employee)</div><div class="ttdoc">Add employee, usable for supervisors.</div><div class="ttdef"><b>Definition:</b> Employee.h:112</div></div>
 <div class="ttc" id="aclass_employee_html_ab589e00144c5aa2eceb200b53a5656ba"><div class="ttname"><a href="class_employee.html#ab589e00144c5aa2eceb200b53a5656ba">Employee::setEmployees</a></div><div class="ttdeci">virtual void setEmployees(vector&lt; Employee * &gt; employees)</div><div class="ttdoc">Set the Supervisors' Employees.</div><div class="ttdef"><b>Definition:</b> Employee.h:98</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

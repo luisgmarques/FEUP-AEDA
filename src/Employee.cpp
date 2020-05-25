@@ -1,5 +1,4 @@
 #include "Employee.h"
-
 #include "Exception.h"
 
 int Employee::total_employees = 0;

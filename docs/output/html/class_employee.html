@@ -117,6 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab589e00144c5aa2eceb200b53a5656ba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_employee.html#ab589e00144c5aa2eceb200b53a5656ba">setEmployees</a> (vector&lt; <a class="el" href="class_employee.html">Employee</a> * &gt; employees)</td></tr>
 <tr class="memdesc:ab589e00144c5aa2eceb200b53a5656ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Supervisors' Employees.  <a href="class_employee.html#ab589e00144c5aa2eceb200b53a5656ba">More...</a><br /></td></tr>
 <tr class="separator:ab589e00144c5aa2eceb200b53a5656ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f27b1218b25283b6821fe6d0b008b48"><td class="memItemLeft" align="right" valign="top">virtual vector&lt; <a class="el" href="class_employee.html">Employee</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_employee.html#a6f27b1218b25283b6821fe6d0b008b48">getEmployees</a> () const</td></tr>
+<tr class="memdesc:a6f27b1218b25283b6821fe6d0b008b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Supervisors' Employees.  <a href="class_employee.html#a6f27b1218b25283b6821fe6d0b008b48">More...</a><br /></td></tr>
+<tr class="separator:a6f27b1218b25283b6821fe6d0b008b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa298dd608aff8609f1ae939d056af798"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_employee.html#aa298dd608aff8609f1ae939d056af798">addEmployee</a> (<a class="el" href="class_employee.html">Employee</a> *employee)</td></tr>
 <tr class="memdesc:aa298dd608aff8609f1ae939d056af798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add employee, usable for supervisors.  <a href="class_employee.html#aa298dd608aff8609f1ae939d056af798">More...</a><br /></td></tr>
 <tr class="separator:aa298dd608aff8609f1ae939d056af798"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -283,6 +286,36 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>last_id</b> = 0
 </dl>
 
 <p>Reimplemented in <a class="el" href="class_supervisor.html#a8561ea77ed28f8b49442c3b9e9a99cc0">Supervisor</a>.</p>
+
+</div>
+</div>
+<a id="a6f27b1218b25283b6821fe6d0b008b48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f27b1218b25283b6821fe6d0b008b48">&#9670;&nbsp;</a></span>getEmployees()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual vector&lt;<a class="el" href="class_employee.html">Employee</a>*&gt; Employee::getEmployees </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Supervisors' Employees. </p>
+<dl class="section return"><dt>Returns</dt><dd>vector&lt;Employee*&gt; </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_supervisor.html#ae6a7f755bf4622b83305d88adc281004">Supervisor</a>.</p>
 
 </div>
 </div>
@@ -530,8 +563,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>last_id</b> = 0
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/<a class="el" href="_employee_8h_source.html">Employee.h</a></li>
-<li>Users/luisg/Desktop/FEUP/AEDA/#ESPECIAL/FEUP-AEDA/src/Employee.cpp</li>
+<li>src/<a class="el" href="_employee_8h_source.html">Employee.h</a></li>
+<li>src/Employee.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['usr_177',['usr',['../class_menu.html#ae491a43b7638e8572a45604e70a7f2e0',1,'Menu']]]
+  ['last_5fid_205',['last_id',['../class_book.html#ad188fabaa4fb4aef286b4f991870592e',1,'Book']]],
+  ['library_206',['library',['../class_app.html#a74d3c55bc09672b60b31218844196420',1,'App']]]
 ];

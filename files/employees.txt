@@ -2,8 +2,7 @@
 2 ; Jose Barata ; 123
 3 ; Tiago Mendes ; 456
 4 ; Sofia Martins ; pass
-5 ; Helder Costa ; word
-6 ; Joaquim Ribeiro ; zaq
+6 ; Joaquil Amaral ; zaq
 7 ; Ana Fernandes ; qwerty
 8 ; Andre Saraiva ; 321
 10 ; Joel Pinheiro ; locked

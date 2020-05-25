@@ -14,7 +14,9 @@ App::App(string libraryName) {
 
 int App::login() {
     clearScreen();
-    cout << "== Staff Login ==\n\n";
+    cout << "===========\n";
+    cout << "Staff Login\n";
+    cout << "===========\n";
     while(true) {
         cout << "ID: ";
         string id;
@@ -33,7 +35,7 @@ int App::login() {
                         break;
                     }
                     else {
-                        cout << "Password is incorrect\n";
+                        cout << "\nPassword is incorrect\n";
                     }
                 }
                 this->employee = emp;
@@ -51,7 +53,7 @@ int App::login() {
             string pass = getPassword();
 
             if (!(pass == emp->getPassword())) {
-                cout << "Wrong password\n";
+                cout << "\nWrong password\n";
             }
             else {
                 this->employee = emp;
@@ -73,11 +75,7 @@ void App::mainMenu() {
         cout << "2 - Readers\n";
         cout << "3 - Book Borrows\n";
         cout << "4 - Requests\n";
-        if (usr == Adm) {
-            cout << "5 - Employees\n";
-            cout << "6 - Supervisors\n";
-        }
-        else if (usr == Sup) {
+        if (usr != Emp) {
             cout << "5 - Employees\n";
         }
         cout << "0 - Exit\n";
@@ -93,13 +91,7 @@ void App::mainMenu() {
         else {
             int nOption = getInt(option);
 
-            if (usr == Adm) {
-                if (nOption < 0 || nOption > 6) {
-                    cout << "Option not available, choose [1-6] 0 to exit\n";
-                    continue;
-                }
-            }
-            else if (usr == Sup) {
+            if (usr == Sup || usr == Adm ) {
                 if (nOption < 0 || nOption > 5) {
                     cout << "Option not available, choose [1-5] 0 to exit\n";
                     continue;
@@ -111,25 +103,21 @@ void App::mainMenu() {
                     continue;
                 }
             }
+            clearScreen();
             switch (nOption) {
                 case 1:
-                    clearScreen();
                     bookMenu();
                     break;
                 case 2:
-                    clearScreen();
                     readerMenu();
                     break;
                 case 3:
-                    clearScreen();
                     borrowMenu();
                     break;
                 case 4:
-                    clearScreen();
                     requestMenu();
                     break;
                 case 5:
-                    clearScreen();
                     employeeMenu();
                     break;
                 case 0:
@@ -144,7 +132,9 @@ void App::borrowMenu() {
     bool exit = false;
 
     while(!exit) {
-        cout << "== Borrow Menu ==\n\n";
+        cout << "===========\n";
+        cout << "Borrow Menu\n";
+        cout << "===========\n";
         cout << "1 - Make a borrow\n";
         cout << "2 - View a borrow\n";
         if (usr == Adm) {
@@ -166,23 +156,23 @@ void App::borrowMenu() {
             cout << "Please enter a valid number\n";
         }
         else {
+            clearScreen();
             Borrow* borrow = NULL;
             vector<Borrow*> delayedBorrows;
             vector<Borrow*> employee_borrows;
             switch(getInt(option)) {
                 case 0:
-                    clearScreen();
                     exit = true;
                     break;
                 case 1:
-                    clearScreen();
                     addBorrow();
+                    pressAnyKey();
                     clearScreen();
                     break;
                 case 2:
-                    clearScreen();
                     borrow = getBorrow();
-                    borrow->printBorrow();
+                    if (borrow != NULL)
+                        borrow->printBorrow();
                     pressAnyKey();
                     clearScreen();
                     break;
@@ -204,14 +194,13 @@ void App::borrowMenu() {
                             cout << "\nNo delayed borrows\n\n";
                         }
                         else {
-                            clearScreen();
                             for (size_t i = 0; i < delayedBorrows.size(); i++) {
                                 delayedBorrows[i]->printBorrow();
                                 cout << '\n';
                             }
-                            pressAnyKey();
-                            clearScreen();
                         }
+                        pressAnyKey();
+                        clearScreen();
                     }
                     else {
                         employee_borrows = library->getEmployeesBorrows(this->employee);
@@ -220,19 +209,20 @@ void App::borrowMenu() {
                             cout << "\nNo delayed borrows\n\n";
                         }
                         else {
-                            clearScreen();
                             for (size_t i = 0; i < delayedBorrows.size(); i++) {
                                 delayedBorrows[i]->printBorrow();
                                 cout << '\n';
                             }
-                            pressAnyKey();
-                            clearScreen();
                         }
+                        pressAnyKey();
+                        clearScreen();
                     }
                     break;
                 case 5:
                     borrow = getBorrow();
                     removeBorrow(borrow->getId());
+                    pressAnyKey();
+                    clearScreen();
                     break;
                 default:
                     cout << "Option not available\n";
@@ -255,6 +245,7 @@ void App::removeBorrow(int id)  {
 }
 
 Borrow* App::getBorrow() {
+    Borrow* borrow = NULL;
     while(true) {
         cout << "Borrow id: ";
         string id;
@@ -264,12 +255,13 @@ Borrow* App::getBorrow() {
         }
         else {
             try {
-                return library->getBorrow(getInt(id));
+                borrow = library->getBorrow(getInt(id), this->employee);
             }   
             catch (ObjectNotFound &e) {
                 cout << e;
             }
         }
+        return borrow;
     }
 }
 
@@ -277,7 +269,9 @@ void App::readerMenu() {
     bool exit = false;
 
     while(!exit) {
-        cout << "== Reader Menu ==\n\n";
+        cout << "===========\n";
+        cout << "Reader Menu\n";
+        cout << "===========\n\n";
         cout << "1 - View a reader info\n";
         cout << "2 - View all readers info\n";
         cout << "3 - View inactive readers info\n";
@@ -338,23 +332,24 @@ void App::bookMenu() {
     bool exit = false;
 
     while(!exit) {
-        cout << "== Books Menu ==\n\n";
+        cout << "==========\n";
+        cout << "Books Menu\n";
+        cout << "==========\n";
         cout << "1 - View a book\n";
         cout << "2 - View available books\n";
         cout << "3 - View all books\n";
         cout << "4 - Add book\n";
         cout << "5 - Edit book\n";
-        cout << "6 - Edit number of copies\n";
-        cout << "7 - Delete a book\n";
-        cout << "8 - Add copies to a book\n";
-        cout << "9 - View requests\n";
+        cout << "6 - Delete a book\n";
+        cout << "7 - Add copies to a book\n";
+        cout << "8 - View requests\n";
         cout << "0 - Go back\n";
         cout << "\nOption: ";
         string option;
         getline(cin, option);
 
         if (!isNumber(option)) {
-            cout << "Please insert a valid option [1-7] or 0 to exit\n";
+            cout << "Please insert a valid option [1-9] or 0 to exit\n\n";
             continue;
         }
         else {
@@ -383,24 +378,24 @@ void App::bookMenu() {
                     book = getBook();
                     menuEditBook(book);
                     break;
+                // case 6:
+                //     book = getBook();
+                //     editBookCopies(book);
+                //     pressAnyKey();
+                //     break;
                 case 6:
-                    book = getBook();
-                    editBookCopies(book);
-                    pressAnyKey();
-                    break;
-                case 7:
                     book = getBook();
                     removeBook(book->getId());
                     pressAnyKey();
                     break;
-                case 8:
+                case 7:
                     book = getBook();
                     if (library->addCopy(book)) {
                         notifyReader(book);
                     }
                     pressAnyKey();
                     break;
-                case 9:
+                case 8:
                     book = getBook();
                     book_requests = book->getRequests();
                     while(!book_requests.empty()) {
@@ -429,8 +424,10 @@ void App::requestMenu() {
     bool exit = false;
 
     while(!exit) {
-        cout << "== Request Menu == \n\n";
-        cout << "1 - View Request\n";
+        cout << "============\n";
+        cout << "Request Menu\n";
+        cout << "============\n";
+        cout << "1 - View Requests\n";
         cout << "2 - Delete Request\n";
         cout << "0 - Go back\n";
         cout << "\nOption: ";
@@ -439,7 +436,7 @@ void App::requestMenu() {
         getline(cin, option);
 
         if (!isNumber(option)) {
-            cout << "Invalid option, please insert a number\n";
+            cout << "Invalid option, please insert a number\n\n";
             continue;
         }
 
@@ -455,7 +452,12 @@ void App::requestMenu() {
                 break;
             case 2:
                 clearScreen();
-                library->removeRequest(1);
+                try {
+                    library->removeRequest();
+                }
+                catch (ObjectNotFound e) {
+                    cout << e;
+                }
                 cout << "Request removed\n";
                 break;
         }   
@@ -463,32 +465,49 @@ void App::requestMenu() {
 }
 
 void App::notifyReader(Book* book) {
-    Reader* reader = book->getRequests().top().getReader();
+    while(!book->getRequests().empty() && book->getCopiesAvailable() > 0) {
+        Reader* reader = book->getRequests().top().getReader();
+                
+        cout << "A request was made for this book\n";
+        while(true) {
+            cout << "Reader " << reader->getName() << " do you wish to borrow it? (y/n) ";
+            string answer;
+            getline(cin, answer);
 
-    cout << "A request was made for this book\n";
-    while(true) {
-        cout << "Reader " << reader->getName() << " do you wish to borrow it? (y/n) ";
-        string answer;
-        getline(cin, answer);
-
-        if (answer == "y" || answer == "Y") {
-            Borrow* borrow = new Borrow(book, reader, this->employee, time(NULL));
-            cout << "Borrow added with success\n";
-            library->addBorrow(borrow);
-            return;
-        }
-        else if (answer == "n" || answer == "N") {
-            return;
-        }
-        else {
-            cout << "Invalid answer, please respond with 'y' or 'n'\n";
+            if (answer == "y" || answer == "Y") {
+                Borrow* borrow = new Borrow(book, reader, this->employee, time(NULL));
+                try {
+                    library->addBorrow(borrow);
+                    book->removeRequest();
+                    cout << "Borrow added with success\n";
+                }
+                catch (MaxBorrowsLimit e) {
+                    cout << e;
+                    return;
+                }
+                catch (NoCopiesAvailable e) {
+                    cout << e;
+                    return;
+                }
+                break;
+            }
+            else if (answer == "n" || answer == "N") {
+                book->removeRequest();
+                cout << "REQUETS size : " << book->getRequests().size() << endl;
+                break;
+            }
+            else {
+                cout << "Invalid answer, please answer with 'y' or 'n'\n";
+            }
         }
     }
 }
 
 void App::availableBooksMenu() {
     while(true) {
-        cout << "== Available Books Menu ==\n\n";
+        cout << "====================\n";
+        cout << "Available Books Menu\n";
+        cout << "====================\n";
         cout << "1 - Show books per year\n";
         cout << "2 - show books per title\n";
         cout << "3 - Show books per authors\n";
@@ -502,7 +521,7 @@ void App::availableBooksMenu() {
         Library::orderByTitle = false;
 
         if (!isNumber(option)) {
-            cout << "Please enter a valid number\n";
+            cout << "Please enter a valid number\n\n";
         }
         else {
             clearScreen();
@@ -546,7 +565,7 @@ Reader* App::getReader() {
         string id;
         getline(cin, id);
         if (!isNumber(id)) {
-            cout << "Please enter a valid number\n";
+            cout << "Please enter a valid number\n\n";
         }
         else {
             try {
@@ -565,7 +584,7 @@ Book* App::getBook() {
         string id;
         getline(cin, id);
         if (!isNumber(id)) {
-            cout << "Please enter a valid number\n";
+            cout << "Please enter a valid number\n\n";
         }
         else {
             try {
@@ -586,7 +605,7 @@ void App::editBookCopies(Book* book) {
         getline(cin, new_copies);
 
         if (!isNumber(new_copies)) {
-            cout << "Please enter a valid number\n";
+            cout << "Please enter a valid number\n\n";
         }
         else {
             if (book->getCopies() == book->getCopiesAvailable()) {
@@ -623,7 +642,7 @@ int App::initMenu() {
         }
 
         if (getInt(option) > 2 || getInt(option) < 0) {
-            cout << "\nOption not available\n";
+            cout << "\nOption not available\n\n";
             continue;
         }
         return getInt(option);
@@ -669,7 +688,7 @@ void App::init() {
 
 void App::addReader() {
     while (true) {
-        cout << "Add Reader\n";
+        cout << ".:: Add Reader ::.\n";
         cout << "Name: ";
         string name;
         getline(cin, name);
@@ -679,7 +698,7 @@ void App::addReader() {
                 break;
             }
             else {
-                cout << "Please enter a name\n";
+                cout << "Please enter a valid name\n\n";
             }
         }
         else {
@@ -750,7 +769,7 @@ void App::removeReader(int id) {
 void App::addBook() {
     while(true) {
         string pages, copies, year;
-        cout << "Add Book\n";
+        cout << ".:: Add Book ::.\n";
 
         cout << "Title: ";
         string title;
@@ -760,7 +779,7 @@ void App::addBook() {
             if (getInt(title) == 0) {
                 return;
             }
-            cout << "Enter a valid title\n";
+            cout << "Enter a valid title\n\n";
         }
         else {
 
@@ -786,7 +805,7 @@ void App::addBook() {
                     getline(cin, pages);
 
                     if (!isNumber(pages)) {
-                        cout << "Please enter a valid number\n";
+                        cout << "Please enter a valid number\n\n";
                     }
                     else {
                         break;
@@ -800,7 +819,7 @@ void App::addBook() {
                     getline(cin, copies);
 
                     if (!isNumber(copies)) {
-                        cout << "Please enter a valid number\n";
+                        cout << "Please enter a valid number\n\n";
                     }
                     else {
                         break;
@@ -814,7 +833,7 @@ void App::addBook() {
                     getline(cin, year);
 
                     if (!isNumber(year)) {
-                        cout << "Please enter a valid number\n";
+                        cout << "Please enter a valid number\n\n";
                     }
                     else {
                         break;
@@ -853,7 +872,8 @@ void App::removeBook(int id) {
 
 void App::menuEditReader(Reader* reader) {
     while(true) {
-        cout << "\nEdit Reader\n\n";
+        reader->printReader();
+        cout << "\n.:: Edit Reader ::.\n\n";
         cout << "1 - Email\n";
         cout << "2 - Phone Number\n";
         cout << "3 - Address\n";
@@ -940,7 +960,8 @@ int App::editReaderPhone() {
 void App::menuEditBook(Book* book) {
     bool exit = false;
     while(!exit) {
-        cout << "Edit Book\n\n";
+        book->printBook();
+        cout << "\n.:: Edit Book ::.\n\n";
         cout << "1 - Title\n";
         cout << "2 - Authors\n";
         cout << "3 - Pages\n";
@@ -953,7 +974,7 @@ void App::menuEditBook(Book* book) {
         getline(cin, option);
         
         if (!isNumber(option)) {
-            cout << "Please enter a valid option [1-4] or 0 to exit\n";
+            cout << "Please enter a valid option [1-5] or 0 to exit\n\n";
         }
         else {
             string new_title = "";
@@ -1075,7 +1096,9 @@ int App::editBookYear() {
 void App::employeeMenu() {
     bool exit = false;
     while(!exit) {
-        cout << "== Employees Menu ==\n\n";
+        cout << "==============\n";
+        cout << "Employees Menu\n";
+        cout << "==============\n";
         cout << "1 - View a employee\n";
         if (usr == Sup)
             cout << "2 - View all my employees\n";
@@ -1094,7 +1117,7 @@ void App::employeeMenu() {
         }
         else {
             clearScreen();
-            Employee* employee;
+            Employee* employee = NULL;
             switch(getInt(option)) {
                 case 0:
                     exit = true;
@@ -1102,34 +1125,43 @@ void App::employeeMenu() {
                 case 1:
                     employee = getEmployee();
                     employee->printEmployee();
+                    pressAnyKey();
                     break;
                 case 2:
                     if (usr == Adm)
                         library->printAllEmployees();
                     else if (usr == Sup)
                         library->printMyEmployees((Supervisor *)this->employee);
+                    pressAnyKey();
                     break;
                 case 3:
                     addEmployee();
                     break;
                 case 4: 
                     employee = getEmployee();
-                    menuEditEmployee(employee);
+                    if (employee != NULL)
+                        menuEditEmployee(employee);
+                    else
+                        pressAnyKey();
                     break;
                 case 5:
                     employee = getEmployee();
-                    removeEmployee(employee->getId());
+                    if (employee != NULL)
+                        removeEmployee(employee->getId());
+                    pressAnyKey();
                     break;
                 default:
                     cout << "Option not available\n";
                     cout << "Please enter an option between [1-5] or 0 to exit\n";
             }
+            clearScreen();
         }
     }
 }
 
 void App::menuEditEmployee(Employee* employee) {
     while(true) {
+        cout << ".:: Employee edit menu ::.\n";
         cout << "1 - Edit name\n";
         cout << "2 - Edit password\n";
         cout << "0 - Go back\n";
@@ -1165,16 +1197,14 @@ void App::menuEditEmployee(Employee* employee) {
 }
 
 Employee* App::getEmployee() {
-    while(true) {
+    bool exit = false;
+    while(!exit) {
         cout << "Employee id: ";
         string id;
         getline(cin, id);
 
-        if (!isNumber(id)) {
+        if (!isNumber(id) || getInt(id) == 0) {
             cout << "Please enter a valid number\n";
-        }
-        else if (getInt(id) == 0) {
-            return NULL;
         }
         else {
             // If employee loged in is Supervisor
@@ -1208,6 +1238,7 @@ Employee* App::getEmployee() {
             }
         }
     }
+    return NULL;
 }
 
 string App::editName() {
@@ -1235,7 +1266,7 @@ string App::editEmployeePassword() {
 void App::addEmployee() {
     while(true) {
         string name, pos, pass;
-        cout << "Add Employee\n";
+        cout << ".:: Add Employee ::.\n";
 
         cout << "Name: ";
         getline(cin, name);
@@ -1299,7 +1330,7 @@ void App::addBorrow() {
         Reader* reader;
         Book* book;
         string book_id, reader_id;
-        cout << "Book Borrow\n";
+        cout << ".:: Book Borrow ::.\n";
 
         cout << "Book id: ";
         getline(cin, book_id);
@@ -1352,7 +1383,15 @@ void App::addBorrow() {
         } 
         else {
             Borrow* borrow = new Borrow(book, reader, this->employee, time(NULL));
-            library->addBorrow(borrow);
+            try {
+                library->addBorrow(borrow);
+            }
+            catch (MaxBorrowsLimit e) {
+                cout << e;
+            }
+            catch (NoCopiesAvailable e) {
+                cout << e;
+            }
             return;
         }
     }
